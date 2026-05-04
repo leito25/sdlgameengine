@@ -1,0 +1,53 @@
+{
+    "window": {
+        "title": "TwoDEngine",
+        "width": 800,
+        "height": 600,
+        "fullscreen": false,
+        "vsync": true,
+        "icon": "assets/images/icon.png"
+    },
+    "rendering": {
+        "backgroundColor": [100, 149, 237, 255],
+        "targetFPS": 60,
+        "showFPS": true,
+        "showDebugInfo": true
+    },
+    "audio": {
+        "musicVolume": 0.7,
+        "soundVolume": 1.0,
+        "channels": 16,
+        "frequency": 44100,
+        "chunkSize": 2048
+    },
+    "input": {
+        "enableGamepad": true,
+        "enableKeyboard": true,
+        "enableMouse": true
+    },
+    "debug": {
+        "showImGui": true,
+        "logLevel": "info",
+        "logToFile": true,
+        "logFilePath": "logs/engine.log"
+    },
+    "assets": {
+        "texturePath": "assets/images/",
+        "fontPath": "assets/fonts/",
+        "soundPath": "assets/sounds/",
+        "musicPath": "assets/music/",
+        "shaderPath": "assets/shaders/",
+        "scriptPath": "assets/scripts/"
+    },
+    "physics": {
+        "gravity": [0.0, 9.8],
+        "timeStep": 0.016,
+        "velocityIterations": 8,
+        "positionIterations": 3
+    },
+    "scripting": {
+        "enableLua": true,
+        "mainScript": "assets/scripts/main.lua",
+        "autoReloadScripts": true
+    }
+}

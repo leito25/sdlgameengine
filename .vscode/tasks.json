@@ -1,0 +1,283 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Engine (Debug)",
+            "type": "shell",
+            "command": "mingw32-make",
+            "args": [
+                "CXXFLAGS=-std=c++17 -g -Isrc -Ilibs -Ilibs/glm -Ilibs/imgui -Ilibs/lua -Ilua-5.4.6/src -ISDL2-2.30.5/x86_64-w64-mingw32/include/SDL2 -ISDL2_image-2.8.2/x86_64-w64-mingw32/include/SDL2 -ISDL2_ttf-2.22.0/x86_64-w64-mingw32/include/SDL2 -ISDL2_mixer-2.8.0/x86_64-w64-mingw32/include/SDL2"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "detail": "Builds the TwoDEngine in debug mode with debugging symbols and no optimization."
+        },
+        {
+            "label": "Build Engine (Release)",
+            "type": "shell",
+            "command": "mingw32-make",
+            "args": [
+                "CXXFLAGS=-std=c++17 -O3 -DNDEBUG -Isrc -Ilibs -Ilibs/glm -Ilibs/imgui -Ilibs/lua -Ilua-5.4.6/src -ISDL2-2.30.5/x86_64-w64-mingw32/include/SDL2 -ISDL2_image-2.8.2/x86_64-w64-mingw32/include/SDL2 -ISDL2_ttf-2.22.0/x86_64-w64-mingw32/include/SDL2 -ISDL2_mixer-2.8.0/x86_64-w64-mingw32/include/SDL2"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "detail": "Builds the TwoDEngine in release mode with optimization and without debugging symbols."
+        },
+        {
+            "label": "Run Engine (Debug)",
+            "type": "shell",
+            "command": "${workspaceFolder}/build_run_engine.bat",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "detail": "Builds and runs the TwoDEngine in debug mode using the build_run_engine.bat script."
+        },
+        {
+            "label": "Run Engine (Release)",
+            "type": "shell",
+            "command": "${workspaceFolder}/build_run_engine.bat",
+            "args": [
+                "release"
+            ],
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "detail": "Builds and runs the TwoDEngine in release mode using the build_run_engine.bat script."
+        },
+        {
+            "label": "Build Sample Game (Debug)",
+            "type": "shell",
+            "command": "cd",
+            "args": [
+                "${workspaceFolder}/examples",
+                "&&",
+                "mingw32-make",
+                "CXXFLAGS=-std=c++17 -g -I../src -I../libs -I../libs/glm -I../libs/imgui -I../libs/lua -I../lua-5.4.6/src -I../SDL2-2.30.5/x86_64-w64-mingw32/include/SDL2 -I../SDL2_image-2.8.2/x86_64-w64-mingw32/include/SDL2 -I../SDL2_ttf-2.22.0/x86_64-w64-mingw32/include/SDL2 -I../SDL2_mixer-2.8.0/x86_64-w64-mingw32/include/SDL2"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "detail": "Builds the sample game in debug mode with debugging symbols and no optimization."
+        },
+        {
+            "label": "Build Sample Game (Release)",
+            "type": "shell",
+            "command": "cd",
+            "args": [
+                "${workspaceFolder}/examples",
+                "&&",
+                "mingw32-make",
+                "CXXFLAGS=-std=c++17 -O3 -DNDEBUG -I../src -I../libs -I../libs/glm -I../libs/imgui -I../libs/lua -I../lua-5.4.6/src -I../SDL2-2.30.5/x86_64-w64-mingw32/include/SDL2 -I../SDL2_image-2.8.2/x86_64-w64-mingw32/include/SDL2 -I../SDL2_ttf-2.22.0/x86_64-w64-mingw32/include/SDL2 -I../SDL2_mixer-2.8.0/x86_64-w64-mingw32/include/SDL2"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "detail": "Builds the sample game in release mode with optimization and without debugging symbols."
+        },
+        {
+            "label": "Run Sample Game (Debug)",
+            "type": "shell",
+            "command": "${workspaceFolder}/build_run_sample_game.bat",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "detail": "Builds and runs the sample game in debug mode using the build_run_sample_game.bat script."
+        },
+        {
+            "label": "Build Python Game (Debug)",
+            "type": "shell",
+            "command": "mingw32-make",
+            "args": [
+                "PythonGame",
+                "CXXFLAGS=-std=c++17 -g -Isrc -Ilibs -Ilibs/glm -Ilibs/imgui -Ilibs/lua -Ilibs/python -Ilua-5.4.6/src -Ipython-3.10.11 -Ipybind11-2.11.1/include -ISDL2-2.30.5/x86_64-w64-mingw32/include/SDL2 -ISDL2_image-2.8.2/x86_64-w64-mingw32/include/SDL2 -ISDL2_ttf-2.22.0/x86_64-w64-mingw32/include/SDL2 -ISDL2_mixer-2.8.0/x86_64-w64-mingw32/include/SDL2"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "detail": "Builds the Python game example in debug mode with debugging symbols and no optimization."
+        },
+        {
+            "label": "Build Python Game (Release)",
+            "type": "shell",
+            "command": "mingw32-make",
+            "args": [
+                "PythonGame",
+                "CXXFLAGS=-std=c++17 -O3 -DNDEBUG -Isrc -Ilibs -Ilibs/glm -Ilibs/imgui -Ilibs/lua -Ilibs/python -Ilua-5.4.6/src -Ipython-3.10.11 -Ipybind11-2.11.1/include -ISDL2-2.30.5/x86_64-w64-mingw32/include/SDL2 -ISDL2_image-2.8.2/x86_64-w64-mingw32/include/SDL2 -ISDL2_ttf-2.22.0/x86_64-w64-mingw32/include/SDL2 -ISDL2_mixer-2.8.0/x86_64-w64-mingw32/include/SDL2"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "detail": "Builds the Python game example in release mode with optimization and without debugging symbols."
+        },
+        {
+            "label": "Run Python Game (Debug)",
+            "type": "shell",
+            "command": "${workspaceFolder}/build_run_python_game.bat",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "detail": "Builds and runs the Python game example in debug mode using the build_run_python_game.bat script."
+        },
+        {
+            "label": "Run Python Game (Release)",
+            "type": "shell",
+            "command": "${workspaceFolder}/build_run_python_game.bat",
+            "args": [
+                "release"
+            ],
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "detail": "Builds and runs the Python game example in release mode using the build_run_python_game.bat script."
+        },
+        {
+            "label": "Run Simple Python Example",
+            "type": "shell",
+            "command": "${workspaceFolder}/build_run_simple_python_example.bat",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "detail": "Builds and runs the Simple Python Example that demonstrates data exchange between C++ and Python using files."
+        },
+        {
+            "label": "Pack Python Game (Debug)",
+            "type": "shell",
+            "command": "${workspaceFolder}/pack_python_game.bat",
+            "args": [
+                "debug"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "detail": "Creates a debug standalone distribution package of the Python game example with debugging symbols."
+        },
+        {
+            "label": "Pack Python Game (Release)",
+            "type": "shell",
+            "command": "${workspaceFolder}/pack_python_game.bat",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "detail": "Creates an optimized standalone distribution package of the Python game example for users."
+        },
+        {
+            "label": "Run Sample Game (Release)",
+            "type": "shell",
+            "command": "${workspaceFolder}/build_run_sample_game.bat",
+            "args": [
+                "release"
+            ],
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "detail": "Builds and runs the sample game in release mode using the build_run_sample_game.bat script with the release parameter."
+        },
+        {
+            "label": "Pack Sample Game (Release)",
+            "type": "shell",
+            "command": "${workspaceFolder}/pack_sample_game.bat",
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "detail": "Packages the sample game as a standalone application using the pack_sample_game.bat script. This builds the game in release mode, copies the executable and all necessary DLLs and assets to a 'dist' directory, creating an optimized self-contained distribution package for users."
+        },
+        {
+            "label": "Pack Sample Game (Debug)",
+            "type": "shell",
+            "command": "${workspaceFolder}/pack_sample_game.bat",
+            "args": [
+                "debug"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "detail": "Packages the sample game as a standalone application using the pack_sample_game.bat script with the debug parameter. This builds the game in debug mode with debugging symbols, copies the executable and all necessary DLLs and assets to a 'dist-debug' directory, creating a self-contained distribution package for development and testing."
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++.exe build active file",
+            "command": "C:\\Strawberry\\c\\bin\\g++.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "Task generated by Debugger."
+        }
+    ]
+}
