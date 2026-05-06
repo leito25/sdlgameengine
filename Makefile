@@ -16,7 +16,10 @@ LDFLAGS = -LSDL2-2.30.5/x86_64-w64-mingw32/lib \
           -LC:/Python314/libs \
           -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -llua -lpython314
 
-SRC = src/Main.cpp \
+# Automatically find all .cpp files in src directory
+SRC_FILES = $(wildcard src/*.cpp)
+
+SRC = $(SRC_FILES) \
       libs/imgui/imgui.cpp \
       libs/imgui/imgui_draw.cpp \
       libs/imgui/imgui_widgets.cpp \

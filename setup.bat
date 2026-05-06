@@ -135,7 +135,6 @@ copy SDL2_image-2.8.2\x86_64-w64-mingw32\bin\SDL2_image.dll bin\
 copy SDL2_ttf-2.22.0\x86_64-w64-mingw32\bin\SDL2_ttf.dll bin\
 copy SDL2_mixer-2.8.0\x86_64-w64-mingw32\bin\SDL2_mixer.dll bin\
 copy lua-5.4.6\src\lua54.dll bin\
-copy python-3.10.11\*.dll bin\
 echo DLLs copied to bin directory.
 
 REM Build the project
@@ -155,7 +154,6 @@ copy SDL2_image-2.8.2\x86_64-w64-mingw32\bin\SDL2_image.dll examples\
 copy SDL2_ttf-2.22.0\x86_64-w64-mingw32\bin\SDL2_ttf.dll examples\
 copy SDL2_mixer-2.8.0\x86_64-w64-mingw32\bin\SDL2_mixer.dll examples\
 copy lua-5.4.6\src\lua54.dll examples\
-copy python-3.10.11\*.dll examples\
 echo DLLs copied to examples directory.
 
 echo.
