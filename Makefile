@@ -1,6 +1,8 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -Isrc -Ilibs -Ilibs/glm -Ilibs/imgui -Ilibs/lua -Ilibs/python -Ilua-5.4.6/src \
-           -Ipython-3.10.11 -Ipybind11-2.11.1/include \
+CXXFLAGS = -std=c++17 -Isrc \
+           -Ipybind11-2.11.1/include \
+           -IC:/Python314/include \
+           -Ilibs -Ilibs/glm -Ilibs/imgui -Ilibs/lua -Ilibs/sol -Ilua-5.4.6/src \
            -ISDL2-2.30.5/x86_64-w64-mingw32/include/SDL2 \
            -ISDL2_image-2.8.2/x86_64-w64-mingw32/include/SDL2 \
            -ISDL2_ttf-2.22.0/x86_64-w64-mingw32/include/SDL2 \
@@ -11,7 +13,8 @@ LDFLAGS = -LSDL2-2.30.5/x86_64-w64-mingw32/lib \
           -LSDL2_ttf-2.22.0/x86_64-w64-mingw32/lib \
           -LSDL2_mixer-2.8.0/x86_64-w64-mingw32/lib \
           -Llua-5.4.6/src \
-          -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -llua
+          -LC:/Python314/libs \
+          -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -llua -lpython314
 
 SRC = src/Main.cpp \
       libs/imgui/imgui.cpp \

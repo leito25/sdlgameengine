@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
@@ -7,11 +8,83 @@
 #include <imgui/imgui.h>
 #include <imgui/imgui_sdl.h>
 #include <sol/sol.hpp>
+#include <pybind11/pybind11.h>
+#include <pybind11/embed.h>
+
+namespace py = pybind11;
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
+// Simple function to expose to Python
+int add(int a, int b) {
+    return a + b;
+}
+
+// Create a pybind11 embedded module
+PYBIND11_EMBEDDED_MODULE(engine_module, m) {
+    m.doc() = "TwoDEngine embedded Python module";
+
+    // Expose functions to Python
+    m.def("add", &add, "A function that adds two numbers",
+          py::arg("a"), py::arg("b"));
+
+    m.def("get_window_width", []() { return WINDOW_WIDTH; },
+          "Get the window width");
+
+    m.def("get_window_height", []() { return WINDOW_HEIGHT; },
+          "Get the window height");
+
+    m.def("multiply", [](int a, int b) { return a * b; },
+          "Multiply two numbers",
+          py::arg("a"), py::arg("b"));
+}
+
 int main(int argc, char* argv[]) {
+    // Initialize Python interpreter
+    py::scoped_interpreter guard{};
+
+    std::string pythonStatus = "Initializing...";
+    int pythonResult = 0;
+
+    try {
+        // Test pybind11 by running Python code
+        std::cout << "=== pybind11 Test ===" << std::endl;
+
+        py::exec(R"(
+import engine_module
+print("Python interpreter initialized successfully!")
+print(f"Window dimensions: {engine_module.get_window_width()}x{engine_module.get_window_height()}")
+
+# Test the add function
+result = engine_module.add(5, 7)
+print(f"5 + 7 = {result}")
+
+# Test the multiply function
+mult_result = engine_module.multiply(6, 8)
+print(f"6 * 8 = {mult_result}")
+        )");
+
+        // Get a result from Python
+        py::object main_module = py::module_::import("__main__");
+        py::object main_namespace = main_module.attr("__dict__");
+
+        // Execute Python code and get result
+        py::exec(R"(
+import engine_module
+calculation = engine_module.add(10, 20)
+        )", main_namespace);
+
+        pythonResult = main_namespace["calculation"].cast<int>();
+        pythonStatus = "Python OK! 10 + 20 = " + std::to_string(pythonResult);
+
+        std::cout << "pybind11 test successful!" << std::endl;
+        std::cout << "===================" << std::endl;
+    } catch (py::error_already_set &e) {
+        std::cerr << "Python error: " << e.what() << std::endl;
+        pythonStatus = "Python error occurred";
+    }
+
     // Initialize Lua
     sol::state lua;
     lua.open_libraries(sol::lib::base);
@@ -123,10 +196,13 @@ int main(int argc, char* argv[]) {
         ImGui::NewFrame();
 
         // Create ImGui window
-        ImGui::Begin("Hello, ImGui!");
+        ImGui::Begin("TwoDEngine - Library Integration Test");
         ImGui::Text("This is a basic SDL2 window with ImGui integration");
+        ImGui::Separator();
         ImGui::Text("GLM vector: (%.1f, %.1f, %.1f)", velocity.x, velocity.y, velocity.z);
-        ImGui::Text("Lua and Sol2 are also integrated");
+        ImGui::Text("Lua/Sol2: Integrated and ready");
+        ImGui::Text("pybind11: %s", pythonStatus.c_str());
+        ImGui::Separator();
         if (ImGui::Button("Quit")) {
             running = false;
         }
@@ -157,7 +233,6 @@ int main(int argc, char* argv[]) {
     SDL_Quit();
 
     std::cout << "SDL application closed successfully!" << std::endl;
-    // Python will be cleaned up when the PythonBinding object goes out of scope
 
     return 0;
 }
