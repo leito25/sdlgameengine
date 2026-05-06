@@ -7,7 +7,6 @@
 #include <imgui/imgui.h>
 #include <imgui/imgui_sdl.h>
 #include <sol/sol.hpp>
-#include <python/PythonBinding.h>
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
@@ -16,24 +15,6 @@ int main(int argc, char* argv[]) {
     // Initialize Lua
     sol::state lua;
     lua.open_libraries(sol::lib::base);
-
-    // Initialize Python
-    PythonBinding python;
-    if (python.isInitialized()) {
-        std::cout << "Python initialized successfully!" << std::endl;
-        // Register some functions or variables if needed
-        python.setInt("WINDOW_WIDTH", WINDOW_WIDTH);
-        python.setInt("WINDOW_HEIGHT", WINDOW_HEIGHT);
-
-        // Load and run Python script
-        if (python.runScriptFile("assets/scripts/main.py")) {
-            std::cout << "Python script loaded successfully!" << std::endl;
-            // Call the init function
-            if (python.callFunction("init")) {
-                std::cout << "Python init function called successfully!" << std::endl;
-            }
-        }
-    }
 
     // Use GLM
     glm::vec3 velocity = glm::vec3(1.0f, 2.0f, 3.0f);
