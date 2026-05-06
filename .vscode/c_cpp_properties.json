@@ -11,6 +11,8 @@
                 "${workspaceFolder}/libs/imgui",
                 "${workspaceFolder}/libs/lua",
                 "${workspaceFolder}/libs/sol",
+                "${workspaceFolder}/libs/python",
+                "${workspaceFolder}/libs/pybind11",
                 "${workspaceFolder}/lua-5.4.6/src",
                 "${workspaceFolder}/SDL2-2.30.5/x86_64-w64-mingw32/include/SDL2",
                 "${workspaceFolder}/SDL2_image-2.8.2/x86_64-w64-mingw32/include/SDL2",
@@ -31,11 +33,20 @@
                 "path": [
                     "${workspaceFolder}/**",
                     "${workspaceFolder}/src/**",
-                    "${workspaceFolder}/libs/**"
+                    "${workspaceFolder}/libs/**",
+                    "${workspaceFolder}/pybind11-2.11.1/include",
+                    "${workspaceFolder}/lua-5.4.6/src",
+                    "${workspaceFolder}/SDL2-2.30.5/x86_64-w64-mingw32/include",
+                    "${workspaceFolder}/SDL2_image-2.8.2/x86_64-w64-mingw32/include",
+                    "${workspaceFolder}/SDL2_ttf-2.22.0/x86_64-w64-mingw32/include",
+                    "${workspaceFolder}/SDL2_mixer-2.8.0/x86_64-w64-mingw32/include",
+                    "C:/Python314/include"
                 ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""
-            }
+            },
+            "compilerArgs": [],
+            "configurationProvider": "ms-vscode.cmake-tools"
         },
         {
             "name": "Linux",
@@ -45,8 +56,9 @@
                 "${workspaceFolder}/libs/glm",
                 "${workspaceFolder}/libs/imgui",
                 "${workspaceFolder}/libs/lua",
-                "${workspaceFolder}/lua-5.4.6/src",
-                "/usr/include/SDL2"
+                "${workspaceFolder}/libs/sol",
+                "/usr/include/SDL2",
+                "/usr/include/python3.10"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/g++",
@@ -62,9 +74,10 @@
                 "${workspaceFolder}/libs/glm",
                 "${workspaceFolder}/libs/imgui",
                 "${workspaceFolder}/libs/lua",
-                "${workspaceFolder}/lua-5.4.6/src",
+                "${workspaceFolder}/libs/sol",
                 "/usr/local/include/SDL2",
-                "/opt/homebrew/include/SDL2"
+                "/opt/homebrew/include/SDL2",
+                "/usr/local/include/python3.10"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang++",
