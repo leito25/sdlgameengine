@@ -20,75 +20,13 @@
             "detail": "Runs the setup script to install dependencies and configure the development environment. Uses setup.bat on Windows and setup.sh on macOS/Linux."
         },
         {
-            "label": "Build Engine (Debug)",
+            "label": "Build and Run Engine (Debug)",
             "type": "shell",
-            "command": "mingw32-make",
-            "args": [
-                "CXXFLAGS=-std=c++17 -g -Isrc -Ilibs -Ilibs/glm -Ilibs/imgui -Ilibs/lua -Ilua-5.4.6/src -ISDL2-2.30.5/x86_64-w64-mingw32/include/SDL2 -ISDL2_image-2.8.2/x86_64-w64-mingw32/include/SDL2 -ISDL2_ttf-2.22.0/x86_64-w64-mingw32/include/SDL2 -ISDL2_mixer-2.8.0/x86_64-w64-mingw32/include/SDL2"
-            ],
+            "command": "${workspaceFolder}/build_and_run.bat",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "presentation": {
-                "reveal": "always",
-                "panel": "new"
-            },
-            "detail": "Builds the TwoDEngine in debug mode with debugging symbols and no optimization."
-        },
-        {
-            "label": "Build Engine (Release)",
-            "type": "shell",
-            "command": "mingw32-make",
-            "args": [
-                "CXXFLAGS=-std=c++17 -O3 -DNDEBUG -Isrc -Ilibs -Ilibs/glm -Ilibs/imgui -Ilibs/lua -Ilua-5.4.6/src -ISDL2-2.30.5/x86_64-w64-mingw32/include/SDL2 -ISDL2_image-2.8.2/x86_64-w64-mingw32/include/SDL2 -ISDL2_ttf-2.22.0/x86_64-w64-mingw32/include/SDL2 -ISDL2_mixer-2.8.0/x86_64-w64-mingw32/include/SDL2"
-            ],
-            "group": "build",
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "presentation": {
-                "reveal": "always",
-                "panel": "new"
-            },
-            "detail": "Builds the TwoDEngine in release mode with optimization and without debugging symbols."
-        },
-        {
-            "label": "Run Engine (Debug)",
-            "type": "shell",
-            "command": "${workspaceFolder}/build_run_engine.bat",
-            "group": {
-                "kind": "test",
-                "isDefault": true
-            },
-            "presentation": {
-                "reveal": "always",
-                "panel": "new"
-            },
-            "detail": "Builds and runs the TwoDEngine in debug mode using the build_run_engine.bat script."
-        },
-        {
-            "label": "Run Engine (Release)",
-            "type": "shell",
-            "command": "${workspaceFolder}/build_run_engine.bat",
-            "args": [
-                "release"
-            ],
-            "group": "test",
-            "presentation": {
-                "reveal": "always",
-                "panel": "new"
-            },
-            "detail": "Builds and runs the TwoDEngine in release mode using the build_run_engine.bat script."
-        },
-        {
-            "label": "Build and Run Engine (Debug)",
-            "type": "shell",
-            "command": "${workspaceFolder}/build_and_run.bat",
-            "group": "test",
             "presentation": {
                 "reveal": "always",
                 "panel": "new"
