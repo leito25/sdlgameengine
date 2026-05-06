@@ -1,0 +1,295 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="classGame" kind="class" language="C++" prot="public">
+    <compoundname>Game</compoundname>
+    <includes refid="Game_8h" local="no">Game.h</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classGame_1ad59df6562a58a614fda24622d3715b65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Game::Game</definition>
+        <argsstring>()</argsstring>
+        <name>Game</name>
+        <qualifiedname>Game::Game</qualifiedname>
+        <briefdescription>
+<para>Default constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Constructs a new <ref refid="classGame" kindref="compound">Game</ref> object and initializes member variables to their default states. Does not perform SDL initialization - call <ref refid="classGame_1adc01a7fae5261c95f7e6b41024e6c533" kindref="member">Initialize()</ref> for that.</para>
+<para><simplesect kind="see"><para><ref refid="classGame_1adc01a7fae5261c95f7e6b41024e6c533" kindref="member">Initialize()</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Game.h" line="54" column="5" bodyfile="src/Game.cpp" bodystart="6" bodyend="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classGame_1ae3d112ca6e0e55150d2fdbc704474530" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Game::~Game</definition>
+        <argsstring>()</argsstring>
+        <name>~Game</name>
+        <qualifiedname>Game::~Game</qualifiedname>
+        <briefdescription>
+<para>Destructor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Destroys the <ref refid="classGame" kindref="compound">Game</ref> object and ensures all resources are properly cleaned up. If <ref refid="classGame_1a0311a22e53ddb906aa1024efdced0e2f" kindref="member">Destroy()</ref> has not been called, it will be called automatically.</para>
+<para><simplesect kind="see"><para><ref refid="classGame_1a0311a22e53ddb906aa1024efdced0e2f" kindref="member">Destroy()</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Game.h" line="64" column="5" bodyfile="src/Game.cpp" bodystart="12" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="function" id="classGame_1adc01a7fae5261c95f7e6b41024e6c533" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Game::Initialize</definition>
+        <argsstring>()</argsstring>
+        <name>Initialize</name>
+        <qualifiedname>Game::Initialize</qualifiedname>
+        <briefdescription>
+<para>Initialize the game engine and all subsystems. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Performs the following initialization steps:<itemizedlist>
+<listitem><para>Initializes SDL and its extensions (SDL_image, SDL_ttf, SDL_mixer)</para>
+</listitem><listitem><para>Creates the game window</para>
+</listitem><listitem><para>Creates the hardware-accelerated renderer</para>
+</listitem><listitem><para>Initializes ImGui for debug UI</para>
+</listitem><listitem><para>Loads initial game assets</para>
+</listitem><listitem><para>Sets up the initial game state</para>
+</listitem></itemizedlist>
+</para>
+<para><simplesect kind="return"><para>void (Consider changing to bool for error handling)</para>
+</simplesect>
+<simplesect kind="note"><para>Must be called before <ref refid="classGame_1a96341ca5b54d90adc3ecb3bf0bcd2312" kindref="member">Run()</ref> </para>
+</simplesect>
+<simplesect kind="warning"><para>Calling this multiple times without calling <ref refid="classGame_1a0311a22e53ddb906aa1024efdced0e2f" kindref="member">Destroy()</ref> first may cause resource leaks</para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classGame_1a0311a22e53ddb906aa1024efdced0e2f" kindref="member">Destroy()</ref></para>
+</simplesect>
+<xrefsect id="todo_1_todo000001"><xreftitle>Todo</xreftitle><xrefdescription><para>Change return type to bool to indicate success/failure </para>
+<para>Add error logging for initialization failures </para>
+</xrefdescription></xrefsect></para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Game.h" line="88" column="10" bodyfile="src/Game.cpp" bodystart="17" bodyend="21"/>
+        <referencedby refid="Main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" compoundref="Main_8cpp" startline="17" endline="27">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classGame_1a96341ca5b54d90adc3ecb3bf0bcd2312" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Game::Run</definition>
+        <argsstring>()</argsstring>
+        <name>Run</name>
+        <qualifiedname>Game::Run</qualifiedname>
+        <briefdescription>
+<para>Execute the main game loop. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Runs the game loop until the user quits. Each iteration of the loop:<orderedlist>
+<listitem><para>Calculates delta time since last frame</para>
+</listitem><listitem><para>Processes input events via <ref refid="classGame_1a770db4782ba58f6e8ae098fccf8ba571" kindref="member">ProcessInput()</ref></para>
+</listitem><listitem><para>Updates game state via <ref refid="classGame_1a1c5373c68261c54aff03e6abe40fee52" kindref="member">Update()</ref></para>
+</listitem><listitem><para>Renders the frame via <ref refid="classGame_1a0897730fc9fed789f6c0f11d21a0c14a" kindref="member">Render()</ref></para>
+</listitem><listitem><para>Limits frame rate to target FPS</para>
+</listitem></orderedlist>
+</para>
+<para>The loop continues until a quit event is received (e.g., window close, ESC key, or programmatic quit request).</para>
+<para><simplesect kind="note"><para>This is a blocking call that returns only when the game exits </para>
+</simplesect>
+<simplesect kind="note"><para>Frame rate is typically capped at 60 FPS</para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classGame_1a770db4782ba58f6e8ae098fccf8ba571" kindref="member">ProcessInput()</ref> </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classGame_1a1c5373c68261c54aff03e6abe40fee52" kindref="member">Update()</ref> </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classGame_1a0897730fc9fed789f6c0f11d21a0c14a" kindref="member">Render()</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Game.h" line="110" column="10" bodyfile="src/Game.cpp" bodystart="23" bodyend="26"/>
+        <referencedby refid="Main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" compoundref="Main_8cpp" startline="17" endline="27">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classGame_1a770db4782ba58f6e8ae098fccf8ba571" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Game::ProcessInput</definition>
+        <argsstring>()</argsstring>
+        <name>ProcessInput</name>
+        <qualifiedname>Game::ProcessInput</qualifiedname>
+        <briefdescription>
+<para>Process all input events from the user. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Polls and handles SDL events including:<itemizedlist>
+<listitem><para>Keyboard input (key press/release)</para>
+</listitem><listitem><para>Mouse input (button press/release, motion, wheel)</para>
+</listitem><listitem><para>Window events (close, resize, focus)</para>
+</listitem><listitem><para><ref refid="classGame" kindref="compound">Game</ref> controller input</para>
+</listitem></itemizedlist>
+</para>
+<para>This method is called once per frame by <ref refid="classGame_1a96341ca5b54d90adc3ecb3bf0bcd2312" kindref="member">Run()</ref> and updates the internal input state that can be queried during <ref refid="classGame_1a1c5373c68261c54aff03e6abe40fee52" kindref="member">Update()</ref>.</para>
+<para><simplesect kind="note"><para>ImGui events are processed first to allow UI interaction </para>
+</simplesect>
+<simplesect kind="note"><para>Input state is accumulated and can be queried in <ref refid="classGame_1a1c5373c68261c54aff03e6abe40fee52" kindref="member">Update()</ref></para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classGame_1a96341ca5b54d90adc3ecb3bf0bcd2312" kindref="member">Run()</ref> </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classGame_1a1c5373c68261c54aff03e6abe40fee52" kindref="member">Update()</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Game.h" line="130" column="10" bodyfile="src/Game.cpp" bodystart="28" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="classGame_1a1c5373c68261c54aff03e6abe40fee52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Game::Update</definition>
+        <argsstring>()</argsstring>
+        <name>Update</name>
+        <qualifiedname>Game::Update</qualifiedname>
+        <briefdescription>
+<para>Update the game state based on elapsed time. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Updates all game logic including:<itemizedlist>
+<listitem><para>Entity positions and velocities</para>
+</listitem><listitem><para>Animation states</para>
+</listitem><listitem><para>Collision detection and response</para>
+</listitem><listitem><para>AI behavior</para>
+</listitem><listitem><para>Physics simulation</para>
+</listitem><listitem><para>Script execution (Lua/Python)</para>
+</listitem><listitem><para>Audio playback</para>
+</listitem></itemizedlist>
+</para>
+<para>All updates should be frame-rate independent by using delta time.</para>
+<para><simplesect kind="note"><para>Called once per frame by <ref refid="classGame_1a96341ca5b54d90adc3ecb3bf0bcd2312" kindref="member">Run()</ref> </para>
+</simplesect>
+<simplesect kind="note"><para>All movement and time-based changes should use delta time</para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classGame_1a96341ca5b54d90adc3ecb3bf0bcd2312" kindref="member">Run()</ref> </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classGame_1a0897730fc9fed789f6c0f11d21a0c14a" kindref="member">Render()</ref></para>
+</simplesect>
+<xrefsect id="todo_1_todo000002"><xreftitle>Todo</xreftitle><xrefdescription><para>Add deltaTime parameter for frame-rate independence </para>
+</xrefdescription></xrefsect></para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Game.h" line="154" column="10" bodyfile="src/Game.cpp" bodystart="33" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classGame_1a0897730fc9fed789f6c0f11d21a0c14a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Game::Render</definition>
+        <argsstring>()</argsstring>
+        <name>Render</name>
+        <qualifiedname>Game::Render</qualifiedname>
+        <briefdescription>
+<para>Render the current game state to the screen. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Performs the following rendering steps:<orderedlist>
+<listitem><para>Clears the screen with background color</para>
+</listitem><listitem><para>Renders game background</para>
+</listitem><listitem><para>Renders all game entities (sprites, text, shapes)</para>
+</listitem><listitem><para>Renders UI elements</para>
+</listitem><listitem><para>Renders debug information (ImGui)</para>
+</listitem><listitem><para>Presents the final frame to the screen</para>
+</listitem></orderedlist>
+</para>
+<para>Rendering order is important for proper layering (back to front).</para>
+<para><simplesect kind="note"><para>Called once per frame by <ref refid="classGame_1a96341ca5b54d90adc3ecb3bf0bcd2312" kindref="member">Run()</ref> </para>
+</simplesect>
+<simplesect kind="note"><para>Uses double buffering - changes are not visible until SDL_RenderPresent()</para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classGame_1a96341ca5b54d90adc3ecb3bf0bcd2312" kindref="member">Run()</ref> </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classGame_1a1c5373c68261c54aff03e6abe40fee52" kindref="member">Update()</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Game.h" line="175" column="10" bodyfile="src/Game.cpp" bodystart="38" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classGame_1a0311a22e53ddb906aa1024efdced0e2f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Game::Destroy</definition>
+        <argsstring>()</argsstring>
+        <name>Destroy</name>
+        <qualifiedname>Game::Destroy</qualifiedname>
+        <briefdescription>
+<para>Clean up and destroy all game resources. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Performs cleanup in the following order:<orderedlist>
+<listitem><para>Destroys game-specific resources (textures, sounds, entities)</para>
+</listitem><listitem><para>Cleans up ImGui context</para>
+</listitem><listitem><para>Destroys SDL renderer</para>
+</listitem><listitem><para>Destroys SDL window</para>
+</listitem><listitem><para>Closes audio system</para>
+</listitem><listitem><para>Quits SDL extensions (TTF, IMG, Mixer)</para>
+</listitem><listitem><para>Quits SDL</para>
+</listitem></orderedlist>
+</para>
+<para><simplesect kind="note"><para>Should be called before the <ref refid="classGame" kindref="compound">Game</ref> object is destroyed </para>
+</simplesect>
+<simplesect kind="note"><para>Safe to call multiple times (subsequent calls are no-ops) </para>
+</simplesect>
+<simplesect kind="warning"><para>Not calling this may cause resource leaks</para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classGame_1adc01a7fae5261c95f7e6b41024e6c533" kindref="member">Initialize()</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Game.h" line="195" column="10" bodyfile="src/Game.cpp" bodystart="43" bodyend="46"/>
+        <referencedby refid="Main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" compoundref="Main_8cpp" startline="17" endline="27">main</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Main game engine class that manages the game lifecycle. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The <ref refid="classGame" kindref="compound">Game</ref> class encapsulates all core game functionality including:<itemizedlist>
+<listitem><para>SDL initialization and window management</para>
+</listitem><listitem><para>Main game loop execution</para>
+</listitem><listitem><para>Input event processing</para>
+</listitem><listitem><para><ref refid="classGame" kindref="compound">Game</ref> state updates</para>
+</listitem><listitem><para>Frame rendering</para>
+</listitem><listitem><para>Resource cleanup</para>
+</listitem></itemizedlist>
+</para>
+<sect1 id="classGame_1usage">
+<title>Usage Example</title><para><programlisting><codeline><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="Main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" kindref="member">main</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>argv[])</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classGame" kindref="compound">Game</ref><sp/>game;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>game.<ref refid="classGame_1adc01a7fae5261c95f7e6b41024e6c533" kindref="member">Initialize</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>game.<ref refid="classGame_1a96341ca5b54d90adc3ecb3bf0bcd2312" kindref="member">Run</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>game.<ref refid="classGame_1a0311a22e53ddb906aa1024efdced0e2f" kindref="member">Destroy</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para>
+<para><simplesect kind="note"><para>This class follows the game loop pattern with distinct phases: Input → Update → Render </para>
+</simplesect>
+</para>
+</sect1>
+    </detaileddescription>
+    <location file="src/Game.h" line="42" column="1" bodyfile="src/Game.h" bodystart="43" bodyend="221"/>
+    <listofallmembers>
+      <member refid="classGame_1a0311a22e53ddb906aa1024efdced0e2f" prot="public" virt="non-virtual"><scope>Game</scope><name>Destroy</name></member>
+      <member refid="classGame_1ad59df6562a58a614fda24622d3715b65" prot="public" virt="non-virtual"><scope>Game</scope><name>Game</name></member>
+      <member refid="classGame_1adc01a7fae5261c95f7e6b41024e6c533" prot="public" virt="non-virtual"><scope>Game</scope><name>Initialize</name></member>
+      <member refid="classGame_1a770db4782ba58f6e8ae098fccf8ba571" prot="public" virt="non-virtual"><scope>Game</scope><name>ProcessInput</name></member>
+      <member refid="classGame_1a0897730fc9fed789f6c0f11d21a0c14a" prot="public" virt="non-virtual"><scope>Game</scope><name>Render</name></member>
+      <member refid="classGame_1a96341ca5b54d90adc3ecb3bf0bcd2312" prot="public" virt="non-virtual"><scope>Game</scope><name>Run</name></member>
+      <member refid="classGame_1a1c5373c68261c54aff03e6abe40fee52" prot="public" virt="non-virtual"><scope>Game</scope><name>Update</name></member>
+      <member refid="classGame_1ae3d112ca6e0e55150d2fdbc704474530" prot="public" virt="non-virtual"><scope>Game</scope><name>~Game</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

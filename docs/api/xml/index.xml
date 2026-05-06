@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.10.0" xml:lang="en-US">
+  <compound refid="classGame" kind="class"><name>Game</name>
+    <member refid="classGame_1ad59df6562a58a614fda24622d3715b65" kind="function"><name>Game</name></member>
+    <member refid="classGame_1ae3d112ca6e0e55150d2fdbc704474530" kind="function"><name>~Game</name></member>
+    <member refid="classGame_1adc01a7fae5261c95f7e6b41024e6c533" kind="function"><name>Initialize</name></member>
+    <member refid="classGame_1a96341ca5b54d90adc3ecb3bf0bcd2312" kind="function"><name>Run</name></member>
+    <member refid="classGame_1a770db4782ba58f6e8ae098fccf8ba571" kind="function"><name>ProcessInput</name></member>
+    <member refid="classGame_1a1c5373c68261c54aff03e6abe40fee52" kind="function"><name>Update</name></member>
+    <member refid="classGame_1a0897730fc9fed789f6c0f11d21a0c14a" kind="function"><name>Render</name></member>
+    <member refid="classGame_1a0311a22e53ddb906aa1024efdced0e2f" kind="function"><name>Destroy</name></member>
+  </compound>
+  <compound refid="classPythonBinding" kind="class"><name>PythonBinding</name>
+    <member refid="classPythonBinding_1a159041b66ce54bdde344d8932ecd6cb0" kind="variable"><name>initialized</name></member>
+    <member refid="classPythonBinding_1a7ccf5f034bb5fc819fb79de887d0df78" kind="variable"><name>functions</name></member>
+    <member refid="classPythonBinding_1acc22db779c205f6335cb3d4e6e6d6a41" kind="variable"><name>intVariables</name></member>
+    <member refid="classPythonBinding_1a4b57d6f909aa050f09f95f6da5112340" kind="variable"><name>floatVariables</name></member>
+    <member refid="classPythonBinding_1a221e20d683d710993856f61ad09147e3" kind="variable"><name>stringVariables</name></member>
+    <member refid="classPythonBinding_1a647e34e292c0a58bd37c2f85e58063c1" kind="variable"><name>boolVariables</name></member>
+    <member refid="classPythonBinding_1a9f84575fab33a79971a75faec8921118" kind="function"><name>PythonBinding</name></member>
+    <member refid="classPythonBinding_1a13173eead47b7dc09c15d3c0bd4b9c0b" kind="function"><name>~PythonBinding</name></member>
+    <member refid="classPythonBinding_1ad25e1c445802948b36d66d668dd53524" kind="function"><name>isInitialized</name></member>
+    <member refid="classPythonBinding_1a3a6b0dd6ab35b60ce54c90c8d77f5042" kind="function"><name>runScript</name></member>
+    <member refid="classPythonBinding_1a3786e29462356d5d278c389865b7685f" kind="function"><name>runScriptFile</name></member>
+    <member refid="classPythonBinding_1ada2e1bbc2fe37822e4e5ffaafe60b2be" kind="function"><name>registerFunction</name></member>
+    <member refid="classPythonBinding_1ad0332b87fe8f88b97cd77be1551554f7" kind="function"><name>callFunction</name></member>
+    <member refid="classPythonBinding_1a328dfaee883b49ee4f50418f23edd6dc" kind="function"><name>setInt</name></member>
+    <member refid="classPythonBinding_1a89566dd27bce0e31998bd531696a1bbf" kind="function"><name>getInt</name></member>
+    <member refid="classPythonBinding_1a76366ccbab09cae73aaf340e893f732c" kind="function"><name>setFloat</name></member>
+    <member refid="classPythonBinding_1a669524035e9ce57ab1ffc01b5f048855" kind="function"><name>getFloat</name></member>
+    <member refid="classPythonBinding_1ac0d3b3a9353e3ef61bb97c3d3084c953" kind="function"><name>setString</name></member>
+    <member refid="classPythonBinding_1ac64c7e0d1fc5f869ecaa4500ea03d525" kind="function"><name>getString</name></member>
+    <member refid="classPythonBinding_1a07005f477433c68f362ec52393325495" kind="function"><name>setBool</name></member>
+    <member refid="classPythonBinding_1a2ff4a0dcb6710e383b0a0a67104d0a73" kind="function"><name>getBool</name></member>
+  </compound>
+  <compound refid="namespacestd" kind="namespace"><name>std</name>
+  </compound>
+  <compound refid="PythonBinding_8h" kind="file"><name>PythonBinding.h</name>
+  </compound>
+  <compound refid="Game_8cpp" kind="file"><name>Game.cpp</name>
+  </compound>
+  <compound refid="Game_8h" kind="file"><name>Game.h</name>
+  </compound>
+  <compound refid="Main_8cpp" kind="file"><name>Main.cpp</name>
+    <member refid="Main_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="mainBackup_8cpp" kind="file"><name>mainBackup.cpp</name>
+  </compound>
+  <compound refid="todo" kind="page"><name>todo</name>
+  </compound>
+  <compound refid="dir_6719ab1f1f7655efc2fa43f7eb574fd1" kind="dir"><name>libs</name>
+  </compound>
+  <compound refid="dir_116af2c8822c64c28e2b887eb2a98dc2" kind="dir"><name>libs/python</name>
+  </compound>
+  <compound refid="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir"><name>src</name>
+  </compound>
+</doxygenindex>

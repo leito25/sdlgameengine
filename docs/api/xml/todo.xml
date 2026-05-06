@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="todo" kind="page">
+    <compoundname>todo</compoundname>
+    <title>Todo List</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><variablelist>
+<varlistentry><term>Member <ref refid="classGame_1adc01a7fae5261c95f7e6b41024e6c533" kindref="member">Game::Initialize</ref>  ()</term></varlistentry>
+<listitem><para><anchor id="todo_1_todo000001"/>Change return type to bool to indicate success/failure </para>
+<para></para>
+<para>Add error logging for initialization failures  </para>
+</listitem>
+<varlistentry><term>Member <ref refid="classGame_1a1c5373c68261c54aff03e6abe40fee52" kindref="member">Game::Update</ref>  ()</term></varlistentry>
+<listitem><para><anchor id="todo_1_todo000002"/>Add deltaTime parameter for frame-rate independence </para>
+</listitem>
+</variablelist>
+</para>
+    </detaileddescription>
+    <location file="todo"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,429 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="classPythonBinding" kind="class" language="C++" prot="public">
+    <compoundname>PythonBinding</compoundname>
+    <includes refid="PythonBinding_8h" local="no">PythonBinding.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classPythonBinding_1a159041b66ce54bdde344d8932ecd6cb0" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool PythonBinding::initialized</definition>
+        <argsstring></argsstring>
+        <name>initialized</name>
+        <qualifiedname>PythonBinding::initialized</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="12" column="10" bodyfile="libs/python/PythonBinding.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPythonBinding_1a7ccf5f034bb5fc819fb79de887d0df78" prot="private" static="no" mutable="no">
+        <type>std::map&lt; std::string, std::function&lt; void()&gt; &gt;</type>
+        <definition>std::map&lt;std::string, std::function&lt;void()&gt; &gt; PythonBinding::functions</definition>
+        <argsstring></argsstring>
+        <name>functions</name>
+        <qualifiedname>PythonBinding::functions</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="13" column="14" bodyfile="libs/python/PythonBinding.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPythonBinding_1acc22db779c205f6335cb3d4e6e6d6a41" prot="private" static="no" mutable="no">
+        <type>std::map&lt; std::string, int &gt;</type>
+        <definition>std::map&lt;std::string, int&gt; PythonBinding::intVariables</definition>
+        <argsstring></argsstring>
+        <name>intVariables</name>
+        <qualifiedname>PythonBinding::intVariables</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="14" column="14" bodyfile="libs/python/PythonBinding.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPythonBinding_1a4b57d6f909aa050f09f95f6da5112340" prot="private" static="no" mutable="no">
+        <type>std::map&lt; std::string, float &gt;</type>
+        <definition>std::map&lt;std::string, float&gt; PythonBinding::floatVariables</definition>
+        <argsstring></argsstring>
+        <name>floatVariables</name>
+        <qualifiedname>PythonBinding::floatVariables</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="15" column="14" bodyfile="libs/python/PythonBinding.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPythonBinding_1a221e20d683d710993856f61ad09147e3" prot="private" static="no" mutable="no">
+        <type>std::map&lt; std::string, std::string &gt;</type>
+        <definition>std::map&lt;std::string, std::string&gt; PythonBinding::stringVariables</definition>
+        <argsstring></argsstring>
+        <name>stringVariables</name>
+        <qualifiedname>PythonBinding::stringVariables</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="16" column="14" bodyfile="libs/python/PythonBinding.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPythonBinding_1a647e34e292c0a58bd37c2f85e58063c1" prot="private" static="no" mutable="no">
+        <type>std::map&lt; std::string, bool &gt;</type>
+        <definition>std::map&lt;std::string, bool&gt; PythonBinding::boolVariables</definition>
+        <argsstring></argsstring>
+        <name>boolVariables</name>
+        <qualifiedname>PythonBinding::boolVariables</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="17" column="14" bodyfile="libs/python/PythonBinding.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classPythonBinding_1a9f84575fab33a79971a75faec8921118" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>PythonBinding::PythonBinding</definition>
+        <argsstring>()</argsstring>
+        <name>PythonBinding</name>
+        <qualifiedname>PythonBinding::PythonBinding</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="20" column="5" bodyfile="libs/python/PythonBinding.h" bodystart="20" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="classPythonBinding_1a13173eead47b7dc09c15d3c0bd4b9c0b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>PythonBinding::~PythonBinding</definition>
+        <argsstring>()</argsstring>
+        <name>~PythonBinding</name>
+        <qualifiedname>PythonBinding::~PythonBinding</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="33" column="5" bodyfile="libs/python/PythonBinding.h" bodystart="33" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classPythonBinding_1ad25e1c445802948b36d66d668dd53524" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PythonBinding::isInitialized</definition>
+        <argsstring>() const</argsstring>
+        <name>isInitialized</name>
+        <qualifiedname>PythonBinding::isInitialized</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="40" column="10" bodyfile="libs/python/PythonBinding.h" bodystart="40" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classPythonBinding_1a3a6b0dd6ab35b60ce54c90c8d77f5042" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PythonBinding::runScript</definition>
+        <argsstring>(const std::string &amp;script)</argsstring>
+        <name>runScript</name>
+        <qualifiedname>PythonBinding::runScript</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>script</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="45" column="10" bodyfile="libs/python/PythonBinding.h" bodystart="45" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classPythonBinding_1a3786e29462356d5d278c389865b7685f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PythonBinding::runScriptFile</definition>
+        <argsstring>(const std::string &amp;filename)</argsstring>
+        <name>runScriptFile</name>
+        <qualifiedname>PythonBinding::runScriptFile</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="59" column="10" bodyfile="libs/python/PythonBinding.h" bodystart="59" bodyend="119"/>
+        <references refid="classPythonBinding_1a89566dd27bce0e31998bd531696a1bbf" compoundref="PythonBinding_8h" startline="149" endline="157">getInt</references>
+        <references refid="classPythonBinding_1a07005f477433c68f362ec52393325495" compoundref="PythonBinding_8h" startline="191" endline="193">setBool</references>
+        <references refid="classPythonBinding_1a76366ccbab09cae73aaf340e893f732c" compoundref="PythonBinding_8h" startline="160" endline="163">setFloat</references>
+        <references refid="classPythonBinding_1a328dfaee883b49ee4f50418f23edd6dc" compoundref="PythonBinding_8h" startline="143" endline="146">setInt</references>
+      </memberdef>
+      <memberdef kind="function" id="classPythonBinding_1ada2e1bbc2fe37822e4e5ffaafe60b2be" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PythonBinding::registerFunction</definition>
+        <argsstring>(const std::string &amp;name, std::function&lt; void()&gt; func)</argsstring>
+        <name>registerFunction</name>
+        <qualifiedname>PythonBinding::registerFunction</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>std::function&lt; void()&gt;</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="122" column="10" bodyfile="libs/python/PythonBinding.h" bodystart="122" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="classPythonBinding_1ad0332b87fe8f88b97cd77be1551554f7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PythonBinding::callFunction</definition>
+        <argsstring>(const std::string &amp;name)</argsstring>
+        <name>callFunction</name>
+        <qualifiedname>PythonBinding::callFunction</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="128" column="10" bodyfile="libs/python/PythonBinding.h" bodystart="128" bodyend="140"/>
+      </memberdef>
+      <memberdef kind="function" id="classPythonBinding_1a328dfaee883b49ee4f50418f23edd6dc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PythonBinding::setInt</definition>
+        <argsstring>(const std::string &amp;name, int value)</argsstring>
+        <name>setInt</name>
+        <qualifiedname>PythonBinding::setInt</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="143" column="10" bodyfile="libs/python/PythonBinding.h" bodystart="143" bodyend="146"/>
+        <referencedby refid="classPythonBinding_1a3786e29462356d5d278c389865b7685f" compoundref="PythonBinding_8h" startline="59" endline="119">runScriptFile</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classPythonBinding_1a89566dd27bce0e31998bd531696a1bbf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int PythonBinding::getInt</definition>
+        <argsstring>(const std::string &amp;name, int defaultValue=0)</argsstring>
+        <name>getInt</name>
+        <qualifiedname>PythonBinding::getInt</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>defaultValue</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="149" column="9" bodyfile="libs/python/PythonBinding.h" bodystart="149" bodyend="157"/>
+        <referencedby refid="classPythonBinding_1a3786e29462356d5d278c389865b7685f" compoundref="PythonBinding_8h" startline="59" endline="119">runScriptFile</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classPythonBinding_1a76366ccbab09cae73aaf340e893f732c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PythonBinding::setFloat</definition>
+        <argsstring>(const std::string &amp;name, float value)</argsstring>
+        <name>setFloat</name>
+        <qualifiedname>PythonBinding::setFloat</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="160" column="10" bodyfile="libs/python/PythonBinding.h" bodystart="160" bodyend="163"/>
+        <referencedby refid="classPythonBinding_1a3786e29462356d5d278c389865b7685f" compoundref="PythonBinding_8h" startline="59" endline="119">runScriptFile</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classPythonBinding_1a669524035e9ce57ab1ffc01b5f048855" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>float</type>
+        <definition>float PythonBinding::getFloat</definition>
+        <argsstring>(const std::string &amp;name, float defaultValue=0.0f)</argsstring>
+        <name>getFloat</name>
+        <qualifiedname>PythonBinding::getFloat</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>defaultValue</declname>
+          <defval>0.0f</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="166" column="11" bodyfile="libs/python/PythonBinding.h" bodystart="166" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="classPythonBinding_1ac0d3b3a9353e3ef61bb97c3d3084c953" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PythonBinding::setString</definition>
+        <argsstring>(const std::string &amp;name, const std::string &amp;value)</argsstring>
+        <name>setString</name>
+        <qualifiedname>PythonBinding::setString</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="177" column="10" bodyfile="libs/python/PythonBinding.h" bodystart="177" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="function" id="classPythonBinding_1ac64c7e0d1fc5f869ecaa4500ea03d525" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string PythonBinding::getString</definition>
+        <argsstring>(const std::string &amp;name, const std::string &amp;defaultValue=&quot;&quot;)</argsstring>
+        <name>getString</name>
+        <qualifiedname>PythonBinding::getString</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>defaultValue</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="182" column="17" bodyfile="libs/python/PythonBinding.h" bodystart="182" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="function" id="classPythonBinding_1a07005f477433c68f362ec52393325495" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PythonBinding::setBool</definition>
+        <argsstring>(const std::string &amp;name, bool value)</argsstring>
+        <name>setBool</name>
+        <qualifiedname>PythonBinding::setBool</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="191" column="10" bodyfile="libs/python/PythonBinding.h" bodystart="191" bodyend="193"/>
+        <referencedby refid="classPythonBinding_1a3786e29462356d5d278c389865b7685f" compoundref="PythonBinding_8h" startline="59" endline="119">runScriptFile</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classPythonBinding_1a2ff4a0dcb6710e383b0a0a67104d0a73" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PythonBinding::getBool</definition>
+        <argsstring>(const std::string &amp;name, bool defaultValue=false)</argsstring>
+        <name>getBool</name>
+        <qualifiedname>PythonBinding::getBool</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>defaultValue</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="libs/python/PythonBinding.h" line="196" column="10" bodyfile="libs/python/PythonBinding.h" bodystart="196" bodyend="202"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="libs/python/PythonBinding.h" line="10" column="1" bodyfile="libs/python/PythonBinding.h" bodystart="10" bodyend="203"/>
+    <listofallmembers>
+      <member refid="classPythonBinding_1a647e34e292c0a58bd37c2f85e58063c1" prot="private" virt="non-virtual"><scope>PythonBinding</scope><name>boolVariables</name></member>
+      <member refid="classPythonBinding_1ad0332b87fe8f88b97cd77be1551554f7" prot="public" virt="non-virtual"><scope>PythonBinding</scope><name>callFunction</name></member>
+      <member refid="classPythonBinding_1a4b57d6f909aa050f09f95f6da5112340" prot="private" virt="non-virtual"><scope>PythonBinding</scope><name>floatVariables</name></member>
+      <member refid="classPythonBinding_1a7ccf5f034bb5fc819fb79de887d0df78" prot="private" virt="non-virtual"><scope>PythonBinding</scope><name>functions</name></member>
+      <member refid="classPythonBinding_1a2ff4a0dcb6710e383b0a0a67104d0a73" prot="public" virt="non-virtual"><scope>PythonBinding</scope><name>getBool</name></member>
+      <member refid="classPythonBinding_1a669524035e9ce57ab1ffc01b5f048855" prot="public" virt="non-virtual"><scope>PythonBinding</scope><name>getFloat</name></member>
+      <member refid="classPythonBinding_1a89566dd27bce0e31998bd531696a1bbf" prot="public" virt="non-virtual"><scope>PythonBinding</scope><name>getInt</name></member>
+      <member refid="classPythonBinding_1ac64c7e0d1fc5f869ecaa4500ea03d525" prot="public" virt="non-virtual"><scope>PythonBinding</scope><name>getString</name></member>
+      <member refid="classPythonBinding_1a159041b66ce54bdde344d8932ecd6cb0" prot="private" virt="non-virtual"><scope>PythonBinding</scope><name>initialized</name></member>
+      <member refid="classPythonBinding_1acc22db779c205f6335cb3d4e6e6d6a41" prot="private" virt="non-virtual"><scope>PythonBinding</scope><name>intVariables</name></member>
+      <member refid="classPythonBinding_1ad25e1c445802948b36d66d668dd53524" prot="public" virt="non-virtual"><scope>PythonBinding</scope><name>isInitialized</name></member>
+      <member refid="classPythonBinding_1a9f84575fab33a79971a75faec8921118" prot="public" virt="non-virtual"><scope>PythonBinding</scope><name>PythonBinding</name></member>
+      <member refid="classPythonBinding_1ada2e1bbc2fe37822e4e5ffaafe60b2be" prot="public" virt="non-virtual"><scope>PythonBinding</scope><name>registerFunction</name></member>
+      <member refid="classPythonBinding_1a3a6b0dd6ab35b60ce54c90c8d77f5042" prot="public" virt="non-virtual"><scope>PythonBinding</scope><name>runScript</name></member>
+      <member refid="classPythonBinding_1a3786e29462356d5d278c389865b7685f" prot="public" virt="non-virtual"><scope>PythonBinding</scope><name>runScriptFile</name></member>
+      <member refid="classPythonBinding_1a07005f477433c68f362ec52393325495" prot="public" virt="non-virtual"><scope>PythonBinding</scope><name>setBool</name></member>
+      <member refid="classPythonBinding_1a76366ccbab09cae73aaf340e893f732c" prot="public" virt="non-virtual"><scope>PythonBinding</scope><name>setFloat</name></member>
+      <member refid="classPythonBinding_1a328dfaee883b49ee4f50418f23edd6dc" prot="public" virt="non-virtual"><scope>PythonBinding</scope><name>setInt</name></member>
+      <member refid="classPythonBinding_1ac0d3b3a9353e3ef61bb97c3d3084c953" prot="public" virt="non-virtual"><scope>PythonBinding</scope><name>setString</name></member>
+      <member refid="classPythonBinding_1a221e20d683d710993856f61ad09147e3" prot="private" virt="non-virtual"><scope>PythonBinding</scope><name>stringVariables</name></member>
+      <member refid="classPythonBinding_1a13173eead47b7dc09c15d3c0bd4b9c0b" prot="public" virt="non-virtual"><scope>PythonBinding</scope><name>~PythonBinding</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

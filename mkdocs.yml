@@ -1,0 +1,163 @@
+site_name: TwoDEngine Documentation
+site_description: A 2D game engine built with SDL2, ImGui, GLM, and scripting integration
+site_author: TwoDEngine Development Team
+site_url: https://yourusername.github.io/TwoDEngine
+
+# Repository
+repo_name: yourusername/TwoDEngine
+repo_url: https://github.com/yourusername/TwoDEngine
+edit_uri: edit/main/docs/
+
+# Copyright
+copyright: Copyright &copy; 2026 TwoDEngine Development Team
+
+# Configuration
+theme:
+  name: material
+  language: en
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+  icon:
+    repo: fontawesome/brands/github
+    logo: material/gamepad-variant
+
+# Plugins
+plugins:
+  - search:
+      lang: en
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+
+# Extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+# Page tree
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Quick Start: getting-started/quickstart.md
+    - Installation: getting-started/installation.md
+    - Building: getting-started/building.md
+    - First Game: getting-started/first-game.md
+  - User Guide:
+    - Overview: guide/overview.md
+    - Game Loop: guide/game-loop.md
+    - Input Handling: guide/input.md
+    - Rendering: guide/rendering.md
+    - Audio: guide/audio.md
+    - Scripting:
+      - Lua Integration: guide/scripting/lua.md
+      - Python Integration: guide/scripting/python.md
+  - API Reference:
+    - Overview: api/overview.md
+    - Game Class: api/game.md
+    - Doxygen API: api/doxygen.md
+  - Examples:
+    - Simple Game: examples/simple-game.md
+    - Python Game: examples/python-game.md
+  - Development:
+    - Contributing: development/contributing.md
+    - Build System: development/build-system.md
+    - Roadmap: development/roadmap.md
+  - About:
+    - Changelog: about/changelog.md
+    - License: about/license.md
+
+# Extra
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/yourusername/TwoDEngine
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/yourusername
+  version:
+    provider: mike
+  analytics:
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/emoticon-happy-outline
+          name: This page was helpful
+          data: 1
+          note: >-
+            Thanks for your feedback!
+        - icon: material/emoticon-sad-outline
+          name: This page could be improved
+          data: 0
+          note: >-
+            Thanks for your feedback! Help us improve this page by
+            <a href="https://github.com/yourusername/TwoDEngine/issues/new" target="_blank" rel="noopener">opening an issue</a>.
+
+# Additional CSS
+extra_css:
+  - stylesheets/extra.css
+
+# Additional JavaScript
+extra_javascript:
+  - javascripts/extra.js

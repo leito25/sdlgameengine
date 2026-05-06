@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="dir_116af2c8822c64c28e2b887eb2a98dc2" kind="dir">
+    <compoundname>libs/python</compoundname>
+    <innerfile refid="PythonBinding_8h">PythonBinding.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="libs/python/"/>
+  </compounddef>
+</doxygen>
