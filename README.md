@@ -37,16 +37,12 @@ TwoDEngine/
 ├── Makefile                   # Build configuration
 ├── CMakeLists.txt             # CMake build configuration
 ├── build_run_engine.bat       # Batch file to build and run the engine
-├── build_run_sample_game.bat  # Batch file to build and run the sample game
-├── pack_sample_game.bat       # Batch file to package the sample game
+├── pack_engine.bat            # Batch file to package the engine
 ├── cmake_setup.bat            # CMake setup script
 ├── .vscode/                   # VS Code configuration
 │   ├── tasks.json             # Build and run tasks
 │   ├── launch.json            # Debugging configurations
 │   └── settings.json          # Editor settings
-├── examples/                  # Example applications
-│   ├── SimpleGame.cpp         # Sample game using Lua scripting
-│   └── PythonGame.cpp         # Sample game using Python scripting
 ├── README.md                  # Project documentation
 ├── BATCH_FILES.md             # Batch files documentation
 ├── CHANGES.md                 # Recent changes and improvements
@@ -88,18 +84,6 @@ The engine relies on the following external libraries:
    ```
    # To build and run the main engine
    build_run_engine.bat
-
-   # To build and run the sample game (Lua)
-   build_run_sample_game.bat
-
-   # To build and run the Python game
-   build_run_python_game.bat
-
-   # To package the sample game as a standalone application
-   pack_sample_game.bat
-
-   # To package the Python game as a standalone application
-   pack_python_game.bat
    ```
 
    Alternatively, you can build and run manually:
@@ -121,53 +105,6 @@ The engine relies on the following external libraries:
 - **Scripting**: Lua and Python integration for game logic
 - **Mathematics**: Vector and matrix operations with GLM
 
-## Usage Example
-
-```cpp
-#include <SDL.h>
-#include <SDL_image.h>
-#include <glm/glm.hpp>
-#include <imgui/imgui.h>
-#include <sol/sol.hpp>
-#include <python/PythonBinding.h>
-
-int main(int argc, char* argv[]) {
-    // Initialize SDL and extensions
-    SDL_Init(SDL_INIT_EVERYTHING);
-
-    // Initialize scripting engines
-    sol::state lua;
-    lua.open_libraries(sol::lib::base);
-
-    PythonBinding python;
-    if (python.isInitialized()) {
-        python.runScriptFile("assets/scripts/main.py");
-    }
-
-    // Create window and renderer
-    SDL_Window* window = SDL_CreateWindow("TwoDEngine",
-                                         SDL_WINDOWPOS_CENTERED,
-                                         SDL_WINDOWPOS_CENTERED,
-                                         800, 600,
-                                         SDL_WINDOW_SHOWN);
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
-    // Game loop
-    bool running = true;
-    while (running) {
-        // Handle events
-        // Update game state
-        // Render scene
-    }
-
-    // Cleanup
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-
-    return 0;
-}
-```
 
 ## Additional Documentation
 
@@ -241,10 +178,6 @@ Several scripts are provided for easy environment configuration and usage:
 - **setup.bat**: Downloads and sets up all dependencies using MinGW
 - **cmake_setup.bat**: Sets up the project using CMake build system
 - **build_run_engine.bat**: Builds and runs the main engine
-- **build_run_sample_game.bat**: Builds and runs the sample game (Lua)
-- **build_run_python_game.bat**: Builds and runs the Python game example
-- **pack_sample_game.bat**: Packages the sample game as a standalone application
-- **pack_python_game.bat**: Packages the Python game as a standalone application
 
 For detailed information about these batch files, see [BATCH_FILES.md](BATCH_FILES.md).
 
