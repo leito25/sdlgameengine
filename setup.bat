@@ -164,11 +164,6 @@ echo.
 echo You can now run the main application with:
 echo   bin\main.exe
 echo.
-echo Or build and run the examples with:
-echo   cd examples
-echo   mingw32-make
-echo   SimpleGame.exe
-echo.
 goto :end
 
 :install_mingw
