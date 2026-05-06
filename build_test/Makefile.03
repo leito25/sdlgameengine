@@ -1,0 +1,20 @@
+# SDL2 + SDL_ttf Test Makefile for macOS Silicon
+CXX = clang++
+CXXFLAGS = -std=c++17 -Wall $(shell sdl2-config --cflags) $(shell pkg-config --cflags SDL2_ttf)
+LDFLAGS = $(shell sdl2-config --libs) $(shell pkg-config --libs SDL2_ttf)
+
+TARGET = 03_sdl_ttf_test
+SRC = 03_sdl_ttf_test.cpp
+
+all: $(TARGET)
+
+$(TARGET): $(SRC)
+	$(CXX) $(CXXFLAGS) $(SRC) -o $(TARGET) $(LDFLAGS)
+
+run: $(TARGET)
+	./$(TARGET)
+
+clean:
+	rm -f $(TARGET)
+
+.PHONY: all run clean

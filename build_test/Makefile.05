@@ -1,0 +1,19 @@
+# GLM Test Makefile for macOS Silicon
+CXX = clang++
+CXXFLAGS = -std=c++17 -Wall -I/opt/homebrew/include
+
+TARGET = 05_glm_test
+SRC = 05_glm_test.cpp
+
+all: $(TARGET)
+
+$(TARGET): $(SRC)
+	$(CXX) $(CXXFLAGS) $(SRC) -o $(TARGET)
+
+run: $(TARGET)
+	./$(TARGET)
+
+clean:
+	rm -f $(TARGET)
+
+.PHONY: all run clean

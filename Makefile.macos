@@ -1,0 +1,66 @@
+# Makefile for SDL Game Engine on macOS Silicon
+CXX = clang++
+TARGET = SDLGameEngine
+BUILD_DIR = build_macos
+
+# ImGui paths
+IMGUI_DIR = external/imgui
+IMGUI_SOURCES = $(IMGUI_DIR)/imgui.cpp \
+                $(IMGUI_DIR)/imgui_draw.cpp \
+                $(IMGUI_DIR)/imgui_tables.cpp \
+                $(IMGUI_DIR)/imgui_widgets.cpp \
+                $(IMGUI_DIR)/backends/imgui_impl_sdl2.cpp \
+                $(IMGUI_DIR)/backends/imgui_impl_sdlrenderer2.cpp
+
+# Sol2 path
+SOL2_INCLUDE = external/sol2/include
+
+# Compiler flags
+CXXFLAGS = -std=c++17 -Wall -Wextra \
+           -Isrc \
+           -I$(IMGUI_DIR) \
+           -I$(IMGUI_DIR)/backends \
+           -I$(SOL2_INCLUDE) \
+           -I/opt/homebrew/include \
+           $(shell sdl2-config --cflags) \
+           $(shell pkg-config --cflags SDL2_image SDL2_ttf SDL2_mixer) \
+           $(shell pkg-config --cflags lua-5.4) \
+           $(shell python3-config --includes) \
+           $(shell pkg-config --cflags pybind11)
+
+# Linker flags
+LDFLAGS = $(shell sdl2-config --libs) \
+          $(shell pkg-config --libs SDL2_image SDL2_ttf SDL2_mixer) \
+          $(shell pkg-config --libs lua-5.4) \
+          $(shell python3-config --ldflags --embed) \
+          -ldl -framework CoreFoundation
+
+# Source files
+SOURCES = src/Main.cpp src/Game.cpp $(IMGUI_SOURCES)
+
+OBJECTS = $(patsubst %.cpp,$(BUILD_DIR)/%.o,$(SOURCES))
+
+all: $(BUILD_DIR) $(TARGET)
+
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)/src
+	mkdir -p $(BUILD_DIR)/$(IMGUI_DIR)
+	mkdir -p $(BUILD_DIR)/$(IMGUI_DIR)/backends
+
+$(TARGET): $(OBJECTS)
+	$(CXX) $(OBJECTS) -o $(TARGET) $(LDFLAGS)
+	@echo "✓ Build complete: ./$(TARGET)"
+
+$(BUILD_DIR)/%.o: %.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+run: $(TARGET)
+	./$(TARGET)
+
+clean:
+	rm -rf $(BUILD_DIR) $(TARGET)
+
+rebuild: clean all
+
+.PHONY: all run clean rebuild

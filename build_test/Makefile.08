@@ -1,0 +1,20 @@
+# pybind11 Test Makefile for macOS Silicon
+CXX = clang++
+CXXFLAGS = -std=c++17 -Wall $(shell python3-config --includes) $(shell pkg-config --cflags pybind11)
+LDFLAGS = $(shell python3-config --ldflags --embed)
+
+TARGET = 08_pybind11_test
+SRC = 08_pybind11_test.cpp
+
+all: $(TARGET)
+
+$(TARGET): $(SRC)
+	$(CXX) $(CXXFLAGS) $(SRC) -o $(TARGET) $(LDFLAGS)
+
+run: $(TARGET)
+	./$(TARGET)
+
+clean:
+	rm -f $(TARGET)
+
+.PHONY: all run clean

@@ -22,7 +22,15 @@
         {
             "label": "Build and Run Engine (Debug)",
             "type": "shell",
-            "command": "${workspaceFolder}/build_and_run.bat",
+            "windows": {
+                "command": "${workspaceFolder}/build_and_run.bat"
+            },
+            "osx": {
+                "command": "make -f Makefile.macos && ./SDLGameEngine"
+            },
+            "linux": {
+                "command": "make -f Makefile.macos && ./SDLGameEngine"
+            },
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -36,10 +44,18 @@
         {
             "label": "Build and Run Engine (Release)",
             "type": "shell",
-            "command": "${workspaceFolder}/build_and_run.bat",
-            "args": [
-                "release"
-            ],
+            "windows": {
+                "command": "${workspaceFolder}/build_and_run.bat",
+                "args": [
+                    "release"
+                ]
+            },
+            "osx": {
+                "command": "make -f Makefile.macos CXXFLAGS+='-O3 -DNDEBUG' && ./SDLGameEngine"
+            },
+            "linux": {
+                "command": "make -f Makefile.macos CXXFLAGS+='-O3 -DNDEBUG' && ./SDLGameEngine"
+            },
             "group": "test",
             "presentation": {
                 "reveal": "always",
@@ -50,10 +66,24 @@
         {
             "label": "Pack Engine (Debug)",
             "type": "shell",
-            "command": "${workspaceFolder}/pack_engine.bat",
-            "args": [
-                "debug"
-            ],
+            "windows": {
+                "command": "${workspaceFolder}/pack_engine.bat",
+                "args": [
+                    "debug"
+                ]
+            },
+            "osx": {
+                "command": "${workspaceFolder}/pack_engine_macos.sh",
+                "args": [
+                    "debug"
+                ]
+            },
+            "linux": {
+                "command": "${workspaceFolder}/pack_engine_macos.sh",
+                "args": [
+                    "debug"
+                ]
+            },
             "group": "build",
             "problemMatcher": [
                 "$gcc"
@@ -67,7 +97,15 @@
         {
             "label": "Pack Engine (Release)",
             "type": "shell",
-            "command": "${workspaceFolder}/pack_engine.bat",
+            "windows": {
+                "command": "${workspaceFolder}/pack_engine.bat"
+            },
+            "osx": {
+                "command": "${workspaceFolder}/pack_engine_macos.sh"
+            },
+            "linux": {
+                "command": "${workspaceFolder}/pack_engine_macos.sh"
+            },
             "group": "build",
             "problemMatcher": [
                 "$gcc"
@@ -77,6 +115,56 @@
                 "panel": "new"
             },
             "detail": "Packages the TwoDEngine as an optimized standalone distribution for release. Creates a self-contained package with the executable, DLLs, and assets in a 'dist' directory."
+        },
+        {
+            "label": "Build Only (macOS)",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-f",
+                "Makefile.macos"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "detail": "Builds the SDLGameEngine without running it (macOS only)."
+        },
+        {
+            "label": "Clean Build (macOS)",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-f",
+                "Makefile.macos",
+                "clean"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "detail": "Cleans all build artifacts (macOS only)."
+        },
+        {
+            "label": "Rebuild All (macOS)",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-f",
+                "Makefile.macos",
+                "rebuild"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "detail": "Cleans and rebuilds the entire project (macOS only)."
         }
     ]
 }

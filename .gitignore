@@ -85,3 +85,13 @@ _deps
 /examples/*.exe
 /examples/*.dll
 /examples/assets/
+
+# macOS build artifacts
+SDLGameEngine
+build_macos/
+build_test/*_test
+build_test/*.o
+
+# macOS specific
+*.dSYM/
+.DS_Store

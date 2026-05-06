@@ -1,0 +1,21 @@
+# Sol2 + Lua Test Makefile for macOS Silicon
+CXX = clang++
+SOL2_DIR = ../external/sol2
+CXXFLAGS = -std=c++17 -Wall -I$(SOL2_DIR)/include $(shell pkg-config --cflags lua)
+LDFLAGS = $(shell pkg-config --libs lua)
+
+TARGET = 07_sol2_test
+SRC = 07_sol2_test.cpp
+
+all: $(TARGET)
+
+$(TARGET): $(SRC)
+	$(CXX) $(CXXFLAGS) $(SRC) -o $(TARGET) $(LDFLAGS)
+
+run: $(TARGET)
+	./$(TARGET)
+
+clean:
+	rm -f $(TARGET)
+
+.PHONY: all run clean

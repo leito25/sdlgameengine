@@ -1,14 +1,14 @@
 #include <iostream>
 #include <string>
 #include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_ttf.h>
-#include <SDL_mixer.h>
-#include <glm/glm.hpp>
-#include <imgui/imgui.h>
-#include <imgui/imgui_sdl.h>
-#include <sol/sol.hpp>
-#include <pybind11/pybind11.h>
+#include <SDL_image.h>      // ✓ Installed
+#include <SDL_ttf.h>        // ✓ Installed
+#include <SDL_mixer.h>      // ✓ Installed
+#include <glm/glm.hpp>      // ✓ Installed
+#include <imgui.h>          // ✓ Installed (external/imgui)
+#include <imgui_impl_sdl2.h>
+#include <sol/sol.hpp>      // ✓ Installed (external/sol2)
+#include <pybind11/pybind11.h>  // ✓ Installed
 #include <pybind11/embed.h>
 
 #include "Game.h"

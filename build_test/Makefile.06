@@ -1,0 +1,22 @@
+# ImGui + SDL2 Test Makefile for macOS Silicon
+CXX = clang++
+IMGUI_DIR = ../external/imgui
+CXXFLAGS = -std=c++17 -Wall -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends $(shell sdl2-config --cflags)
+LDFLAGS = $(shell sdl2-config --libs)
+
+TARGET = 06_imgui_test
+SRC = 06_imgui_test.cpp $(IMGUI_DIR)/imgui.cpp $(IMGUI_DIR)/imgui_draw.cpp \
+      $(IMGUI_DIR)/imgui_tables.cpp $(IMGUI_DIR)/imgui_widgets.cpp
+
+all: $(TARGET)
+
+$(TARGET): $(SRC)
+	$(CXX) $(CXXFLAGS) $(SRC) -o $(TARGET) $(LDFLAGS)
+
+run: $(TARGET)
+	./$(TARGET)
+
+clean:
+	rm -f $(TARGET)
+
+.PHONY: all run clean
