@@ -2,6 +2,24 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "Setup Environment",
+            "type": "shell",
+            "windows": {
+                "command": "${workspaceFolder}/setup.bat"
+            },
+            "osx": {
+                "command": "${workspaceFolder}/setup.sh"
+            },
+            "linux": {
+                "command": "${workspaceFolder}/setup.sh"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "detail": "Runs the setup script to install dependencies and configure the development environment. Uses setup.bat on Windows and setup.sh on macOS/Linux."
+        },
+        {
             "label": "Build Engine (Debug)",
             "type": "shell",
             "command": "mingw32-make",
