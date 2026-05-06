@@ -4,10 +4,13 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/src/**",
+                "${workspaceFolder}/pybind11-2.11.1/include",
+                "C:/Python314/include",
                 "${workspaceFolder}/libs/**",
                 "${workspaceFolder}/libs/glm",
                 "${workspaceFolder}/libs/imgui",
                 "${workspaceFolder}/libs/lua",
+                "${workspaceFolder}/libs/sol",
                 "${workspaceFolder}/lua-5.4.6/src",
                 "${workspaceFolder}/SDL2-2.30.5/x86_64-w64-mingw32/include/SDL2",
                 "${workspaceFolder}/SDL2_image-2.8.2/x86_64-w64-mingw32/include/SDL2",
