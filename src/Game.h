@@ -12,6 +12,8 @@
 
 #pragma once
 
+#include <SDL.h>
+
 /**
  * @class Game
  * @brief Main game engine class that manages the game lifecycle
@@ -41,6 +43,7 @@
  */
 class Game
 {
+
 public:
     /**
      * @brief Default constructor
@@ -194,6 +197,10 @@ public:
      */
     void Destroy();
 
+private:
+    bool isRunning = false; // Flag to control the main game loop
+    SDL_Window* window;
+    SDL_Renderer* renderer;
 private:
     // Window and rendering
     // TODO: Add SDL_Window* window;
