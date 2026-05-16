@@ -1,0 +1,77 @@
+# Makefile for SDL Game Engine on Linux
+CXX = g++
+TARGET = SDLGameEngine
+BUILD_DIR = build_linux
+
+# ImGui paths
+IMGUI_DIR = external/imgui
+IMGUI_SOURCES = $(IMGUI_DIR)/imgui.cpp \
+                $(IMGUI_DIR)/imgui_draw.cpp \
+                $(IMGUI_DIR)/imgui_widgets.cpp \
+                $(IMGUI_DIR)/imgui_tables.cpp \
+                $(IMGUI_DIR)/imgui_demo.cpp \
+                $(IMGUI_DIR)/backends/imgui_impl_sdl2.cpp \
+                $(IMGUI_DIR)/backends/imgui_impl_sdlrenderer2.cpp
+
+# Sol2 path
+SOL2_INCLUDE = external/sol2/include
+
+# Compiler flags
+# Nota: Se eliminó /opt/homebrew/include y se ajustó lua-5.4 a lua5.4 para el estándar Linux.
+CXXFLAGS = -std=c++17 -Wall -Wextra \
+           -Isrc \
+           -Iexternal \
+           -I$(IMGUI_DIR) \
+           -I$(IMGUI_DIR)/backends \
+           -I$(SOL2_INCLUDE) \
+           $(shell sdl2-config --cflags) \
+           $(shell pkg-config --cflags SDL2_image SDL2_ttf SDL2_mixer) \
+           $(shell pkg-config --cflags lua5.4 2>/dev/null || pkg-config --cflags lua-5.4) \
+           $(shell python3-config --includes) \
+           $(shell pkg-config --cflags pybind11 2>/dev/null || echo "")
+
+# Linker flags
+# Nota: Se removieron los flags específicos de Apple (-framework CoreFoundation).
+# Se añade -lrt y -lpthread requeridos comúnmente por Python/SDL en Linux.
+LDFLAGS = $(shell sdl2-config --libs) \
+          $(shell pkg-config --libs SDL2_image SDL2_ttf SDL2_mixer) \
+          $(shell pkg-config --libs lua5.4 2>/dev/null || pkg-config --libs lua-5.4) \
+          $(shell python3-config --ldflags --embed 2>/dev/null || python3-config --ldflags) \
+          -ldl -lrt -lpthread
+
+# Source files
+SOURCES = src/Main.cpp src/Game.cpp $(IMGUI_SOURCES)
+
+OBJECTS = $(patsubst %.cpp,$(BUILD_DIR)/%.o,$(SOURCES))
+
+# Modos de compilación opcionales para usar con tus scripts (debug/release)
+debug: CXXFLAGS += -g
+debug: all
+
+release: CXXFLAGS += -O3 -DNDEBUG
+release: all
+
+all: $(BUILD_DIR) $(TARGET)
+
+# Crea automáticamente el árbol de directorios espejo para los archivos objeto
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+
+$(TARGET): $(OBJECTS)
+	$(CXX) $(OBJECTS) -o $(TARGET) $(LDFLAGS)
+	@echo "✓ Build complete: ./$(TARGET)"
+
+# Compilación de objetos individuales garantizando que la estructura de carpetas exista
+$(BUILD_DIR)/%.o: %.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+run: $(TARGET)
+	./$(TARGET)
+
+clean:
+	rm -rf $(BUILD_DIR) $(TARGET)
+
+rebuild: clean all
+
+.PHONY: all debug release run clean rebuild
