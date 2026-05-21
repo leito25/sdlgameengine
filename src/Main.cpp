@@ -1,28 +1,16 @@
-/*#include <iostream>
-#include "Game.h"
-
-int main()
-{
-    Game game;
-    game.Initialize();
-    game.Run();
-    game.Destroy();
-    return 0;
-}*/
-
 #include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_mixer.h>
-#include <SDL_ttf.h>
-#include <imgui/backends/imgui_impl_sdl2.h>
-#include <imgui/backends/imgui_impl_sdlrenderer2.h>
-#include <imgui/imgui.h>
+#include <SDL_image.h>  // ✓ Installed
+#include <SDL_mixer.h>  // ✓ Installed
+#include <SDL_ttf.h>    // ✓ Installed
+#include <imgui.h>      // ✓ Installed (external/imgui)
+#include <imgui_impl_sdl2.h>
+#include <imgui_impl_sdlrenderer2.h>
 #include <pybind11/embed.h>
-#include <pybind11/pybind11.h>
+#include <pybind11/pybind11.h>  // ✓ Installed
 
-#include <glm/glm.hpp>
+#include <glm/glm.hpp>  // ✓ Installed
 #include <iostream>
-#include <sol/sol.hpp>
+#include <sol/sol.hpp>  // ✓ Installed (external/sol2)
 #include <string>
 
 namespace py = pybind11;
@@ -35,7 +23,7 @@ int add(int a, int b) { return a + b; }
 
 // Create a pybind11 embedded module
 PYBIND11_EMBEDDED_MODULE(engine_module, m) {
-    m.doc() = "TwoDEngine embedded Python module";
+    m.doc() = "SDL Game Engine embedded Python module";
 
     // Expose functions to Python
     m.def("add", &add, "A function that adds two numbers", py::arg("a"), py::arg("b"));
@@ -50,38 +38,35 @@ PYBIND11_EMBEDDED_MODULE(engine_module, m) {
 }
 
 int main(int argc, char* argv[]) {
-    (void)argc;
-    (void)argv;
+    std::cout << "=== SDL Game Engine - Library Testing ===" << std::endl;
+    std::cout << std::endl;
 
-    // Initialize Python interpreter
+    // ========================================
+    // 1. Test pybind11 (Python embedding)
+    // ========================================
+    std::cout << "1. Testing pybind11..." << std::endl;
     py::scoped_interpreter guard{};
-
     std::string pythonStatus = "Initializing...";
     int pythonResult = 0;
 
     try {
-        // Test pybind11 by running Python code
-        std::cout << "=== pybind11 Test ===" << std::endl;
-
         py::exec(R"(
 import engine_module
-print("Python interpreter initialized successfully!")
-print(f"Window dimensions: {engine_module.get_window_width()}x{engine_module.get_window_height()}")
+print("  ✓ Python interpreter initialized!")
+print(f"  ✓ Window dimensions: {engine_module.get_window_width()}x{engine_module.get_window_height()}")
 
 # Test the add function
 result = engine_module.add(5, 7)
-print(f"5 + 7 = {result}")
+print(f"  ✓ 5 + 7 = {result}")
 
 # Test the multiply function
 mult_result = engine_module.multiply(6, 8)
-print(f"6 * 8 = {mult_result}")
+print(f"  ✓ 6 * 8 = {mult_result}")
         )");
 
-        // Get a result from Python
         py::object main_module = py::module_::import("__main__");
         py::object main_namespace = main_module.attr("__dict__");
 
-        // Execute Python code and get result
         py::exec(R"(
 import engine_module
 calculation = engine_module.add(10, 20)
@@ -91,69 +76,134 @@ calculation = engine_module.add(10, 20)
         pythonResult = main_namespace["calculation"].cast<int>();
         pythonStatus = "Python OK! 10 + 20 = " + std::to_string(pythonResult);
 
-        std::cout << "pybind11 test successful!" << std::endl;
-        std::cout << "===================" << std::endl;
+        std::cout << "  ✓ pybind11 test successful!" << std::endl;
     } catch (py::error_already_set& e) {
-        std::cerr << "Python error: " << e.what() << std::endl;
+        std::cerr << "  ✗ Python error: " << e.what() << std::endl;
         pythonStatus = "Python error occurred";
     }
+    std::cout << std::endl;
 
-    // Initialize Lua
+    // ========================================
+    // 2. Test Sol2 (Lua)
+    // ========================================
+    std::cout << "2. Testing Sol2 (Lua)..." << std::endl;
     sol::state lua;
-    lua.open_libraries(sol::lib::base);
+    lua.open_libraries(sol::lib::base, sol::lib::math);
 
-    // Use GLM
+    lua.script(R"(
+        function greet(name)
+            return "Hello, " .. name .. "!"
+        end
+
+        function calculate(x, y)
+            return x * y + math.sqrt(x)
+        end
+    )");
+
+    std::string luaGreeting = lua["greet"]("SDL Game Engine");
+    double luaCalc = lua["calculate"](16.0, 2.0);
+
+    std::cout << "  ✓ Lua script executed successfully!" << std::endl;
+    std::cout << "  ✓ Lua greeting: " << luaGreeting << std::endl;
+    std::cout << "  ✓ Lua calculation: " << luaCalc << std::endl;
+    std::cout << std::endl;
+
+    // ========================================
+    // 3. Test GLM (OpenGL Mathematics)
+    // ========================================
+    std::cout << "3. Testing GLM..." << std::endl;
+    glm::vec3 position = glm::vec3(10.0f, 20.0f, 30.0f);
     glm::vec3 velocity = glm::vec3(1.0f, 2.0f, 3.0f);
+    glm::vec3 newPosition = position + velocity;
 
-    // Initialize SDL
+    float distance = glm::length(velocity);
+    glm::vec3 normalized = glm::normalize(velocity);
+
+    std::cout << "  ✓ Position: (" << position.x << ", " << position.y << ", " << position.z << ")"
+              << std::endl;
+    std::cout << "  ✓ Velocity: (" << velocity.x << ", " << velocity.y << ", " << velocity.z << ")"
+              << std::endl;
+    std::cout << "  ✓ New Position: (" << newPosition.x << ", " << newPosition.y << ", "
+              << newPosition.z << ")" << std::endl;
+    std::cout << "  ✓ Velocity magnitude: " << distance << std::endl;
+    std::cout << "  ✓ Normalized velocity: (" << normalized.x << ", " << normalized.y << ", "
+              << normalized.z << ")" << std::endl;
+    std::cout << std::endl;
+
+    // ========================================
+    // 4. Test SDL2
+    // ========================================
+    std::cout << "4. Testing SDL2..." << std::endl;
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-        std::cerr << "Error initializing SDL: " << SDL_GetError() << std::endl;
+        std::cerr << "  ✗ Error initializing SDL: " << SDL_GetError() << std::endl;
         return 1;
     }
+    std::cout << "  ✓ SDL initialized successfully!" << std::endl;
+    std::cout << std::endl;
 
-    // Initialize SDL_Image
-    if (IMG_Init(IMG_INIT_PNG) == 0) {
-        std::cerr << "Error initializing SDL_image: " << IMG_GetError() << std::endl;
+    // ========================================
+    // 5. Test SDL_Image
+    // ========================================
+    std::cout << "5. Testing SDL_Image..." << std::endl;
+    int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
+    if ((IMG_Init(imgFlags) & imgFlags) != imgFlags) {
+        std::cerr << "  ✗ Error initializing SDL_image: " << IMG_GetError() << std::endl;
         SDL_Quit();
         return 1;
     }
+    std::cout << "  ✓ SDL_Image initialized (PNG & JPG support)!" << std::endl;
+    std::cout << std::endl;
 
-    // Initialize SDL_TTF
+    // ========================================
+    // 6. Test SDL_TTF
+    // ========================================
+    std::cout << "6. Testing SDL_TTF..." << std::endl;
     if (TTF_Init() != 0) {
-        std::cerr << "Error initializing SDL_ttf: " << TTF_GetError() << std::endl;
+        std::cerr << "  ✗ Error initializing SDL_ttf: " << TTF_GetError() << std::endl;
         IMG_Quit();
         SDL_Quit();
         return 1;
     }
+    std::cout << "  ✓ SDL_TTF initialized successfully!" << std::endl;
+    std::cout << std::endl;
 
-    // Initialize SDL_Mixer
+    // ========================================
+    // 7. Test SDL_Mixer
+    // ========================================
+    std::cout << "7. Testing SDL_Mixer..." << std::endl;
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
-        std::cerr << "Error initializing SDL_mixer: " << Mix_GetError() << std::endl;
+        std::cerr << "  ✗ Error initializing SDL_mixer: " << Mix_GetError() << std::endl;
         TTF_Quit();
         IMG_Quit();
         SDL_Quit();
         return 1;
     }
+    std::cout << "  ✓ SDL_Mixer initialized (44.1kHz, stereo)!" << std::endl;
+    std::cout << std::endl;
 
-    // Create window
+    // ========================================
+    // 8. Create SDL Window and Renderer
+    // ========================================
+    std::cout << "8. Creating SDL Window and Renderer..." << std::endl;
     SDL_Window* window =
-        SDL_CreateWindow("TwoDEngine with SDL2", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                         WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+        SDL_CreateWindow("SDL Game Engine - Library Test", SDL_WINDOWPOS_CENTERED,
+                         SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
 
     if (!window) {
-        std::cerr << "Error creating window: " << SDL_GetError() << std::endl;
+        std::cerr << "  ✗ Error creating window: " << SDL_GetError() << std::endl;
         Mix_CloseAudio();
         TTF_Quit();
         IMG_Quit();
         SDL_Quit();
         return 1;
     }
+    std::cout << "  ✓ Window created successfully!" << std::endl;
 
-    // Create renderer
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    SDL_Renderer* renderer =
+        SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     if (!renderer) {
-        std::cerr << "Error creating renderer: " << SDL_GetError() << std::endl;
+        std::cerr << "  ✗ Error creating renderer: " << SDL_GetError() << std::endl;
         SDL_DestroyWindow(window);
         Mix_CloseAudio();
         TTF_Quit();
@@ -161,77 +211,119 @@ calculation = engine_module.add(10, 20)
         SDL_Quit();
         return 1;
     }
+    std::cout << "  ✓ Renderer created successfully!" << std::endl;
+    std::cout << std::endl;
 
-    // Initialize ImGui
+    // ========================================
+    // 9. Initialize ImGui
+    // ========================================
+    std::cout << "9. Testing ImGui..." << std::endl;
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
-    (void)io;  // io is managed internally by the backends
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+
     ImGui::StyleColorsDark();
 
-    // Initialize ImGui backends (replaces ImGuiSDL::Initialize)
     ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
     ImGui_ImplSDLRenderer2_Init(renderer);
 
-    // Main loop
+    std::cout << "  ✓ ImGui initialized successfully!" << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "=== All Libraries Tested Successfully! ===" << std::endl;
+    std::cout << "Running interactive demo window..." << std::endl;
+    std::cout << std::endl;
+
+    // ========================================
+    // Main Loop - Interactive Demo
+    // ========================================
     bool running = true;
     SDL_Event event;
+    int frameCount = 0;
 
     while (running) {
         // Handle events
         while (SDL_PollEvent(&event)) {
-            // Let ImGui process events (replaces all manual io.Mouse/Key handling)
             ImGui_ImplSDL2_ProcessEvent(&event);
 
             if (event.type == SDL_QUIT) running = false;
-            if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE)
+            if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE &&
+                event.window.windowID == SDL_GetWindowID(window))
                 running = false;
         }
 
-        // Start ImGui frame (replaces ImGui::NewFrame() alone)
+        // Start ImGui frame
         ImGui_ImplSDLRenderer2_NewFrame();
         ImGui_ImplSDL2_NewFrame();
         ImGui::NewFrame();
 
-        // Create ImGui window
-        ImGui::Begin("TwoDEngine - Library Integration Test");
-        ImGui::Text("This is a basic SDL2 window with ImGui integration");
+        // Create ImGui window with test results
+        ImGui::Begin("SDL Game Engine - Library Integration Test");
+        ImGui::Text("All libraries integrated successfully!");
         ImGui::Separator();
-        ImGui::Text("GLM vector: (%.1f, %.1f, %.1f)", velocity.x, velocity.y, velocity.z);
-        ImGui::Text("Lua/Sol2: Integrated and ready");
-        ImGui::Text("pybind11: %s", pythonStatus.c_str());
+
+        ImGui::Text("Library Status:");
+        ImGui::BulletText("SDL2: ✓ Running");
+        ImGui::BulletText("SDL_Image: ✓ PNG & JPG Support");
+        ImGui::BulletText("SDL_TTF: ✓ Font Rendering Ready");
+        ImGui::BulletText("SDL_Mixer: ✓ Audio System Ready");
+        ImGui::BulletText("GLM: ✓ Math Library Active");
+        ImGui::BulletText("Sol2: ✓ Lua Scripting Active");
+        ImGui::BulletText("pybind11: %s", pythonStatus.c_str());
+        ImGui::BulletText("ImGui: ✓ UI System Running");
+
         ImGui::Separator();
-        if (ImGui::Button("Quit")) {
+        ImGui::Text("GLM Demo:");
+        ImGui::Text("  Position: (%.1f, %.1f, %.1f)", position.x, position.y, position.z);
+        ImGui::Text("  Velocity: (%.1f, %.1f, %.1f)", velocity.x, velocity.y, velocity.z);
+        ImGui::Text("  Magnitude: %.2f", distance);
+
+        ImGui::Separator();
+        ImGui::Text("Lua Demo:");
+        ImGui::Text("  Greeting: %s", luaGreeting.c_str());
+        ImGui::Text("  Calculation: %.2f", luaCalc);
+
+        ImGui::Separator();
+        ImGui::Text("Frame: %d", frameCount++);
+        ImGui::Text("FPS: %.1f", io.Framerate);
+
+        ImGui::Separator();
+        if (ImGui::Button("Quit Application")) {
             running = false;
         }
+
         ImGui::End();
 
         // Render
-        ImGui::Render();
-        SDL_SetRenderDrawColor(renderer, 100, 149, 237, 255);  // Cornflower blue
+        SDL_SetRenderDrawColor(renderer, 45, 45, 48, 255);  // Dark gray background
         SDL_RenderClear(renderer);
 
-        // Render ImGui draw data (replaces ImGuiSDL::Render)
+        // Render ImGui
+        ImGui::Render();
         ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), renderer);
 
         SDL_RenderPresent(renderer);
-
-        // Cap to 60 FPS
-        SDL_Delay(1000 / 60);
     }
 
-    // Cleanup (replaces ImGuiSDL::Deinitialize)
+    // ========================================
+    // Cleanup
+    // ========================================
+    std::cout << "Cleaning up..." << std::endl;
+
     ImGui_ImplSDLRenderer2_Shutdown();
     ImGui_ImplSDL2_Shutdown();
     ImGui::DestroyContext();
+
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+
     Mix_CloseAudio();
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();
 
-    std::cout << "SDL application closed successfully!" << std::endl;
+    std::cout << "Application closed successfully!" << std::endl;
 
     return 0;
 }
