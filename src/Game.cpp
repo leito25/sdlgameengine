@@ -1,7 +1,7 @@
 #include "Game.h"
 #include <iostream>
-#include <SDL.h>
 #include <SDL2/SDL_render.h>
+#include <SDL2/SDL_image.h>
 
 using namespace std;
 
@@ -30,9 +30,9 @@ void Game::Initialize()
     };
 
     // This is a pointer to a struct
-    // wich means that we need to dereference
+    // which means that we need to dereference
     // it to access the members of the struct
-    // this is ussually used when we want to create
+    // this is usually used when we want to create
     // a new instance of a struct
     // why sdl use a struct pointer instead of a class is because
     // sdl is a c library and c does not have classes, it only has structs
@@ -42,7 +42,8 @@ void Game::Initialize()
         SDL_WINDOWPOS_CENTERED,
         1280,
         720,
-        SDL_WINDOW_SHOWN
+        SDL_WINDOW_FULLSCREEN
+        //SDL_WINDOW_SHOWN
     );
 
     // Check if the window was created successfully
@@ -106,10 +107,7 @@ void Game::ProcessInput()
     SDL_PollEvent(&sdlEvent);
 }
 
-void Game::Setup()
-{
-    // TODO Initialize Game Objects
-}
+
 
 
 void Game::Run()
@@ -125,7 +123,12 @@ void Game::Run()
     }
 }
 
-
+void Game::Setup()
+{
+    // TODO Initialize Game Objects
+    // This setup methos is like the Start of Unity
+    // Or the Begin of Unreal Engine
+}
 
 void Game::Update()
 {
@@ -146,10 +149,32 @@ void Game::Render()
     SDL_RenderClear(renderer);
 
     // Over this code a SDL rectangle will be created
-    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // apply color to the new REct
-    SDL_Rect player = {15, 15, 200, 50};
-    //SDL_SetRenderDrawColor(&player, 32, 32, 32);
-    SDL_RenderFillRect(renderer, &player);
+    //SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // apply color to the new REct
+    //SDL_Rect player = {15, 15, 200, 50};
+    //SDL_RenderFillRect(renderer, &player);
+
+    // Draw a PNG Texture
+    // SDL core only read bitmap files
+    // so it would be necessary to use the texture library
+    //...
+    // SDL Surface method get the path and create a surface
+    SDL_Surface* surface = IMG_Load("./assets/images/tank-panther-right.png");
+    // SDL Texture create a texture pointer based on the surface
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    //Finally the surface already created is freed
+    SDL_FreeSurface(surface);
+
+    // Now for use the texture in a Rect
+    // A rect needs to be created
+    //the width and heigth are the same as the texture
+    SDL_Rect dstRect = {50, 50, 32, 32};
+    // A copy should be made, in shaders is like a blit
+    SDL_RenderCopy(renderer, texture, NULL, &dstRect);//NULL for the entire texture
+    // Destroy the texture to avoid waste memory
+    SDL_DestroyTexture(texture);
+
+
+
 
     // Present the rendered frame to the screen
     // why do we need to call this function?
