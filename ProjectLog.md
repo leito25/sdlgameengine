@@ -35,9 +35,9 @@ Motivations, learning outcomes, how to take the course, and the project baseline
 
 **Progress checklist**
 - [x] Create the SDL game engine learning log.
-- [ ] Confirm the repo build target and current executable entry point.
-- [ ] Record the compiler, OS, SDL version, and build command used locally.
-- [ ] Capture the first successful build or launch evidence.
+- [x] Confirm the repo build target and current executable entry point.
+- [x] Record the compiler, OS, SDL version, and build command used locally.
+- [x] Capture the first successful build or launch evidence.
 
 **What to learn**
 - What this engine is expected to become by the end of the course.
@@ -51,6 +51,7 @@ Motivations, learning outcomes, how to take the course, and the project baseline
 
 **Log notes**
 - 2026-05-26 - Created the course learning log from the Pikuma C++ 2D game engine course outline.
+- 2026-05-27 - Verified Linux target `SDLGameEngine` from `Makefile.linux`, current entry point `src/Main.cpp`, build command `make -f Makefile.linux all`, compiler `g++ 15.2.0`, OS Linux `7.0.0-15-generic`, SDL `2.32.10`, and existing executable/build outputs.
 
 **Next step**
 Verify dependencies and build tooling before changing engine code.
@@ -71,14 +72,14 @@ Project technologies, Linux/macOS/Windows setup, compilation, linking, Makefiles
 - Keep dependency setup scripts aligned with the current project structure.
 
 **Progress checklist**
-- [ ] Confirm SDL2 is available to the build.
-- [ ] Confirm SDL2_image is available to the build.
-- [ ] Confirm SDL2_ttf is available to the build.
-- [ ] Confirm SDL2_mixer is available to the build.
-- [ ] Confirm GLM include paths.
-- [ ] Confirm Dear ImGui source/include setup.
-- [ ] Confirm Lua and Sol2 setup.
-- [ ] Confirm Python and pybind11 setup.
+- [x] Confirm SDL2 is available to the build.
+- [x] Confirm SDL2_image is available to the build.
+- [x] Confirm SDL2_ttf is available to the build.
+- [x] Confirm SDL2_mixer is available to the build.
+- [x] Confirm GLM include paths.
+- [x] Confirm Dear ImGui source/include setup.
+- [x] Confirm Lua and Sol2 setup.
+- [x] Confirm Python and pybind11 setup.
 - [ ] Document static versus dynamic library expectations for this repo.
 
 **What to learn**
@@ -99,7 +100,7 @@ Run or repair the basic SDL window build.
 **Status:** In progress
 
 **Related commits**
-- _None yet._
+- `52cf755` - Switched the executable entry point from the library integration demo to the `Game` lifecycle for SDL window work, preserving the previous Linux demo main as a backup source file.
 
 **Course focus**
 Game loop, Game class, creating an SDL window, polling SDL events, rendering the SDL window, fullscreen modes, SDL GPU acceleration, and VSync.
@@ -110,12 +111,12 @@ Game loop, Game class, creating an SDL window, polling SDL events, rendering the
 - Confirm the SDL window and renderer lifecycle is explicit and cleaned up correctly.
 
 **Progress checklist**
-- [ ] Implement or verify the Game class lifecycle.
-- [ ] Create and display an SDL window.
-- [ ] Poll SDL events.
-- [ ] Render a clear color to the SDL window.
+- [x] Implement or verify the Game class lifecycle.
+- [x] Create and display an SDL window.
+- [x] Poll SDL events.
+- [x] Render a clear color to the SDL window.
 - [ ] Add or verify fullscreen behavior.
-- [ ] Enable accelerated rendering and VSync where appropriate.
+- [x] Enable accelerated rendering and VSync where appropriate.
 
 **What to learn**
 - How the core game loop is structured.
@@ -147,7 +148,7 @@ Drawing SDL rectangles, double-buffered rendering, loading PNG textures, and gam
 
 **Progress checklist**
 - [ ] Draw an SDL rectangle.
-- [ ] Confirm double-buffered rendering flow.
+- [x] Confirm double-buffered rendering flow.
 - [ ] Load and render a PNG texture.
 - [ ] Document texture asset paths used for verification.
 
@@ -247,8 +248,8 @@ Project subfolders and Makefile variables.
 - Avoid committing generated output unless it is intentionally part of the repo.
 
 **Progress checklist**
-- [ ] Review current project subfolders.
-- [ ] Review Makefile variables.
+- [x] Review current project subfolders.
+- [x] Review Makefile variables.
 - [ ] Confirm asset paths used by the executable.
 - [ ] Decide which generated documentation folders should stay tracked.
 
