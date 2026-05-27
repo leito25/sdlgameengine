@@ -142,6 +142,7 @@ In practice: clear, draw everything for one frame, then present once.
 
 **Related commits**
 - `cc0d954` - Added a colored SDL rectangle to the render pass for the Session 04 drawing test.
+- `6a64ed4` - Loaded `assets/images/tank-panther-right.png` as an SDL surface, converted it to a texture, and rendered it into a destination rectangle.
 
 **Course focus**
 Drawing SDL rectangles, double-buffered rendering, loading PNG textures, and game loop rendering behavior.
@@ -154,8 +155,8 @@ Drawing SDL rectangles, double-buffered rendering, loading PNG textures, and gam
 **Progress checklist**
 - [x] Draw an SDL rectangle.
 - [x] Confirm double-buffered rendering flow.
-- [ ] Load and render a PNG texture.
-- [ ] Document texture asset paths used for verification.
+- [x] Load and render a PNG texture.
+- [x] Document texture asset paths used for verification.
 
 **What to learn**
 - How SDL renderer draw calls compose a frame.
