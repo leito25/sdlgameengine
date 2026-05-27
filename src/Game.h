@@ -154,6 +154,9 @@ public:
      *
      * @todo Add deltaTime parameter for frame-rate independence
      */
+
+    void Setup();
+
     void Update();
 
     /**
@@ -175,6 +178,8 @@ public:
      * @see Run()
      * @see Update()
      */
+
+
     void Render();
 
     /**

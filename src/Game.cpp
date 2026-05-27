@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <iostream>
 #include <SDL.h>
+#include <SDL2/SDL_render.h>
 
 using namespace std;
 
@@ -105,6 +106,10 @@ void Game::ProcessInput()
     SDL_PollEvent(&sdlEvent);
 }
 
+void Game::Setup()
+{
+    // TODO Initialize Game Objects
+}
 
 
 void Game::Run()
@@ -120,6 +125,8 @@ void Game::Run()
     }
 }
 
+
+
 void Game::Update()
 {
     // Update game state based on elapsed time
@@ -131,12 +138,18 @@ void Game::Render()
 
     /// First test is paint hte windows with a simple color navy blue
     // Set the draw color to navy blue (R, G, B, A)
-    SDL_SetRenderDrawColor(renderer, 0, 0, 128, 255);
+    SDL_SetRenderDrawColor(renderer, 25, 25, 25, 255);
     // Clear the renderer is done for us by the SDL_RenderClear function,
     // which will fill the entire rendering target with the drawing color
     // why is this necesary? because we need to clear the previous frame
     // before we can render the new frame, otherwise we will have a mess of frames on the screen
     SDL_RenderClear(renderer);
+
+    // Over this code a SDL rectangle will be created
+    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // apply color to the new REct
+    SDL_Rect player = {15, 15, 200, 50};
+    //SDL_SetRenderDrawColor(&player, 32, 32, 32);
+    SDL_RenderFillRect(renderer, &player);
 
     // Present the rendered frame to the screen
     // why do we need to call this function?
