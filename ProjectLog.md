@@ -133,10 +133,15 @@ Render simple SDL objects and textures.
 
 ### Session 04 - Rendering SDL Objects
 
+Double buffering means the game draws the next frame into a hidden back buffer while the current frame stays visible.
+When all draw calls are done, `SDL_RenderPresent()` swaps the back buffer to the screen.
+This avoids showing half-drawn frames, reducing flicker and visual tearing.
+In practice: clear, draw everything for one frame, then present once.
+
 **Status:** In progress
 
 **Related commits**
-- _None yet._
+- `cc0d954` - Added a colored SDL rectangle to the render pass for the Session 04 drawing test.
 
 **Course focus**
 Drawing SDL rectangles, double-buffered rendering, loading PNG textures, and game loop rendering behavior.
@@ -147,7 +152,7 @@ Drawing SDL rectangles, double-buffered rendering, loading PNG textures, and gam
 - Verify the render loop clears, draws, and presents consistently.
 
 **Progress checklist**
-- [ ] Draw an SDL rectangle.
+- [x] Draw an SDL rectangle.
 - [x] Confirm double-buffered rendering flow.
 - [ ] Load and render a PNG texture.
 - [ ] Document texture asset paths used for verification.
