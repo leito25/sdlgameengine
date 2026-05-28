@@ -14,6 +14,9 @@
 
 #include <SDL.h>
 
+const int FPS = 5;
+const int MILLISECS_PER_FRAME = 1000/FPS;
+
 /**
  * @class Game
  * @brief Main game engine class that manages the game lifecycle
@@ -204,8 +207,9 @@ public:
 
 private:
     bool isRunning = false; // Flag to control the main game loop
-    SDL_Window* window;
-    SDL_Renderer* renderer;
+    int millisecsPreviousFrame = 0;
+    SDL_Window* window = nullptr;
+    SDL_Renderer* renderer = nullptr;
 private:
     // Window and rendering
     // TODO: Add SDL_Window* window;

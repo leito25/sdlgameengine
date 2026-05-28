@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Logger.h"
 #include <iostream>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_image.h>
@@ -9,13 +10,17 @@ using namespace std;
 Game::Game()
 {
     // Constructor implementation
-    cout << "Game constructor called" << std::endl;
+    Logger::Initialize();
+    Logger::Info("Game constructor called");
 }
 
 Game::~Game()
 {
     // Destructor implementation
-    cout << "Game destructor called" << std::endl;
+    if (Logger::IsInitialized())
+    {
+        Logger::Info("Game destructor called");
+    }
 }
 
 void Game::Initialize()
@@ -26,7 +31,7 @@ void Game::Initialize()
     //Initialize the SDL
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
     {
-        cerr << "SDL_Init Error: " << SDL_GetError() << endl;
+        Logger::Error(std::string("SDL_Init Error: ") + SDL_GetError());
         return;
     };
 
@@ -43,14 +48,14 @@ void Game::Initialize()
         SDL_WINDOWPOS_CENTERED,
         1280,
         720,
-        SDL_WINDOW_FULLSCREEN
-        //SDL_WINDOW_SHOWN
+        //SDL_WINDOW_FULLSCREEN
+        SDL_WINDOW_SHOWN
     );
 
     // Check if the window was created successfully
     if (window == nullptr)
     {
-        cerr << "SDL_CreateWindow Error: " << SDL_GetError() << endl;
+        Logger::Error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
         SDL_Quit();
         return;
     };
@@ -65,12 +70,13 @@ void Game::Initialize()
     // Check if the renderer was created successfully
     if (renderer == nullptr)
     {
-        cerr << "SDL_CreateRenderer Error: " << SDL_GetError() << endl;
+        Logger::Error(std::string("SDL_CreateRenderer Error: ") + SDL_GetError());
         //SDL_DestroyWindow(window);
         //SDL_Quit();
         return;
     };
 
+    Logger::Info("Game initialized successfully");
     isRunning = true;
 }
 
@@ -90,6 +96,7 @@ void Game::ProcessInput()
         case SDL_QUIT:
             // Handle quit event (e.g., window close)
             // sena message to the game loop to exit
+            Logger::Info("SDL quit event received");
             isRunning = false;
             break;
 
@@ -97,6 +104,7 @@ void Game::ProcessInput()
             // Handle key press event for quit with ESC key
             if (sdlEvent.key.keysym.sym == SDLK_ESCAPE)
             {
+                Logger::Info("Escape key pressed; stopping game loop");
                 isRunning = false;
             }
             break;
@@ -115,6 +123,7 @@ void Game::Run()
 {
     //Calling the Setup as a initialization of the variables
     Setup();
+    Logger::Info("Game loop started");
 
     // Main game loop: process input, update game state, render frames
     // Clean up resources, destroy window and renderer,
@@ -125,6 +134,8 @@ void Game::Run()
         Update();
         Render();
     }
+
+    Logger::Info("Game loop stopped");
 }
 
 glm::vec2 playerPosition;
@@ -138,17 +149,32 @@ void Game::Setup()
 
     playerPosition = glm::vec2(10.0, 20.0);
     playerVelocity = glm::vec2(1.0, 0.0);
-    cout << "Game::Setup"  << endl;
+    Logger::Info("Game::Setup completed");
 }
 int c = 0;
 void Game::Update()
 {
-    c += 1;
-    cout << "Game::Update Running" << c << endl;
+
+    // add a delay until the frame time ends
+    // SDL TICKS PASSED (current tick, last tick
+    Logger::Debug("Before millisecsPreviousFrame: " + std::to_string(millisecsPreviousFrame));
+    Logger::Debug("Before MILLISECS_PER_FRAME: " + std::to_string(MILLISECS_PER_FRAME));
+    Logger::Debug("Before SDL_GetTicks(): " + std::to_string(SDL_GetTicks()));
+    while (!SDL_TICKS_PASSED(SDL_GetTicks(), millisecsPreviousFrame + MILLISECS_PER_FRAME))
+    {
+        Logger::Debug("Real Time Tick: " + std::to_string(SDL_GetTicks()));
+    }
+
+    // store the current frame
+    millisecsPreviousFrame = SDL_GetTicks();
+
+    Logger::Debug("After millisecsPreviousFrame: " + std::to_string(millisecsPreviousFrame));
+    Logger::Debug("After MILLISECS_PER_FRAME: " + std::to_string(MILLISECS_PER_FRAME));
+    Logger::Debug("After SDL_GetTicks(): " + std::to_string(SDL_GetTicks()));
+
     // Update game state based on elapsed time
     playerPosition.x += playerVelocity.x;
     playerPosition.y += playerVelocity.y;
-    cout<<playerPosition.x<<" "<<playerPosition.y<<endl;
 }
 
 void Game::Render()
@@ -175,18 +201,28 @@ void Game::Render()
     //...
     // SDL Surface method get the path and create a surface
     SDL_Surface* surface = IMG_Load("./assets/images/tank-panther-right.png");
+    if (surface == nullptr)
+    {
+        Logger::Error(std::string("IMG_Load Error: ") + IMG_GetError());
+        return;
+    }
+
     // SDL Texture create a texture pointer based on the surface
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
     //Finally the surface already created is freed
     SDL_FreeSurface(surface);
+    if (texture == nullptr)
+    {
+        Logger::Error(std::string("SDL_CreateTextureFromSurface Error: ") + SDL_GetError());
+        return;
+    }
 
     // Now for use the texture in a Rect
     // A rect needs to be created
     //the width and heigth are the same as the texture
     //SDL_Rect dstRect = {50, 50, 32, 32};
 
-    cout<<"Hi X" << playerPosition.x<<endl;
-    cout<<"Hi Y" << playerPosition.y<<endl;
+    Logger::Debug("Player position: " + std::to_string(playerPosition.x) + ", " + std::to_string(playerPosition.y));
 
     //Now I'll replace the rect position with the position updated in the game
     SDL_Rect dstRect = {
@@ -224,8 +260,19 @@ void Game::Destroy()
     //The order is importatnt because
     // we need to destroy the renderer
     // before the window
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-}
+    if (renderer != nullptr)
+    {
+        SDL_DestroyRenderer(renderer);
+        renderer = nullptr;
+    }
 
+    if (window != nullptr)
+    {
+        SDL_DestroyWindow(window);
+        window = nullptr;
+    }
+
+    SDL_Quit();
+    Logger::Info("Game resources destroyed");
+    Logger::Shutdown();
+}
