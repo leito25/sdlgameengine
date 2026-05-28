@@ -54,6 +54,9 @@
 *.idb
 *.pdb
 
+# Runtime logs
+logs/engine.log
+
 # IDE files
 .vs/
 .vscode/*
