@@ -177,6 +177,7 @@ Add timestep control and movement.
 
 **Related commits**
 - `7914078` - Initialized sprite position and velocity in setup, updated the position each frame, and rendered the texture at the moving position.
+- `9cd0679` - Replaced the manual tick-wait loop with an `SDL_Delay`-based frame wait before applying per-frame movement.
 
 **Course focus**
 Object movement, velocity vectors, fixed framerate, SDL delay, variable delta time, uncapped framerate, and determinism.
@@ -188,8 +189,8 @@ Object movement, velocity vectors, fixed framerate, SDL delay, variable delta ti
 
 **Progress checklist**
 - [x] Move an object using velocity.
-- [ ] Implement or verify fixed framerate behavior.
-- [ ] Use SDL delay intentionally.
+- [x] Implement or verify fixed framerate behavior.
+- [x] Use SDL delay intentionally.
 - [ ] Add variable delta-time movement.
 - [ ] Record framerate and determinism tradeoffs.
 
