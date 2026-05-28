@@ -173,10 +173,10 @@ Add timestep control and movement.
 
 ### Session 05 - Game Loop Timestep
 
-**Status:** Not started
+**Status:** In progress
 
 **Related commits**
-- _None yet._
+- `7914078` - Initialized sprite position and velocity in setup, updated the position each frame, and rendered the texture at the moving position.
 
 **Course focus**
 Object movement, velocity vectors, fixed framerate, SDL delay, variable delta time, uncapped framerate, and determinism.
@@ -187,7 +187,7 @@ Object movement, velocity vectors, fixed framerate, SDL delay, variable delta ti
 - Record the loop timing strategy used by this repo.
 
 **Progress checklist**
-- [ ] Move an object using velocity.
+- [x] Move an object using velocity.
 - [ ] Implement or verify fixed framerate behavior.
 - [ ] Use SDL delay intentionally.
 - [ ] Add variable delta-time movement.
