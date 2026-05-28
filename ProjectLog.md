@@ -61,7 +61,7 @@ Verify dependencies and build tooling before changing engine code.
 **Status:** In progress
 
 **Related commits**
-- _None yet._
+- `644156d` - Updated Linux and macOS Makefiles to compile all `src/*.cpp` files automatically, and added current engine source files to the CMake executable definitions.
 
 **Course focus**
 Project technologies, Linux/macOS/Windows setup, compilation, linking, Makefiles, Visual Studio setup, static libraries, and dynamic libraries.
