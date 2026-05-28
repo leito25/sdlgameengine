@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CustomBuildTargetManager">
+    <target id="linux-build-target" name="Build Linux" toolchain="Default">
+      <buildConfiguration>
+        <tool name="make">
+          <option name="program" value="make" />
+          <option name="arguments" value="-f Makefile.linux" />
+          <option name="workingDirectory" value="$PROJECT_DIR$" />
+        </tool>
+      </buildConfiguration>
+    </target>
+    <target id="linux-run-target" name="Build and Run Linux" toolchain="Default">
+      <buildConfiguration>
+        <tool name="make">
+          <option name="program" value="make" />
+          <option name="arguments" value="-f Makefile.linux run" />
+          <option name="workingDirectory" value="$PROJECT_DIR$" />
+        </tool>
+      </buildConfiguration>
+    </target>
+    <target id="linux-clean-target" name="Clean Linux" toolchain="Default">
+      <buildConfiguration>
+        <tool name="make">
+          <option name="program" value="make" />
+          <option name="arguments" value="-f Makefile.linux clean" />
+          <option name="workingDirectory" value="$PROJECT_DIR$" />
+        </tool>
+      </buildConfiguration>
+    </target>
+  </component>
+</project>

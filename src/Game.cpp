@@ -1,6 +1,8 @@
 #include "Game.h"
 #include <iostream>
-#include <SDL.h>
+#include <SDL2/SDL_render.h>
+#include <SDL2/SDL_image.h>
+#include <glm/glm.hpp>
 
 using namespace std;
 
@@ -29,9 +31,9 @@ void Game::Initialize()
     };
 
     // This is a pointer to a struct
-    // wich means that we need to dereference
+    // which means that we need to dereference
     // it to access the members of the struct
-    // this is ussually used when we want to create
+    // this is usually used when we want to create
     // a new instance of a struct
     // why sdl use a struct pointer instead of a class is because
     // sdl is a c library and c does not have classes, it only has structs
@@ -41,7 +43,8 @@ void Game::Initialize()
         SDL_WINDOWPOS_CENTERED,
         1280,
         720,
-        SDL_WINDOW_SHOWN
+        SDL_WINDOW_FULLSCREEN
+        //SDL_WINDOW_SHOWN
     );
 
     // Check if the window was created successfully
@@ -107,8 +110,12 @@ void Game::ProcessInput()
 
 
 
+
 void Game::Run()
 {
+    //Calling the Setup as a initialization of the variables
+    Setup();
+
     // Main game loop: process input, update game state, render frames
     // Clean up resources, destroy window and renderer,
     // quit SDL
@@ -120,9 +127,28 @@ void Game::Run()
     }
 }
 
+glm::vec2 playerPosition;
+glm::vec2 playerVelocity;
+
+void Game::Setup()
+{
+    // TODO Initialize Game Objects
+    // This setup methods is like the Start of Unity
+    // Or the Begin of Unreal Engine
+
+    playerPosition = glm::vec2(10.0, 20.0);
+    playerVelocity = glm::vec2(1.0, 0.0);
+    cout << "Game::Setup"  << endl;
+}
+int c = 0;
 void Game::Update()
 {
+    c += 1;
+    cout << "Game::Update Running" << c << endl;
     // Update game state based on elapsed time
+    playerPosition.x += playerVelocity.x;
+    playerPosition.y += playerVelocity.y;
+    cout<<playerPosition.x<<" "<<playerPosition.y<<endl;
 }
 
 void Game::Render()
@@ -131,12 +157,54 @@ void Game::Render()
 
     /// First test is paint hte windows with a simple color navy blue
     // Set the draw color to navy blue (R, G, B, A)
-    SDL_SetRenderDrawColor(renderer, 0, 0, 128, 255);
+    SDL_SetRenderDrawColor(renderer, 25, 25, 25, 255);
     // Clear the renderer is done for us by the SDL_RenderClear function,
     // which will fill the entire rendering target with the drawing color
     // why is this necesary? because we need to clear the previous frame
     // before we can render the new frame, otherwise we will have a mess of frames on the screen
     SDL_RenderClear(renderer);
+
+    // Over this code a SDL rectangle will be created
+    //SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // apply color to the new REct
+    //SDL_Rect player = {15, 15, 200, 50};
+    //SDL_RenderFillRect(renderer, &player);
+
+    // Draw a PNG Texture
+    // SDL core only read bitmap files
+    // so it would be necessary to use the texture library
+    //...
+    // SDL Surface method get the path and create a surface
+    SDL_Surface* surface = IMG_Load("./assets/images/tank-panther-right.png");
+    // SDL Texture create a texture pointer based on the surface
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    //Finally the surface already created is freed
+    SDL_FreeSurface(surface);
+
+    // Now for use the texture in a Rect
+    // A rect needs to be created
+    //the width and heigth are the same as the texture
+    //SDL_Rect dstRect = {50, 50, 32, 32};
+
+    cout<<"Hi X" << playerPosition.x<<endl;
+    cout<<"Hi Y" << playerPosition.y<<endl;
+
+    //Now I'll replace the rect position with the position updated in the game
+    SDL_Rect dstRect = {
+        static_cast<int>(playerPosition.x),
+        static_cast<int>(playerPosition.y),
+        32,
+        32
+    };
+
+
+
+    // A copy should be made, in shaders is like a blit
+    SDL_RenderCopy(renderer, texture, NULL, &dstRect);//NULL for the entire texture
+    // Destroy the texture to avoid waste memory
+    SDL_DestroyTexture(texture);
+
+
+
 
     // Present the rendered frame to the screen
     // why do we need to call this function?
