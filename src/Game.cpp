@@ -2,6 +2,7 @@
 #include <iostream>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_image.h>
+#include <glm/glm.hpp>
 
 using namespace std;
 
@@ -112,6 +113,9 @@ void Game::ProcessInput()
 
 void Game::Run()
 {
+    //Calling the Setup as a initialization of the variables
+    Setup();
+
     // Main game loop: process input, update game state, render frames
     // Clean up resources, destroy window and renderer,
     // quit SDL
@@ -123,16 +127,28 @@ void Game::Run()
     }
 }
 
+glm::vec2 playerPosition;
+glm::vec2 playerVelocity;
+
 void Game::Setup()
 {
     // TODO Initialize Game Objects
-    // This setup methos is like the Start of Unity
+    // This setup methods is like the Start of Unity
     // Or the Begin of Unreal Engine
-}
 
+    playerPosition = glm::vec2(10.0, 20.0);
+    playerVelocity = glm::vec2(1.0, 0.0);
+    cout << "Game::Setup"  << endl;
+}
+int c = 0;
 void Game::Update()
 {
+    c += 1;
+    cout << "Game::Update Running" << c << endl;
     // Update game state based on elapsed time
+    playerPosition.x += playerVelocity.x;
+    playerPosition.y += playerVelocity.y;
+    cout<<playerPosition.x<<" "<<playerPosition.y<<endl;
 }
 
 void Game::Render()
@@ -167,7 +183,21 @@ void Game::Render()
     // Now for use the texture in a Rect
     // A rect needs to be created
     //the width and heigth are the same as the texture
-    SDL_Rect dstRect = {50, 50, 32, 32};
+    //SDL_Rect dstRect = {50, 50, 32, 32};
+
+    cout<<"Hi X" << playerPosition.x<<endl;
+    cout<<"Hi Y" << playerPosition.y<<endl;
+
+    //Now I'll replace the rect position with the position updated in the game
+    SDL_Rect dstRect = {
+        static_cast<int>(playerPosition.x),
+        static_cast<int>(playerPosition.y),
+        32,
+        32
+    };
+
+
+
     // A copy should be made, in shaders is like a blit
     SDL_RenderCopy(renderer, texture, NULL, &dstRect);//NULL for the entire texture
     // Destroy the texture to avoid waste memory
