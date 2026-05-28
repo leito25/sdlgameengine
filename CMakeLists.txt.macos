@@ -36,7 +36,8 @@ set(SOL2_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/external/sol2/include)
 # Source files (only Main.cpp for now, add more as needed)
 set(SOURCES
     src/Main.cpp
-    # src/Game.cpp  # Uncomment when Game.cpp exists
+    src/Game.cpp
+    src/Logger.cpp
 )
 
 # Create executable

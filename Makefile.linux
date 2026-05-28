@@ -40,7 +40,7 @@ LDFLAGS = $(shell sdl2-config --libs) \
           -ldl -lrt -lpthread
 
 # Source files
-SOURCES = src/Main.cpp src/Game.cpp $(IMGUI_SOURCES)
+SOURCES = $(wildcard src/*.cpp) $(IMGUI_SOURCES)
 
 OBJECTS = $(patsubst %.cpp,$(BUILD_DIR)/%.o,$(SOURCES))
 
