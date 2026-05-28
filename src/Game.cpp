@@ -154,10 +154,25 @@ void Game::Setup()
 int c = 0;
 void Game::Update()
 {
+    // Same delay using SDL TICKS PASSED but this time
+    // using SDL Delay
+    int timeToWait = MILLISECS_PER_FRAME - (SDL_GetTicks() - millisecsPreviousFrame);
+    if (timeToWait > 0 && timeToWait <= MILLISECS_PER_FRAME)
+    {
+        SDL_Delay(timeToWait);
+    }
+
+    // Update game state based on elapsed time
+    playerPosition.x += playerVelocity.x;
+    playerPosition.y += playerVelocity.y;
+
+
+    // This all process is manual but implies a really waste of resources
+    // A better option is to use SDL_Delay
 
     // add a delay until the frame time ends
     // SDL TICKS PASSED (current tick, last tick
-    Logger::Debug("Before millisecsPreviousFrame: " + std::to_string(millisecsPreviousFrame));
+    /*Logger::Debug("Before millisecsPreviousFrame: " + std::to_string(millisecsPreviousFrame));
     Logger::Debug("Before MILLISECS_PER_FRAME: " + std::to_string(MILLISECS_PER_FRAME));
     Logger::Debug("Before SDL_GetTicks(): " + std::to_string(SDL_GetTicks()));
     while (!SDL_TICKS_PASSED(SDL_GetTicks(), millisecsPreviousFrame + MILLISECS_PER_FRAME))
@@ -171,10 +186,7 @@ void Game::Update()
     Logger::Debug("After millisecsPreviousFrame: " + std::to_string(millisecsPreviousFrame));
     Logger::Debug("After MILLISECS_PER_FRAME: " + std::to_string(MILLISECS_PER_FRAME));
     Logger::Debug("After SDL_GetTicks(): " + std::to_string(SDL_GetTicks()));
-
-    // Update game state based on elapsed time
-    playerPosition.x += playerVelocity.x;
-    playerPosition.y += playerVelocity.y;
+    */
 }
 
 void Game::Render()
