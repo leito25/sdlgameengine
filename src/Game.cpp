@@ -162,9 +162,20 @@ void Game::Update()
         SDL_Delay(timeToWait);
     }
 
+    // The difference in ticks (time ticks) since the last frame, convert to seconds
+    // this is done to maintain a constance velocity no matter the specs of the machine
+    // or the framerate
+    double deltaTime = (SDL_GetTicks() - millisecsPreviousFrame) / 1000.0;
+
+    // Store the previous frame time that was use before in the
+    // SDL TICKS PASSED ticks approach
+    millisecsPreviousFrame = SDL_GetTicks();
+
+    int vel = 5;
+
     // Update game state based on elapsed time
-    playerPosition.x += playerVelocity.x;
-    playerPosition.y += playerVelocity.y;
+    playerPosition.x += playerVelocity.x * 50 * deltaTime;
+    playerPosition.y += playerVelocity.y * 50 * deltaTime;
 
 
     // This all process is manual but implies a really waste of resources
