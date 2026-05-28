@@ -115,7 +115,7 @@ Game loop, Game class, creating an SDL window, polling SDL events, rendering the
 - [x] Create and display an SDL window.
 - [x] Poll SDL events.
 - [x] Render a clear color to the SDL window.
-- [ ] Add or verify fullscreen behavior.
+- [x] Add or verify fullscreen behavior.
 - [x] Enable accelerated rendering and VSync where appropriate.
 
 **What to learn**
