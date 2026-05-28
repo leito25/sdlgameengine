@@ -182,6 +182,12 @@ Add timestep control and movement.
 **Course focus**
 Object movement, velocity vectors, fixed framerate, SDL delay, variable delta time, uncapped framerate, and determinism.
 
+**Timing note**
+- Fixed rate updates run game logic in equal-size steps, which keeps movement and physics more predictable across machines.
+- Delta time uses the elapsed time since the previous frame to scale movement, so animation speed is less tied to FPS.
+- This matters because real games run on hardware with different frame times; bad timing makes motion too fast, too slow, or unstable.
+- References: https://gafferongames.com/post/fix_your_timestep/ and https://wiki.libsdl.org/SDL2/SDL_Delay
+
 **Project work**
 - Add time-based movement to a visible object.
 - Compare fixed framerate and variable delta-time behavior.
