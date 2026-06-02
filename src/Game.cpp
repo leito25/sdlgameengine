@@ -14,6 +14,7 @@ Game::Game()
     Logger::Initialize();
     Logger::Info("Game constructor called");
     MyLogger::Log("Game constructor called!");
+    MyLogger::Err("Game constructor called!");
     // ColonColon means a static method
     // This doesn't create a new object, that is why useful
     // on the use of utilities.
