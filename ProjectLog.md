@@ -251,7 +251,7 @@ Clean up the project folder structure.
 **Status:** In progress
 
 **Related commits**
-- _None yet._
+- `f8157d9` - Reorganized source files into `Game`, `Logger`, and backup subfolders, updated build references for the new paths, and confirmed the texture asset path used by the executable.
 
 **Course focus**
 Project subfolders and Makefile variables.
@@ -264,7 +264,7 @@ Project subfolders and Makefile variables.
 **Progress checklist**
 - [x] Review current project subfolders.
 - [x] Review Makefile variables.
-- [ ] Confirm asset paths used by the executable.
+- [x] Confirm asset paths used by the executable.
 - [ ] Decide which generated documentation folders should stay tracked.
 
 **What to learn**
