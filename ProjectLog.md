@@ -215,10 +215,10 @@ Add structured engine logging.
 
 ### Session 06 - Logging
 
-**Status:** Not started
+**Status:** In progress
 
 **Related commits**
-- _None yet._
+- `cebec65` - Added a custom `MyLogger` utility with timestamped info/error entries, stored log messages, console output, and an initial constructor log call.
 
 **Course focus**
 Logger class, logging game information, coding a logger, common C++ logging libraries, and logger design tradeoffs.
@@ -229,10 +229,10 @@ Logger class, logging game information, coding a logger, common C++ logging libr
 - Avoid scattering raw `std::cout` calls through engine systems.
 
 **Progress checklist**
-- [ ] Create a Logger class.
-- [ ] Log game initialization and shutdown.
+- [x] Create a Logger class.
+- [x] Log game initialization and shutdown.
 - [ ] Log SDL errors with useful context.
-- [ ] Document whether the project uses a custom logger or third-party logger.
+- [x] Document whether the project uses a custom logger or third-party logger.
 
 **What to learn**
 - What information is useful during engine startup.
