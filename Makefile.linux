@@ -1,3 +1,10 @@
+# Little sample
+myCompiler = g++
+LangStandard = -std=c++17
+CompilerFlags = -Wall -Wfatal-errors
+IncludePaths = -I"./libs/"
+
+
 # Makefile for SDL Game Engine on Linux
 CXX = g++
 TARGET = SDLGameEngine
@@ -40,7 +47,8 @@ LDFLAGS = $(shell sdl2-config --libs) \
           -ldl -lrt -lpthread
 
 # Source files
-SOURCES = $(wildcard src/*.cpp) $(IMGUI_SOURCES)
+#SOURCES = $(wildcard src/*.cpp) $(IMGUI_SOURCES)
+SOURCES = $(shell find src -name '*.cpp') $(IMGUI_SOURCES)
 
 OBJECTS = $(patsubst %.cpp,$(BUILD_DIR)/%.o,$(SOURCES))
 
@@ -60,6 +68,7 @@ $(BUILD_DIR):
 $(TARGET): $(OBJECTS)
 	$(CXX) $(OBJECTS) -o $(TARGET) $(LDFLAGS)
 	@echo "✓ Build complete: ./$(TARGET)"
+	@echo "✓ Test complete: $(myCompiler)$(LangStandard)$(CompilerFlags)$(IncludePaths)"
 
 # Compilación de objetos individuales garantizando que la estructura de carpetas exista
 $(BUILD_DIR)/%.o: %.cpp
@@ -71,6 +80,7 @@ run: $(TARGET)
 
 clean:
 	rm -rf $(BUILD_DIR) $(TARGET)
+    @echo "✓ Test complete: $(myCompiler)$(LangStandard)$(CompilerFlags)$(IncludePaths)"
 
 rebuild: clean all
 

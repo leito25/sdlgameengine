@@ -563,4 +563,4 @@ For multi-threaded operations:
 ---
 
 !!! info "Source Code"
-    View the complete source code: [`src/Game.h`](../../src/Game.h) | [`src/Game.cpp`](../../src/Game.cpp)
+    View the complete source code: [`src/Game.h`](../../src/Game/Game.h) | [`src/Game.cpp`](../../src/Game/Game.cpp)

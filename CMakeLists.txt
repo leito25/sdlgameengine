@@ -56,8 +56,8 @@ set(IMGUI_SOURCES
 # Main executable
 add_executable(TwoDEngine
     src/Main.cpp
-    src/Game.cpp
-    src/Logger.cpp
+        src/Game/Game.cpp
+        src/Logger/Logger.cpp
     ${IMGUI_SOURCES}
 )
 

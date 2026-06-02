@@ -24,7 +24,7 @@ TwoDEngine uses an object-oriented architecture with a main `Game` class that en
 
 ## Game Class
 
-**File Location:** [`src/Game.h`](src/Game.h), [`src/Game.cpp`](src/Game.cpp)
+**File Location:** [`src/Game.h`](src/Game/Game.h), [`src/Game.cpp`](src/Game/Game.cpp)
 
 The `Game` class is the core of the engine, managing the entire game lifecycle from initialization to cleanup.
 

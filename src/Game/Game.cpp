@@ -1,10 +1,10 @@
 #include "Game.h"
-#include "Logger.h"
+#include "../Logger/Logger.h"
 #include <iostream>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_image.h>
 #include <glm/glm.hpp>
-#include <MyLogger.h>
+#include "../Logger/MyLogger.h"
 
 using namespace std;
 
