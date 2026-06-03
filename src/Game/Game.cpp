@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "../Logger/Logger.h"
+#include "../ECS/ECS.h"
 #include <iostream>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_image.h>
@@ -160,8 +161,17 @@ void Game::Setup()
     // This setup methods is like the Start of Unity
     // Or the Begin of Unreal Engine
 
-    playerPosition = glm::vec2(10.0, 20.0);
-    playerVelocity = glm::vec2(1.0, 0.0);
+    //playerPosition = glm::vec2(10.0, 20.0);
+    //playerVelocity = glm::vec2(1.0, 0.0);
+
+    // TODO:
+    // Entity tank = registry.CreateEntity();
+    // tank.Addcomponent<TransformComponent>();
+    // tank.AddComponent<BoxCollider>();
+    // tank.AddComponent<SpriteComponent>("path");
+
+
+
     Logger::Info("Game::Setup completed");
 }
 int c = 0;
@@ -189,6 +199,11 @@ void Game::Update()
     // Update game state based on elapsed time
     playerPosition.x += playerVelocity.x * 50 * deltaTime;
     playerPosition.y += playerVelocity.y * 50 * deltaTime;
+
+    //TODO: ECS System implementation
+    // MovementSystem.Update();
+    // CollisionSystem.Update();
+    // DamageSystem.Update();
 
 
     // This all process is manual but implies a really waste of resources
@@ -276,6 +291,11 @@ void Game::Render()
     SDL_DestroyTexture(texture);
 
 
+    //TODO: Implementing the RenderSystem
+    // Render the game objects
+
+
+
 
 
     // Present the rendered frame to the screen
@@ -286,6 +306,10 @@ void Game::Render()
     // and we need to call this function to swap the
     // buffers and present the rendered frame to the screen
     SDL_RenderPresent(renderer);
+
+
+
+
 }
 
 void Game::Destroy()
