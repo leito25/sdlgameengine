@@ -6,10 +6,10 @@ This document explains the two build modes available for your SDL Game Engine ma
 
 ```bash
 # DEBUG build - for development
-./build_macos_app_debug.sh
+./scripts/build_macos_app_debug.sh
 
 # RELEASE build - for distribution
-./build_macos_app_release.sh
+./scripts/build_macos_app_release.sh
 ```
 
 ## Build Comparison
@@ -39,11 +39,11 @@ For **development**, **testing**, and **debugging** your game engine.
 
 ### Build Command
 ```bash
-./build_macos_app_debug.sh [name] [version]
+./scripts/build_macos_app_debug.sh [name] [version]
 
 # Examples:
-./build_macos_app_debug.sh
-./build_macos_app_debug.sh "MyGame_Debug" "1.0.0-dev"
+./scripts/build_macos_app_debug.sh
+./scripts/build_macos_app_debug.sh "MyGame_Debug" "1.0.0-dev"
 ```
 
 ### Output
@@ -102,11 +102,11 @@ For **production**, **distribution**, and **end users**.
 
 ### Build Command
 ```bash
-./build_macos_app_release.sh [name] [version]
+./scripts/build_macos_app_release.sh [name] [version]
 
 # Examples:
-./build_macos_app_release.sh
-./build_macos_app_release.sh "MyGameEngine" "2.0.0"
+./scripts/build_macos_app_release.sh
+./scripts/build_macos_app_release.sh "MyGameEngine" "2.0.0"
 ```
 
 ### Output
@@ -194,7 +194,7 @@ CXXFLAGS = -std=c++17 -Wall -Wextra \
 
 1. **Start with Debug:**
    ```bash
-   ./build_macos_app_debug.sh
+   ./scripts/build_macos_app_debug.sh
    ```
 
 2. **Develop and test** with the debug build
@@ -203,7 +203,7 @@ CXXFLAGS = -std=c++17 -Wall -Wextra \
 
 4. **Switch to Release** when ready to ship:
    ```bash
-   ./build_macos_app_release.sh
+   ./scripts/build_macos_app_release.sh
    ```
 
 5. **Final testing** with release build
@@ -350,14 +350,14 @@ xcrun stapler staple SDLGameEngine.app
 
 ```bash
 # Build debug
-./build_macos_app_debug.sh
+./scripts/build_macos_app_debug.sh
 
 # Build release
-./build_macos_app_release.sh
+./scripts/build_macos_app_release.sh
 
 # Build with custom name/version
-./build_macos_app_debug.sh "MyGame" "1.5.0-beta"
-./build_macos_app_release.sh "MyGame" "1.5.0"
+./scripts/build_macos_app_debug.sh "MyGame" "1.5.0-beta"
+./scripts/build_macos_app_release.sh "MyGame" "1.5.0"
 
 # Run debug with sanitizer
 ASAN_OPTIONS=detect_leaks=1 ./SDLGameEngine_Debug.app/Contents/MacOS/SDLGameEngine_Debug

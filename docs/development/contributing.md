@@ -31,8 +31,8 @@ cd TwoDEngine
 
 ```bash
 # Run setup script
-setup.bat  # Windows
-./setup.sh # Linux/macOS
+scripts/setup.bat  # Windows
+./scripts/setup.sh # Linux/macOS
 
 # Build the project
 make

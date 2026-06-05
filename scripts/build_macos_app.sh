@@ -9,7 +9,7 @@
 # 4. Bundles required dynamic libraries
 # 5. Creates Info.plist with proper metadata
 #
-# Usage: ./build_macos_app.sh [app_name] [version]
+# Usage: ./scripts/build_macos_app.sh [app_name] [version]
 #
 
 set -e  # Exit on error

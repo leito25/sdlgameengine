@@ -55,19 +55,19 @@ open SDLGameEngine.app
 ### Rebuild the App
 
 ```bash
-./build_macos_app.sh
+./scripts/build_macos_app.sh
 ```
 
 ### Build with Custom Settings
 
 ```bash
-./build_macos_app.sh "MyGameEngine" "2.0.0"
+./scripts/build_macos_app.sh "MyGameEngine" "2.0.0"
 ```
 
 ## Files Created
 
 ### Build Script
-- `build_macos_app.sh` - Main build script for creating .app bundles
+- `scripts/build_macos_app.sh` - Main build script for creating .app bundles
 
 ### Documentation
 - `MACOS_APP_BUILD_README.md` - Complete guide for building macOS apps
@@ -112,7 +112,7 @@ SDLGameEngine.app/
 
 1. **Create a DMG:**
    ```bash
-   ./build_macos_app.sh
+   ./scripts/build_macos_app.sh
    # Answer 'y' when prompted for DMG creation
    ```
 

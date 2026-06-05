@@ -8,17 +8,17 @@ This directory contains convenient scripts for generating and viewing TwoDEngine
 
 | Script | Purpose | Usage |
 |--------|---------|-------|
-| [`serve_docs.bat`](serve_docs.bat:1) | Start MkDocs development server | Double-click or run `serve_docs.bat` |
-| [`view_api_docs.bat`](view_api_docs.bat:1) | Open Doxygen API documentation | Double-click or run `view_api_docs.bat` |
-| [`generate_all_docs.bat`](generate_all_docs.bat:1) | Generate all documentation | Double-click or run `generate_all_docs.bat` |
+| [`scripts/serve_docs.bat`](../scripts/serve_docs.bat:1) | Start MkDocs development server | Double-click or run `scripts/serve_docs.bat` |
+| [`scripts/view_api_docs.bat`](../scripts/view_api_docs.bat:1) | Open Doxygen API documentation | Double-click or run `scripts/view_api_docs.bat` |
+| [`scripts/generate_all_docs.bat`](../scripts/generate_all_docs.bat:1) | Generate all documentation | Double-click or run `scripts/generate_all_docs.bat` |
 
 ### Linux/macOS Scripts (.sh)
 
 | Script | Purpose | Usage |
 |--------|---------|-------|
-| [`serve_docs.sh`](serve_docs.sh:1) | Start MkDocs development server | `./serve_docs.sh` |
-| [`view_api_docs.sh`](view_api_docs.sh:1) | Open Doxygen API documentation | `./view_api_docs.sh` |
-| [`generate_all_docs.sh`](generate_all_docs.sh:1) | Generate all documentation | `./generate_all_docs.sh` |
+| [`scripts/serve_docs.sh`](../scripts/serve_docs.sh:1) | Start MkDocs development server | `./scripts/serve_docs.sh` |
+| [`scripts/view_api_docs.sh`](../scripts/view_api_docs.sh:1) | Open Doxygen API documentation | `./scripts/view_api_docs.sh` |
+| [`scripts/generate_all_docs.sh`](../scripts/generate_all_docs.sh:1) | Generate all documentation | `./scripts/generate_all_docs.sh` |
 
 ## Quick Start
 
@@ -26,13 +26,13 @@ This directory contains convenient scripts for generating and viewing TwoDEngine
 
 **Windows:**
 ```cmd
-serve_docs.bat
+scripts/serve_docs.bat
 ```
 
 **Linux/macOS:**
 ```bash
-chmod +x serve_docs.sh  # First time only
-./serve_docs.sh
+chmod +x scripts/serve_docs.sh  # First time only
+./scripts/serve_docs.sh
 ```
 
 Then open your browser to: **http://127.0.0.1:8000/TwoDEngine/**
@@ -41,31 +41,31 @@ Then open your browser to: **http://127.0.0.1:8000/TwoDEngine/**
 
 **Windows:**
 ```cmd
-view_api_docs.bat
+scripts/view_api_docs.bat
 ```
 
 **Linux/macOS:**
 ```bash
-chmod +x view_api_docs.sh  # First time only
-./view_api_docs.sh
+chmod +x scripts/view_api_docs.sh  # First time only
+./scripts/view_api_docs.sh
 ```
 
 ### Generate All Documentation
 
 **Windows:**
 ```cmd
-generate_all_docs.bat
+scripts/generate_all_docs.bat
 ```
 
 **Linux/macOS:**
 ```bash
-chmod +x generate_all_docs.sh  # First time only
-./generate_all_docs.sh
+chmod +x scripts/generate_all_docs.sh  # First time only
+./scripts/generate_all_docs.sh
 ```
 
 ## Script Details
 
-### serve_docs.bat / serve_docs.sh
+### scripts/serve_docs.bat / scripts/serve_docs.sh
 
 **What it does:**
 - Checks if Python is installed
@@ -94,7 +94,7 @@ chmod +x generate_all_docs.sh  # First time only
 Press Ctrl+C to stop the server
 ```
 
-### view_api_docs.bat / view_api_docs.sh
+### scripts/view_api_docs.bat / scripts/view_api_docs.sh
 
 **What it does:**
 - Checks if Doxygen documentation exists
@@ -118,7 +118,7 @@ Press Ctrl+C to stop the server
 Location: docs/api/html/index.html
 ```
 
-### generate_all_docs.bat / generate_all_docs.sh
+### scripts/generate_all_docs.bat / scripts/generate_all_docs.sh
 
 **What it does:**
 1. Generates Doxygen API documentation
@@ -210,7 +210,7 @@ pip3 install mkdocs mkdocs-material
 ### "Permission denied" (Linux/macOS)
 ```bash
 # Make scripts executable
-chmod +x serve_docs.sh view_api_docs.sh generate_all_docs.sh
+chmod +x scripts/serve_docs.sh scripts/view_api_docs.sh scripts/generate_all_docs.sh
 ```
 
 ### MkDocs server won't start
@@ -233,8 +233,8 @@ rm -rf site/ docs/api/html/ docs/api/xml/  # Linux/macOS
 rmdir /s site docs\api\html docs\api\xml   # Windows
 
 # Then regenerate
-./generate_all_docs.sh  # Linux/macOS
-generate_all_docs.bat   # Windows
+./scripts/generate_all_docs.sh  # Linux/macOS
+scripts/generate_all_docs.bat   # Windows
 ```
 
 ## Manual Commands
@@ -277,12 +277,12 @@ TwoDEngine/
 │   ├── examples/
 │   └── development/
 ├── site/                  # MkDocs static site
-├── serve_docs.bat         # Start MkDocs server (Windows)
-├── serve_docs.sh          # Start MkDocs server (Linux/macOS)
-├── view_api_docs.bat      # View API docs (Windows)
-├── view_api_docs.sh       # View API docs (Linux/macOS)
-├── generate_all_docs.bat  # Generate all docs (Windows)
-└── generate_all_docs.sh   # Generate all docs (Linux/macOS)
+├── scripts/serve_docs.bat         # Start MkDocs server (Windows)
+├── scripts/serve_docs.sh          # Start MkDocs server (Linux/macOS)
+├── scripts/view_api_docs.bat      # View API docs (Windows)
+├── scripts/view_api_docs.sh       # View API docs (Linux/macOS)
+├── scripts/generate_all_docs.bat  # Generate all docs (Windows)
+└── scripts/generate_all_docs.sh   # Generate all docs (Linux/macOS)
 ```
 
 ## Additional Resources

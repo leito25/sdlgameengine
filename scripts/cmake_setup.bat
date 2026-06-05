@@ -25,7 +25,7 @@ if %ERRORLEVEL% NEQ 0 (
 echo CMake and MinGW found. Proceeding with setup...
 
 REM Run the regular setup script to download dependencies
-call setup.bat
+call "%~dp0setup.bat"
 if %ERRORLEVEL% NEQ 0 (
     echo ERROR: Failed to run setup.bat
     goto :error

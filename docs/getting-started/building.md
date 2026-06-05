@@ -48,22 +48,22 @@ make VERBOSE=1
 
 TwoDEngine provides convenient batch files for common workflows:
 
-#### build_and_run.bat
+#### scripts/build_and_run.bat
 Builds the project and runs the executable:
 ```cmd
-build_and_run.bat
+scripts/build_and_run.bat
 ```
 
-#### build_run_engine.bat
+#### scripts/build_run_engine.bat
 Builds, runs, and packages the engine:
 ```cmd
-build_run_engine.bat
+scripts/build_run_engine.bat
 ```
 
-#### pack_engine.bat
+#### scripts/pack_engine.bat
 Creates a distributable package:
 ```cmd
-pack_engine.bat
+scripts/pack_engine.bat
 ```
 
 ## Build Configuration
@@ -234,8 +234,8 @@ brew install make
 **Solution**: Ensure SDL2 libraries are in the correct location
 ```bash
 # Run setup script
-setup.bat  # Windows
-./setup.sh # Linux/macOS
+scripts/setup.bat  # Windows
+./scripts/setup.sh # Linux/macOS
 ```
 
 ### Issue: "cannot find -lSDL2"
@@ -283,7 +283,7 @@ jobs:
       - name: Setup MinGW
         uses: egor-tensin/setup-mingw@v2
       - name: Run Setup
-        run: setup.bat
+        run: scripts/setup.bat
       - name: Build
         run: make
       - name: Test

@@ -25,13 +25,13 @@ TwoDEngine includes a convenient setup script that downloads and configures all 
 
 #### Windows
 ```cmd
-setup.bat
+scripts/setup.bat
 ```
 
 #### Linux/macOS
 ```bash
-chmod +x setup.sh
-./setup.sh
+chmod +x scripts/setup.sh
+./scripts/setup.sh
 ```
 
 The setup script will:
@@ -69,10 +69,10 @@ TwoDEngine provides convenient batch files for common tasks:
 
 ```cmd
 # Build and run the engine
-build_and_run.bat
+scripts/build_and_run.bat
 
 # Build, run, and package the engine
-build_run_engine.bat
+scripts/build_run_engine.bat
 ```
 
 ## Your First Program
@@ -271,7 +271,7 @@ Congratulations! You've successfully set up TwoDEngine and created your first pr
 If you encounter build errors, try:
 
 1. **Clean and rebuild**: `make clean && make`
-2. **Verify dependencies**: Run `setup.bat` again
+2. **Verify dependencies**: Run `scripts/setup.bat` again
 3. **Check compiler**: Ensure MinGW or GCC is in your PATH
 
 ### Missing DLLs (Windows)
@@ -279,7 +279,7 @@ If you encounter build errors, try:
 If you get "missing DLL" errors when running:
 
 1. Ensure all DLLs are in the `bin/` directory
-2. Run `setup.bat` to copy DLLs automatically
+2. Run `scripts/setup.bat` to copy DLLs automatically
 3. Check that SDL2, Lua, and Python DLLs are present
 
 ### Linker Errors
@@ -302,4 +302,4 @@ If you're stuck, here are some resources:
 ---
 
 !!! tip "Pro Tip"
-    Use the provided batch files (`build_and_run.bat`, `build_run_engine.bat`) for faster development iterations on Windows!
+    Use the provided batch files (`scripts/build_and_run.bat`, `scripts/build_run_engine.bat`) for faster development iterations on Windows!

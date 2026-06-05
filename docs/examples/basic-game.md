@@ -290,7 +290,7 @@ void Game::Destroy()
 make
 
 # Or use the batch file (Windows)
-build_and_run.bat
+scripts/build_and_run.bat
 ```
 
 ### Run the Game

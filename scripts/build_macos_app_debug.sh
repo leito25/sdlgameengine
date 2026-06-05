@@ -1,41 +1,42 @@
 #!/bin/bash
 #
-# build_macos_app_release.sh - Build SDL Game Engine as a macOS .app bundle (RELEASE)
+# build_macos_app_debug.sh - Build SDL Game Engine as a macOS .app bundle (DEBUG)
 #
-# This script creates a RELEASE build with:
-# - Full optimizations (O3 + LTO)
-# - Debug symbols stripped
-# - Smaller binary size
-# - Ready for distribution
+# This script creates a DEBUG build with:
+# - Debug symbols enabled (dSYM bundle)
+# - No optimizations (-O0)
+# - AddressSanitizer enabled
+# - All assertions enabled
+# - Verbose error messages
 #
-# Usage: ./build_macos_app_release.sh [app_name] [version]
+# Usage: ./scripts/build_macos_app_debug.sh [app_name] [version]
 #
 
 set -e  # Exit on error
 
 # Configuration
-APP_NAME="${1:-SDLGameEngine}"
-APP_VERSION="${2:-1.0.0}"
+APP_NAME="${1:-SDLGameEngine_Debug}"
+APP_VERSION="${2:-1.0.0-debug}"
 APP_BUNDLE="${APP_NAME}.app"
-BUILD_DIR="build_macos_release"
-MAKEFILE="Makefile.macos.release"
+BUILD_DIR="build_macos_debug"
+MAKEFILE="Makefile.macos.debug"
 
 echo "╔════════════════════════════════════════════╗"
-echo "║  Building macOS App Bundle - RELEASE MODE  ║"
+echo "║   Building macOS App Bundle - DEBUG MODE   ║"
 echo "╚════════════════════════════════════════════╝"
 echo ""
 echo "App Name: $APP_NAME"
 echo "Version: $APP_VERSION"
-echo "Build Type: RELEASE"
-echo "  - Optimizations: FULL (O3 + LTO)"
-echo "  - Debug Symbols: STRIPPED"
-echo "  - Binary Size: MINIMIZED"
-echo "  - Ready for: DISTRIBUTION"
+echo "Build Type: DEBUG"
+echo "  - Optimizations: DISABLED (O0)"
+echo "  - Debug Symbols: ENABLED"
+echo "  - AddressSanitizer: ENABLED"
+echo "  - Assertions: ENABLED"
 echo ""
 
 # Step 1: Build the project
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "Step 1: Building RELEASE executable..."
+echo "Step 1: Building DEBUG executable..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 make -f "$MAKEFILE" clean
 make -f "$MAKEFILE"
@@ -54,19 +55,22 @@ mkdir -p "$APP_BUNDLE/Contents/Frameworks"
 echo "✓ Bundle structure created"
 echo ""
 
-# Step 3: Copy executable
+# Step 3: Copy executable and debug symbols
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "Step 3: Copying optimized executable..."
+echo "Step 3: Copying executable and debug symbols..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 cp "./$EXECUTABLE_NAME" "$APP_BUNDLE/Contents/MacOS/$APP_NAME"
 chmod +x "$APP_BUNDLE/Contents/MacOS/$APP_NAME"
+echo "✓ Executable copied"
 
-# Additional stripping to minimize size
-strip -x "$APP_BUNDLE/Contents/MacOS/$APP_NAME" 2>/dev/null || true
-
-EXEC_SIZE=$(du -sh "$APP_BUNDLE/Contents/MacOS/$APP_NAME" | cut -f1)
-echo "✓ Executable copied and stripped"
-echo "  Final size: $EXEC_SIZE"
+# Copy dSYM bundle if it exists
+if [ -d "${EXECUTABLE_NAME}.dSYM" ]; then
+    cp -R "${EXECUTABLE_NAME}.dSYM" "$APP_BUNDLE/Contents/Resources/"
+    echo "✓ Debug symbols (.dSYM) copied"
+else
+    echo "⚠ No .dSYM file found (creating...)"
+    dsymutil "./$EXECUTABLE_NAME" -o "$APP_BUNDLE/Contents/Resources/${EXECUTABLE_NAME}.dSYM"
+fi
 echo ""
 
 # Step 4: Copy resources
@@ -81,17 +85,6 @@ fi
 if [ -f "config.json" ]; then
     cp config.json "$APP_BUNDLE/Contents/Resources/"
     echo "✓ Config file copied"
-fi
-
-# Copy README for distribution
-if [ -f "README.md" ]; then
-    cp README.md "$APP_BUNDLE/Contents/Resources/"
-    echo "✓ README copied"
-fi
-
-if [ -f "LICENSE" ]; then
-    cp LICENSE "$APP_BUNDLE/Contents/Resources/"
-    echo "✓ LICENSE copied"
 fi
 echo ""
 
@@ -110,8 +103,6 @@ copy_library() {
     if [ -f "$lib_path" ]; then
         if [ ! -f "$FRAMEWORKS_DIR/$lib_name" ]; then
             cp "$lib_path" "$FRAMEWORKS_DIR/"
-            # Strip debug symbols from libraries
-            strip -x "$FRAMEWORKS_DIR/$lib_name" 2>/dev/null || true
             echo "  ✓ Copied: $lib_name"
 
             # Fix the library's own id
@@ -185,10 +176,10 @@ otool -L "$EXECUTABLE" 2>/dev/null | grep -E '^\s+/(opt/homebrew|usr/local|Libra
     fi
 done
 
-echo "✓ Libraries bundled, stripped, and paths fixed"
+echo "✓ Libraries bundled and paths fixed"
 echo ""
 
-# Step 6: Create Info.plist (RELEASE version)
+# Step 6: Create Info.plist (DEBUG version)
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "Step 6: Creating Info.plist..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
@@ -202,13 +193,13 @@ cat > "$APP_BUNDLE/Contents/Info.plist" << EOF
     <key>CFBundleExecutable</key>
     <string>$APP_NAME</string>
     <key>CFBundleIdentifier</key>
-    <string>com.leolab.${APP_NAME}</string>
+    <string>com.leolab.${APP_NAME}.debug</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
     <string>$APP_NAME</string>
     <key>CFBundleDisplayName</key>
-    <string>SDL Game Engine</string>
+    <string>$APP_NAME (Debug)</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
@@ -223,25 +214,22 @@ cat > "$APP_BUNDLE/Contents/Info.plist" << EOF
     <string>NSApplication</string>
     <key>LSApplicationCategoryType</key>
     <string>public.app-category.developer-tools</string>
-    <key>NSHumanReadableCopyright</key>
-    <string>© 2026 LeoLab. All rights reserved.</string>
+    <key>CFBundleGetInfoString</key>
+    <string>DEBUG BUILD - Not for distribution</string>
 </dict>
 </plist>
 EOF
-echo "✓ Info.plist created (RELEASE configuration)"
+echo "✓ Info.plist created (DEBUG configuration)"
 echo ""
 
-# Step 7: Code signing
+# Step 7: Code signing (debug)
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "Step 7: Code signing..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 if command -v codesign &> /dev/null; then
-    echo "  Signing app bundle..."
+    echo "  Signing app bundle (ad-hoc)..."
     codesign --force --deep --sign - "$APP_BUNDLE" 2>/dev/null
     echo "✓ App bundle signed (ad-hoc signature)"
-    echo ""
-    echo "  ℹ️  For distribution, use:"
-    echo "     codesign --sign \"Developer ID Application: Your Name\" $APP_BUNDLE"
 else
     echo "⚠ codesign not found, skipping signing"
 fi
@@ -249,82 +237,50 @@ echo ""
 
 # Step 8: Verification
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "Step 8: Verifying RELEASE app bundle..."
+echo "Step 8: Verifying DEBUG app bundle..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 if [ -d "$APP_BUNDLE" ]; then
     APP_SIZE=$(du -sh "$APP_BUNDLE" | cut -f1)
     EXEC_SIZE=$(du -sh "$EXECUTABLE" | cut -f1)
     LIB_COUNT=$(ls -1 "$FRAMEWORKS_DIR" | wc -l)
-    FRAMEWORKS_SIZE=$(du -sh "$FRAMEWORKS_DIR" | cut -f1)
 
-    echo "✓ RELEASE app bundle created successfully"
+    echo "✓ DEBUG app bundle created successfully"
     echo ""
     echo "📦 Bundle Information:"
     echo "  Location: $PWD/$APP_BUNDLE"
     echo "  Total Size: $APP_SIZE"
-    echo "  Executable: $EXEC_SIZE"
-    echo "  Frameworks: $FRAMEWORKS_SIZE ($LIB_COUNT libraries)"
+    echo "  Executable Size: $EXEC_SIZE"
+    echo "  Bundled Libraries: $LIB_COUNT"
     echo ""
-    echo "🚀 Release Features:"
-    echo "  ✓ Fully optimized (O3 + LTO)"
-    echo "  ✓ Debug symbols stripped"
-    echo "  ✓ All libraries bundled"
-    echo "  ✓ Portable (no Homebrew needed)"
-    echo "  ✓ Ready for distribution"
+    echo "🐛 Debug Features:"
+    echo "  ✓ Debug symbols included (.dSYM)"
+    echo "  ✓ AddressSanitizer enabled"
+    echo "  ✓ No optimizations (easier debugging)"
+    echo "  ✓ All assertions enabled"
     echo ""
 
-    # Verify dependencies
-    echo "🔍 Verifying dependencies..."
-    if otool -L "$EXECUTABLE" | grep -q '/opt/homebrew\|/usr/local'; then
-        echo "  ⚠ Some Homebrew dependencies detected (Python/system libs)"
-    else
-        echo "  ✓ All dependencies properly bundled"
+    # Show bundled libraries
+    echo "📚 Bundled libraries:"
+    ls -1 "$FRAMEWORKS_DIR" | head -10 | sed 's/^/    - /'
+    if [ "$LIB_COUNT" -gt 10 ]; then
+        echo "    ... and $((LIB_COUNT - 10)) more"
     fi
     echo ""
 fi
 
 echo "╔════════════════════════════════════════════╗"
-echo "║       RELEASE BUILD COMPLETE! 🚀           ║"
+echo "║         DEBUG BUILD COMPLETE! 🐛           ║"
 echo "╚════════════════════════════════════════════╝"
 echo ""
-
-# Step 9: Create DMG (optional)
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-read -p "📀 Create a DMG for distribution? (y/N): " -n 1 -r
-echo
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    DMG_NAME="${APP_NAME}-${APP_VERSION}-macOS.dmg"
-    echo "Creating DMG: $DMG_NAME"
-    echo ""
-
-    # Remove old DMG if exists
-    rm -f "$DMG_NAME"
-
-    # Create DMG
-    hdiutil create -volname "$APP_NAME" \
-                   -srcfolder "$APP_BUNDLE" \
-                   -ov \
-                   -format UDZO \
-                   "$DMG_NAME"
-
-    if [ -f "$DMG_NAME" ]; then
-        DMG_SIZE=$(du -sh "$DMG_NAME" | cut -f1)
-        echo ""
-        echo "✓ DMG created successfully!"
-        echo "  File: $DMG_NAME"
-        echo "  Size: $DMG_SIZE"
-        echo ""
-        echo "📦 Ready to distribute!"
-    fi
-fi
-
-echo ""
-echo "🚀 To run the RELEASE app:"
+echo "🚀 To run the DEBUG app:"
 echo "  open $APP_BUNDLE"
 echo ""
-echo "📦 To test from command line:"
-echo "  ./$APP_BUNDLE/Contents/MacOS/$APP_NAME"
+echo "🔍 To debug:"
+echo "  lldb $APP_BUNDLE/Contents/MacOS/$APP_NAME"
 echo ""
-echo "✅ This RELEASE build is ready for distribution!"
+echo "📊 To run with sanitizer:"
+echo "  ASAN_OPTIONS=detect_leaks=1 ./$APP_BUNDLE/Contents/MacOS/$APP_NAME"
+echo ""
+echo "⚠️  Note: This DEBUG build is NOT for distribution!"
+echo "   Use build_macos_app_release.sh for production builds."
 echo ""

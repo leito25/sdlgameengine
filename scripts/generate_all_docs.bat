@@ -97,8 +97,8 @@ echo   2. User Guide (MkDocs):
 echo      site\index.html
 echo.
 echo To view documentation:
-echo   - Run: serve_docs.bat (for live server)
-echo   - Run: view_api_docs.bat (for API docs)
+echo   - Run: scripts\serve_docs.bat (for live server)
+echo   - Run: scripts\view_api_docs.bat (for API docs)
 echo   - Or open the HTML files directly
 echo.
 pause

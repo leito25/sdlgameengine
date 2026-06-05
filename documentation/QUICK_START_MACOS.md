@@ -4,7 +4,7 @@
 
 ```bash
 # 1. Run the setup script
-./setup_macos.sh
+./scripts/setup_macos.sh
 
 # 2. Build the project
 make -f Makefile.macos
@@ -33,7 +33,7 @@ make -f Makefile.macos clean
 make -f Makefile.macos rebuild
 
 # Create release package
-./pack_engine_macos.sh
+./scripts/pack_engine_macos.sh
 ```
 
 ## 🛠️ VSCode Tasks

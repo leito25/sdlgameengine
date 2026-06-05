@@ -45,7 +45,7 @@ fi
 # Copy documentation
 echo "Copying documentation..."
 [ -f "README.md" ] && cp README.md "$DIST_DIR/"
-[ -f "BUILD_INSTRUCTIONS_MACOS.md" ] && cp BUILD_INSTRUCTIONS_MACOS.md "$DIST_DIR/"
+[ -f "documentation/BUILD_INSTRUCTIONS_MACOS.md" ] && cp documentation/BUILD_INSTRUCTIONS_MACOS.md "$DIST_DIR/"
 
 # Create a launcher script
 echo "Creating launcher script..."

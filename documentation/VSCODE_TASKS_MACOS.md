@@ -13,7 +13,7 @@ You can run these tasks from VSCode using:
 ### 1. **Setup Environment**
 - **Shortcut**: Manual trigger
 - **Description**: Runs the setup script to install all dependencies
-- **macOS Command**: `./setup.sh` (now uses Homebrew-based setup)
+- **macOS Command**: `./scripts/setup.sh` (now uses Homebrew-based setup)
 - **Use Case**: First-time setup or when dependencies change
 
 ---
@@ -37,7 +37,7 @@ You can run these tasks from VSCode using:
 ### 4. **Pack Engine (Debug)**
 - **Shortcut**: Manual trigger
 - **Description**: Creates a distributable package with debug symbols
-- **macOS Command**: `./pack_engine_macos.sh debug`
+- **macOS Command**: `./scripts/pack_engine_macos.sh debug`
 - **Output**: `dist-debug/` directory
 - **Use Case**: Creating debug builds for testing on other machines
 
@@ -46,7 +46,7 @@ You can run these tasks from VSCode using:
 ### 5. **Pack Engine (Release)**
 - **Shortcut**: Manual trigger
 - **Description**: Creates an optimized distributable package
-- **macOS Command**: `./pack_engine_macos.sh`
+- **macOS Command**: `./scripts/pack_engine_macos.sh`
 - **Output**: `dist/` directory
 - **Use Case**: Creating release builds for distribution
 
@@ -81,7 +81,7 @@ You can run these tasks from VSCode using:
 1. **First Time Setup**:
    ```bash
    # Run the setup script
-   ./setup_macos.sh
+   ./scripts/setup_macos.sh
    ```
 
 2. **Daily Development**:
@@ -103,8 +103,8 @@ You can run these tasks from VSCode using:
 
 ### Created:
 - `Makefile.macos` - Main build system for macOS
-- `pack_engine_macos.sh` - Distribution packaging script
-- `setup_macos.sh` - Modern Homebrew-based setup script
+- `scripts/pack_engine_macos.sh` - Distribution packaging script
+- `scripts/setup_macos.sh` - Modern Homebrew-based setup script
 - `BUILD_INSTRUCTIONS_MACOS.md` - Detailed build documentation
 - `CMakeLists.txt.macos` - CMake alternative build system
 
@@ -142,7 +142,7 @@ No need to manually switch between configurations!
 - Run: `chmod +x *.sh`
 
 ### "Dependencies not found"
-- Run: `./setup_macos.sh`
+- Run: `./scripts/setup_macos.sh`
 - Or manually: `brew install sdl2 sdl2_image sdl2_ttf sdl2_mixer glm lua@5.4 pybind11`
 
 ---

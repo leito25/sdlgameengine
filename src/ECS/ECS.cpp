@@ -1,21 +1,5 @@
 #pragma once
+// definitions of the classes, and their members, but not the implementation of the functions.
+#include "ECS.h"
 
-class Component
-{
-    //TODO
-};
-
-class Entity
-{
-    // TODO
-};
-
-class System
-{
-    //TODO
-};
-
-class Registry
-{
-    //TODO
-};
+int Entity::GetId() const { return id; }

@@ -5,25 +5,25 @@
             "label": "Setup Environment",
             "type": "shell",
             "windows": {
-                "command": "${workspaceFolder}/setup.bat"
+                "command": "${workspaceFolder}/scripts/setup.bat"
             },
             "osx": {
-                "command": "${workspaceFolder}/setup.sh"
+                "command": "${workspaceFolder}/scripts/setup.sh"
             },
             "linux": {
-                "command": "${workspaceFolder}/setup.sh"
+                "command": "${workspaceFolder}/scripts/setup.sh"
             },
             "presentation": {
                 "reveal": "always",
                 "panel": "new"
             },
-            "detail": "Runs the setup script to install dependencies and configure the development environment. Uses setup.bat on Windows and setup.sh on macOS/Linux."
+            "detail": "Runs the setup script to install dependencies and configure the development environment. Uses scripts/setup.bat on Windows and scripts/setup.sh on macOS/Linux."
         },
         {
             "label": "Build and Run Engine (Debug)",
             "type": "shell",
             "windows": {
-                "command": "${workspaceFolder}/build_and_run.bat"
+                "command": "${workspaceFolder}/scripts/build_and_run.bat"
             },
             "osx": {
                 "command": "make -f Makefile.macos && ./SDLGameEngine"
@@ -45,7 +45,7 @@
             "label": "Build and Run Engine (Release)",
             "type": "shell",
             "windows": {
-                "command": "${workspaceFolder}/build_and_run.bat",
+                "command": "${workspaceFolder}/scripts/build_and_run.bat",
                 "args": [
                     "release"
                 ]
@@ -67,19 +67,19 @@
             "label": "Pack Engine (Debug)",
             "type": "shell",
             "windows": {
-                "command": "${workspaceFolder}/pack_engine.bat",
+                "command": "${workspaceFolder}/scripts/pack_engine.bat",
                 "args": [
                     "debug"
                 ]
             },
             "osx": {
-                "command": "${workspaceFolder}/pack_engine_macos.sh",
+                "command": "${workspaceFolder}/scripts/pack_engine_macos.sh",
                 "args": [
                     "debug"
                 ]
             },
             "linux": {
-                "command": "${workspaceFolder}/pack_engine_macos.sh",
+                "command": "${workspaceFolder}/scripts/pack_engine_macos.sh",
                 "args": [
                     "debug"
                 ]
@@ -98,13 +98,13 @@
             "label": "Pack Engine (Release)",
             "type": "shell",
             "windows": {
-                "command": "${workspaceFolder}/pack_engine.bat"
+                "command": "${workspaceFolder}/scripts/pack_engine.bat"
             },
             "osx": {
-                "command": "${workspaceFolder}/pack_engine_macos.sh"
+                "command": "${workspaceFolder}/scripts/pack_engine_macos.sh"
             },
             "linux": {
-                "command": "${workspaceFolder}/pack_engine_macos.sh"
+                "command": "${workspaceFolder}/scripts/pack_engine_macos.sh"
             },
             "group": "build",
             "problemMatcher": [

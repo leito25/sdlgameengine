@@ -6,15 +6,15 @@ This document explains how to build your SDL Game Engine as a standalone macOS `
 
 ```bash
 # Build the app with default settings
-./build_macos_app.sh
+./scripts/build_macos_app.sh
 
 # Build with custom name and version
-./build_macos_app.sh "MyGameEngine" "2.0.0"
+./scripts/build_macos_app.sh "MyGameEngine" "2.0.0"
 ```
 
 ## What the Script Does
 
-The `build_macos_app.sh` script performs the following steps:
+The `scripts/build_macos_app.sh` script performs the following steps:
 
 1. **Builds the project** using `Makefile.macos`
 2. **Creates .app bundle structure** with proper macOS directories:
@@ -133,12 +133,12 @@ The current script uses ad-hoc signing (`codesign -s -`), which works for person
 
 ### Change App Name
 ```bash
-./build_macos_app.sh "MyCustomName"
+./scripts/build_macos_app.sh "MyCustomName"
 ```
 
 ### Change Version Number
 ```bash
-./build_macos_app.sh "MyApp" "2.5.0"
+./scripts/build_macos_app.sh "MyApp" "2.5.0"
 ```
 
 ### Add an Icon
@@ -209,7 +209,7 @@ The app bundle is portable and includes all dependencies except:
 
 To build the app, you need:
 - Xcode Command Line Tools
-- Homebrew packages (installed via `setup_macos.sh`):
+- Homebrew packages (installed via `scripts/setup_macos.sh`):
   - SDL2, SDL2_image, SDL2_ttf, SDL2_mixer
   - lua@5.4, glm, pybind11
   - Python 3.14+
@@ -235,12 +235,12 @@ rm -rf SDLGameEngine.app
 rm -f SDLGameEngine-*.dmg
 
 # Build fresh
-./build_macos_app.sh
+./scripts/build_macos_app.sh
 ```
 
 ## Summary
 
-The `build_macos_app.sh` script creates a fully self-contained macOS application that:
+The `scripts/build_macos_app.sh` script creates a fully self-contained macOS application that:
 
 ✓ Includes all required libraries  
 ✓ Works on other Macs without Homebrew  

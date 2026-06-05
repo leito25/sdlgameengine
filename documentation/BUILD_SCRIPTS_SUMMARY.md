@@ -7,8 +7,8 @@ You now have complete DEBUG and RELEASE build scripts for your SDL Game Engine.
 ## What Was Created
 
 ### Build Scripts
-1. **`build_macos_app_debug.sh`** - Debug build for development
-2. **`build_macos_app_release.sh`** - Release build for distribution
+1. **`scripts/build_macos_app_debug.sh`** - Debug build for development
+2. **`scripts/build_macos_app_release.sh`** - Release build for distribution
 
 ### Makefiles
 1. **`Makefile.macos.debug`** - Debug compilation settings
@@ -22,7 +22,7 @@ You now have complete DEBUG and RELEASE build scripts for your SDL Game Engine.
 
 ### Debug Build (for development)
 ```bash
-./build_macos_app_debug.sh
+./scripts/build_macos_app_debug.sh
 ```
 
 **Output:** `SDLGameEngine_Debug.app` (31 MB)
@@ -32,7 +32,7 @@ You now have complete DEBUG and RELEASE build scripts for your SDL Game Engine.
 
 ### Release Build (for distribution)
 ```bash
-./build_macos_app_release.sh
+./scripts/build_macos_app_release.sh
 ```
 
 **Output:** `SDLGameEngine.app` (36 MB)  
@@ -103,19 +103,19 @@ You now have complete DEBUG and RELEASE build scripts for your SDL Game Engine.
 ### Basic Usage
 ```bash
 # Debug build - default name
-./build_macos_app_debug.sh
+./scripts/build_macos_app_debug.sh
 
 # Release build - default name
-./build_macos_app_release.sh
+./scripts/build_macos_app_release.sh
 ```
 
 ### Custom Names
 ```bash
 # Debug with custom name
-./build_macos_app_debug.sh "MyGame_Dev" "1.5.0-beta"
+./scripts/build_macos_app_debug.sh "MyGame_Dev" "1.5.0-beta"
 
 # Release with version
-./build_macos_app_release.sh "MyGameEngine" "2.0.0"
+./scripts/build_macos_app_release.sh "MyGameEngine" "2.0.0"
 ```
 
 ### Run the Apps
@@ -160,7 +160,7 @@ Including:
 ### Development Cycle
 1. **Start with debug build:**
    ```bash
-   ./build_macos_app_debug.sh
+   ./scripts/build_macos_app_debug.sh
    ```
 
 2. **Develop and test** - AddressSanitizer will catch issues
@@ -169,7 +169,7 @@ Including:
 
 4. **Build release version:**
    ```bash
-   ./build_macos_app_release.sh
+   ./scripts/build_macos_app_release.sh
    ```
 
 5. **Final testing** with optimized build
@@ -222,7 +222,7 @@ zip -r SDLGameEngine_Debug.zip SDLGameEngine_Debug.app
 ### For End Users
 Create a DMG from release build:
 ```bash
-./build_macos_app_release.sh
+./scripts/build_macos_app_release.sh
 # Answer 'y' when prompted
 ```
 
@@ -300,8 +300,8 @@ To properly distribute:
 
 ```
 Your Project/
-├── build_macos_app_debug.sh       # DEBUG build script
-├── build_macos_app_release.sh     # RELEASE build script
+├── scripts/build_macos_app_debug.sh       # DEBUG build script
+├── scripts/build_macos_app_release.sh     # RELEASE build script
 ├── Makefile.macos.debug           # DEBUG compiler settings
 ├── Makefile.macos.release         # RELEASE compiler settings
 ├── BUILD_MODES_README.md          # Full documentation
@@ -340,10 +340,10 @@ Your Project/
 
 ```bash
 # Build debug
-./build_macos_app_debug.sh
+./scripts/build_macos_app_debug.sh
 
 # Build release
-./build_macos_app_release.sh
+./scripts/build_macos_app_release.sh
 
 # Clean everything
 make -f Makefile.macos.debug clean

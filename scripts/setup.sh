@@ -11,7 +11,7 @@ echo ""
 # Ensure script is run with sudo for package installation
 if [ "$EUID" -ne 0 ]; then
     echo "ERROR: Please run this script with sudo!"
-    echo "Example: sudo ./setup_linux.sh"
+    echo "Example: sudo ./scripts/setup.sh"
     exit 1
 fi
 

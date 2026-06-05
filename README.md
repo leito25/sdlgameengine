@@ -81,11 +81,10 @@ TwoDEngine/
 │   ├── tasks.json             # Build and run tasks
 │   ├── launch.json            # Debugging configurations
 │   └── settings.json          # Editor settings
+├── documentation/             # Project guides and build documentation
+├── scripts/                   # Setup, build, packaging, and docs helper scripts
 ├── Makefile                   # Build configuration
 ├── CMakeLists.txt             # CMake build configuration
-├── build_run_engine.bat       # Batch file to build and run the engine
-├── pack_engine.bat            # Batch file to package the engine
-├── cmake_setup.bat            # CMake setup script
 └── README.md                  # This file
 ```
 
@@ -143,10 +142,10 @@ cd TwoDEngine
 
 ```bash
 # Windows
-setup.bat
+scripts/setup.bat
 
 # Linux/macOS
-./setup.sh
+./scripts/setup.sh
 ```
 
 This script will:
@@ -187,7 +186,7 @@ You should see a window appear with a blue background and an ImGui window titled
 2. Build and run the project using the provided batch files:
    ```bash
    # To build and run the main engine
-   build_run_engine.bat
+   scripts/build_run_engine.bat
 
    # To build and run the sample game (Lua)
    build_run_sample_game.bat
@@ -228,13 +227,13 @@ This section provides information about the batch files created to simplify buil
 
 ### Available Batch Files
 
-#### 1. build_run_engine.bat
+#### 1. scripts/build_run_engine.bat
 
 Builds and runs the main TwoDEngine application.
 
 **Usage:**
 ```bash
-build_run_engine.bat [release]
+scripts/build_run_engine.bat [release]
 ```
 
 **Parameters:**
@@ -316,10 +315,10 @@ TwoDEngine includes comprehensive VS Code integration to streamline development.
 
 ```bash
 # Windows
-setup.bat
+scripts/setup.bat
 
 # Linux/macOS
-./setup.sh
+./scripts/setup.sh
 ```
 
 **Or** use the VS Code task: `Ctrl+Shift+P` → `Tasks: Run Task` → `Setup Environment`
@@ -799,7 +798,7 @@ There are many ways to contribute to TwoDEngine:
 1. Fork the repository
 2. Clone your fork: `git clone https://github.com/yourusername/TwoDEngine.git`
 3. Set up the development environment:
-   - Windows: Run `setup.bat` or `cmake_setup.bat`
+   - Windows: Run `scripts/setup.bat` or `scripts/cmake_setup.bat`
    - Linux/macOS: Follow the instructions in this README
 
 ### Pull Request Process
@@ -925,7 +924,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    - For pybind11, ensure the include path is correctly set to `pybind11-2.11.1/include`
 
 5. **IntelliSense errors in VS Code**:
-   - Make sure you've run the setup script (`setup.bat` or `./setup.sh`)
+   - Make sure you've run the setup script (`scripts/setup.bat` or `./scripts/setup.sh`)
    - Reload VS Code window: `Ctrl+Shift+P` → `Developer: Reload Window`
    - Check that [`.vscode/c_cpp_properties.json`](.vscode/c_cpp_properties.json) has the correct paths
 
