@@ -1,4 +1,4 @@
-#!/bin/bash
+cl#!/bin/bash
 # setup_macos.sh - Modern setup script for SDL Game Engine on macOS
 
 set -e  # Exit on error
@@ -69,7 +69,7 @@ echo "Setting up external libraries..."
 mkdir -p external
 
 # ImGui
-if [ ! -d "external/imgui" ]; then
+if [ ! -d "external/imgui/.git" ]; then
     echo "→ Cloning ImGui..."
     git clone --depth 1 https://github.com/ocornut/imgui.git external/imgui
 else
@@ -77,7 +77,7 @@ else
 fi
 
 # Sol2
-if [ ! -d "external/sol2" ]; then
+if [ ! -d "external/sol2/.git" ]; then
     echo "→ Cloning Sol2..."
     git clone --depth 1 https://github.com/ThePhD/sol2.git external/sol2
 else

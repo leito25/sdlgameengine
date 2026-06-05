@@ -15,6 +15,16 @@ IMGUI_SOURCES = $(IMGUI_DIR)/imgui.cpp \
 # Sol2 path
 SOL2_INCLUDE = external/sol2/include
 
+# Optional pkg-config support
+PKG_CONFIG := $(shell command -v pkg-config 2>/dev/null)
+ifeq ($(PKG_CONFIG),)
+PKG_CFLAGS =
+PKG_LIBS = -L/usr/local/lib -lSDL2_image -lSDL2_ttf -lSDL2_mixer
+else
+PKG_CFLAGS = $(shell $(PKG_CONFIG) --cflags SDL2_image SDL2_ttf SDL2_mixer lua-5.4 pybind11)
+PKG_LIBS = $(shell $(PKG_CONFIG) --libs SDL2_image SDL2_ttf SDL2_mixer lua-5.4)
+endif
+
 # Compiler flags
 CXXFLAGS = -std=c++17 -Wall -Wextra \
            -Isrc \
@@ -23,20 +33,17 @@ CXXFLAGS = -std=c++17 -Wall -Wextra \
            -I$(SOL2_INCLUDE) \
            -I/opt/homebrew/include \
            $(shell sdl2-config --cflags) \
-           $(shell pkg-config --cflags SDL2_image SDL2_ttf SDL2_mixer) \
-           $(shell pkg-config --cflags lua-5.4) \
            $(shell python3-config --includes) \
-           $(shell pkg-config --cflags pybind11)
+           $(PKG_CFLAGS)
 
 # Linker flags
 LDFLAGS = $(shell sdl2-config --libs) \
-          $(shell pkg-config --libs SDL2_image SDL2_ttf SDL2_mixer) \
-          $(shell pkg-config --libs lua-5.4) \
+          $(PKG_LIBS) \
           $(shell python3-config --ldflags --embed) \
           -ldl -framework CoreFoundation
 
 # Source files
-SOURCES = $(wildcard src/*.cpp) $(IMGUI_SOURCES)
+SOURCES = $(shell find src -name '*.cpp') $(IMGUI_SOURCES)
 
 OBJECTS = $(patsubst %.cpp,$(BUILD_DIR)/%.o,$(SOURCES))
 
