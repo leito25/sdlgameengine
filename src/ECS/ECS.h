@@ -14,14 +14,17 @@ struct IComponent{
 };
 
 // use to assign a unique ID to each component type.
-template <typename TComponent>
+template <typename T>
 class Component : public IComponent {
     // TODO
     //return the unique ID for the component type T,
     //which would be used to set the bit in the entity's signature.
     static int GetId()
     {
-        static auto id = nextId++;  // assign the current value of nextId to id, and then increment nextId for the next component type.
+        static auto id = nextId++;  // assign the current value of nextId to id,
+        // and then increment nextId for the next component type.
+        // each time GetId is called for a new component type T, it will return a unique ID,
+        // starting from 0 and incrementing for each new component type.
         return id;
     }
 };
@@ -58,7 +61,7 @@ public:
     void AddEntity(Entity entity);  // not const because it modifies the state of the object.
     void RemoveEntityFromSystem(Entity entity);
     std::vector<Entity> GetSystemEntities() const;  // constant function, it doesn't modify the state of the object.
-    Signature& GetComponentSignature() const;  // the const method are not meant to change the state of the object
+    const Signature& GetComponentSignature() const;  // the const method are not meant to change the state of the object
 
     // Template for the components that the system is interested in.
     template <typename TComponent> void RequireComponent();
