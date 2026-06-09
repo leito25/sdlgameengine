@@ -11,11 +11,16 @@ void System::AddEntity(Entity entity)
 }  // not const because it modifies the state of the object.
 void System::RemoveEntityFromSystem(Entity entity)
 {
-    //TODO // removing entities
-    if (auto it = std::find(entities.begin(), entities.end(), entity); it != entities.end())
+    // removing entities
+    // Here is a lambda expression [&entity](Entity other)
+    // that means the entity pointer that come in the RemoveEntityFromSystem(parameters)
+    // is compared with the all other entities for this kind of loop
+    // for (Entity other : entities) {  'other' va cambiando en cada vuelta del bucle:
+    // En la vuelta 1 es la primera entidad, en la 2 la segunda, etc.}
+    entities.erase(std::remove_if(entities.begin(), entities.end(), [&entity](Entity other)
     {
-        entities.erase(it);
-    }
+        return entity.GetId() == other.GetId();
+    }), entities.end());
 }
 std::vector<Entity> System::GetSystemEntities() const
 {

@@ -304,6 +304,8 @@ Creating C++ objects, object creation examples, organizing game objects, object 
 - Why naive inheritance grows brittle in games.
 - How C++ object lifetime affects engine architecture.
 - How to prepare for ECS without overbuilding early.
+- The C++ `new` instruction performs memory allocation, like `malloc`, and then initializes the object by calling its constructor.
+- The C++ `delete` instruction deinitializes the object by calling its destructor, then deallocates the memory, like `free`.
 
 **Evidence to capture**
 - Current object model notes.
@@ -314,10 +316,10 @@ Design the ECS architecture.
 
 ### Session 09 - ECS Design
 
-**Status:** Not started
+**Status:** In progress
 
 **Related commits**
-- _None yet._
+- `8a5298e` - Added initial ECS, component, and system folders with placeholder ECS classes, a `TransformComponent`, and a movement system scaffold.
 
 **Course focus**
 Component-based design, Entity-Component-System architecture, ECS folder structure, system signatures, C++ templates, component type templates, entity membership, erase-remove idiom, and entity operators.
@@ -328,7 +330,7 @@ Component-based design, Entity-Component-System architecture, ECS folder structu
 - Plan component signatures and system membership updates.
 
 **Progress checklist**
-- [ ] Add ECS folder structure.
+- [x] Add ECS folder structure.
 - [ ] Define component type identifiers.
 - [ ] Define system component signatures.
 - [ ] Add entity add/remove behavior for systems.

@@ -294,9 +294,7 @@ void Game::Render()
     //TODO: Implementing the RenderSystem
     // Render the game objects
 
-
-
-
+    
 
     // Present the rendered frame to the screen
     // why do we need to call this function?

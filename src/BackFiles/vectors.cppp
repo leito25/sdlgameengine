@@ -1,0 +1,17 @@
+/*
+// Test about how to use vectors
+// Vectors
+#include <iostream>
+
+const int MAX_ELEMENTS = 5;
+int main()
+{
+    float arr[MAX_ELEMENTS] = {10, 20, 30, 40, 50};
+
+    for (int i = 0; i < MAX_ELEMENTS; i++)
+    {
+        std::cout << "Arr[" << i << "] = " << arr[i] << std::endl;
+    }
+
+    return 0;
+}*/

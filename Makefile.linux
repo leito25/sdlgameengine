@@ -25,7 +25,7 @@ SOL2_INCLUDE = external/sol2/include
 
 # Compiler flags
 # Nota: Se eliminó /opt/homebrew/include y se ajustó lua-5.4 a lua5.4 para el estándar Linux.
-CXXFLAGS = -std=c++17 -Wall -Wextra \
+CXXFLAGS = -std=c++20 -Wall -Wextra \
            -Isrc \
            -Iexternal \
            -I$(IMGUI_DIR) \

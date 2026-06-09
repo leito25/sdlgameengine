@@ -3,6 +3,7 @@
 
 #include <bitset>
 #include <vector>
+#include <algorithm>
 
 const unsigned int MAX_COMPONENTS = 32;  // maximum number of components that can be attached to an entity.
 //

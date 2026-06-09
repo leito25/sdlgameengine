@@ -1,0 +1,124 @@
+
+    /* 1. Basic Lambda
+    // the [] is the object afected
+    // the () the parameters
+    // the {} is the operation
+    auto greet = []()
+    {
+        std::cout << "Greetings" << std::endl;
+    };
+
+    greet();
+    */
+
+    /*
+    // 2. Lambda with Parameters
+    // this lambda add two numbers
+    // this not use a reference is void []
+    // the two numbers goes into the () // (int a, int b)
+    // as parameters
+    // the {} do the operation
+    auto add = [](int a, int b)
+    {
+        // return0 the addition
+        return a + b;
+    };
+
+    // The execution of the lambda
+    std::cout << add(1, 2) << std::endl;
+    */
+
+    /*
+    // 3. Capture by Value
+    int multiplier = 3; //the external value
+
+    // [] has the external value (advance approach could have objects)
+    // () has a parameter that would be use alongside the externbal
+    auto scale = [multiplier](int val)
+    {
+        return val * multiplier; // the opeeration
+    };
+
+    // when using the scale(val 10) will be multiplied by the multiplier
+    std::cout << scale(10) << std::endl;
+    */
+
+    // 4. Capture by Reference
+    /*int count = 0;
+    // the valriable is passed as reference with &
+    // but at the end, the operation uses the value
+    auto increment = [&count]()
+    {
+        count++;
+    };
+    increment();
+    std::cout << count << std::endl;
+    */
+
+    // 5. Mutable Lambda
+    /*int x = 10;
+    // as this lambda has become mutable
+    //  the external valur/ return value
+    // is modified but the original value dont
+    auto change = [x]() mutable
+    {
+        x = 20;
+        std::cout << x << std::endl;
+    };
+    // the lambda is executed
+    change();
+    // but the initial value remain the same
+    std::cout << x << std::endl;*/
+
+    // 6. STL Algorithm Predicate
+    // using a STD Vector
+    /*std::vector<int> nums = {3, 1, 4, 1, 5};
+    // the algoritm STL Sort could make use
+    // of the lambda expression
+    std::sort(nums.begin(), nums.end(), [](int a, int b)
+    {
+        return a < b;
+    });*/
+
+    // 7. Generic Lambda (C++14)
+    // Uses auto parameters to accept any data type.
+    /*auto print = [](const auto& text)
+    {
+        std::cout << text << std::endl;
+    };
+
+    print(42);
+    print("Hello");*/
+
+    // 8. Generalized Capture / Move Capture (C++14)
+    // Moves unique resources directly into the lambda scope.
+    /*auto ptr = std::make_unique<int>(100);
+    std::cout << &ptr << std::endl;
+    std::cout << *ptr << std::endl;
+
+    auto worker = [p = std::move(ptr)]()
+    {
+        std::cout << *p << std::endl;
+    };
+    worker();*/
+
+    // 9. Template Lambda (C++20)
+    /*auto printVector = []<typename T>(const std::vector<T>& vec)
+    {
+        for (const auto& item : vec)
+        {
+            std::cout << item << ' ';
+        }
+    };
+    std::vector<int> v = {1,2,3};
+    printVector(v);*/
+
+
+    // 10. Immediately Invoked Function Expression (IIFE)
+    /*const int complexValue = []()
+    {
+        int base = 10;
+        if ( base > 5 ) return base * 2;
+        return base + 2;
+    }();
+    std::cout << complexValue << std::endl;*/
