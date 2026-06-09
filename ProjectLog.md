@@ -320,6 +320,7 @@ Design the ECS architecture.
 
 **Related commits**
 - `8a5298e` - Added initial ECS, component, and system folders with placeholder ECS classes, a `TransformComponent`, and a movement system scaffold.
+- `e355ac9` - Added ECS system entity removal by id using the erase-remove idiom, alongside existing system entity add behavior.
 
 **Course focus**
 Component-based design, Entity-Component-System architecture, ECS folder structure, system signatures, C++ templates, component type templates, entity membership, erase-remove idiom, and entity operators.
@@ -333,8 +334,8 @@ Component-based design, Entity-Component-System architecture, ECS folder structu
 - [x] Add ECS folder structure.
 - [ ] Define component type identifiers.
 - [ ] Define system component signatures.
-- [ ] Add entity add/remove behavior for systems.
-- [ ] Use the erase-remove idiom where appropriate.
+- [x] Add entity add/remove behavior for systems.
+- [x] Use the erase-remove idiom where appropriate.
 - [ ] Add entity comparison/operator support if needed.
 
 **What to learn**
