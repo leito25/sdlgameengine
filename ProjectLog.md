@@ -1,4 +1,4 @@
-# SDL Game Engine Log
+even a pol# SDL Game Engine Log
 
 Learning log for the SDL 2D game engine project, based on the course:
 C++ Game Engine Programming by Pikuma.
@@ -336,7 +336,7 @@ Component-based design, Entity-Component-System architecture, ECS folder structu
 - [ ] Define system component signatures.
 - [x] Add entity add/remove behavior for systems.
 - [x] Use the erase-remove idiom where appropriate.
-- [ ] Add entity comparison/operator support if needed.
+- [x] Add entity comparison/operator support if needed.
 
 **What to learn**
 - How ECS separates data from behavior.
@@ -352,10 +352,10 @@ Implement the ECS registry and component storage.
 
 ### Session 10 - ECS Implementation
 
-**Status:** Not started
+**Status:** In progress
 
 **Related commits**
-- _None yet._
+- `c7aa925` - Added ECS registry scaffolding with registry-created entities, entity comparison operators, component pool storage types, entity signatures, and system maps.
 
 **Course focus**
 Component pools, Pool class, registry systems, entity signatures, entity creation, adding/removing components, and implementing system functions.
@@ -369,7 +369,7 @@ Component pools, Pool class, registry systems, entity signatures, entity creatio
 **Progress checklist**
 - [ ] Implement a Pool class.
 - [ ] Implement registry-owned systems.
-- [ ] Create entities through the registry.
+- [x] Create entities through the registry.
 - [ ] Add components to entities.
 - [ ] Remove components from entities.
 - [ ] Update system membership when signatures change.
