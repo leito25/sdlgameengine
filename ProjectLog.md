@@ -97,7 +97,7 @@ Run or repair the basic SDL window build.
 
 ### Session 03 - Displaying the Game Window
 
-**Status:** In progress
+**Status:** Completed
 
 **Related commits**
 - `52cf755` - Switched the executable entry point from the library integration demo to the `Game` lifecycle for SDL window work, preserving the previous Linux demo main as a backup source file.
@@ -138,7 +138,7 @@ When all draw calls are done, `SDL_RenderPresent()` swaps the back buffer to the
 This avoids showing half-drawn frames, reducing flicker and visual tearing.
 In practice: clear, draw everything for one frame, then present once.
 
-**Status:** In progress
+**Status:** Completed
 
 **Related commits**
 - `cc0d954` - Added a colored SDL rectangle to the render pass for the Session 04 drawing test.
@@ -215,7 +215,7 @@ Add structured engine logging.
 
 ### Session 06 - Logging
 
-**Status:** In progress
+**Status:** Completed
 
 **Related commits**
 - `cebec65` - Added a custom `MyLogger` utility with timestamped info/error entries, stored log messages, console output, and an initial constructor log call.
@@ -231,7 +231,7 @@ Logger class, logging game information, coding a logger, common C++ logging libr
 **Progress checklist**
 - [x] Create a Logger class.
 - [x] Log game initialization and shutdown.
-- [ ] Log SDL errors with useful context.
+- [x] Log SDL errors with useful context.
 - [x] Document whether the project uses a custom logger or third-party logger.
 
 **What to learn**
@@ -316,7 +316,7 @@ Design the ECS architecture.
 
 ### Session 09 - ECS Design
 
-**Status:** In progress
+**Status:** Completed
 
 **Related commits**
 - `8a5298e` - Added initial ECS, component, and system folders with placeholder ECS classes, a `TransformComponent`, and a movement system scaffold.
@@ -332,8 +332,8 @@ Component-based design, Entity-Component-System architecture, ECS folder structu
 
 **Progress checklist**
 - [x] Add ECS folder structure.
-- [ ] Define component type identifiers.
-- [ ] Define system component signatures.
+- [x] Define component type identifiers.
+- [x] Define system component signatures.
 - [x] Add entity add/remove behavior for systems.
 - [x] Use the erase-remove idiom where appropriate.
 - [x] Add entity comparison/operator support if needed.
@@ -356,6 +356,7 @@ Implement the ECS registry and component storage.
 
 **Related commits**
 - `c7aa925` - Added ECS registry scaffolding with registry-created entities, entity comparison operators, component pool storage types, entity signatures, and system maps.
+- `e7f9fa1` - Documented Registry update ordering intent in ECS.h; restored Game class as the engine entry point in Main.cpp.
 
 **Course focus**
 Component pools, Pool class, registry systems, entity signatures, entity creation, adding/removing components, and implementing system functions.
@@ -367,7 +368,7 @@ Component pools, Pool class, registry systems, entity signatures, entity creatio
 - Keep tests or examples focused on real ECS behavior.
 
 **Progress checklist**
-- [ ] Implement a Pool class.
+- [x] Implement a Pool class.
 - [ ] Implement registry-owned systems.
 - [x] Create entities through the registry.
 - [ ] Add components to entities.
