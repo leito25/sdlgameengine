@@ -5,12 +5,15 @@
 /dist/
 /dist-debug/
 
-# Downloaded libraries
+# Downloaded libraries / external dependencies
+/external/
 /SDL2-*/
 /SDL2_image-*/
 /SDL2_ttf-*/
 /SDL2_mixer-*/
 /lua-*/
+/pybind11-*/
+/python-*/
 
 # Downloaded archives
 *.zip
