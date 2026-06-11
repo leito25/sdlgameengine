@@ -189,6 +189,7 @@ public:
     // TODO
     // At start the main focus is create
 
+    // the update is perfomed first
     void Update();
 
     //Create an entity

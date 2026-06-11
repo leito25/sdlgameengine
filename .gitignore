@@ -60,6 +60,9 @@
 # Runtime logs
 logs/engine.log
 
+# Windows reserved device name (appears as untracked due to cmd.exe 2>nul redirects)
+nul
+
 # IDE files
 .vs/
 .vscode/*
