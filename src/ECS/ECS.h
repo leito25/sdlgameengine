@@ -48,6 +48,7 @@ public:
     int GetId() const;  // constant function, it doesn't modify the state of the object.
     bool operator == (const Entity& other) const{return id == other.id;};
     bool operator != (const Entity& other) const{return id != other.id;};
+    bool operator < (const Entity& other) const{return id < other.id;};
     Entity& operator = (const Entity& other) = default;
 };
 
@@ -108,7 +109,7 @@ public:
     }
     virtual ~Pool() = default;
 
-    bool is Empty() const
+    bool isEmpty() const
     {
         return data.empty();
     }
