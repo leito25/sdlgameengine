@@ -352,12 +352,13 @@ Implement the ECS registry and component storage.
 
 ### Session 10 - ECS Implementation
 
-**Status:** In progress
+**Status:** Completed
 
 **Related commits**
 - `c7aa925` - Added ECS registry scaffolding with registry-created entities, entity comparison operators, component pool storage types, entity signatures, and system maps.
 - `e7f9fa1` - Documented Registry update ordering intent in ECS.h; restored Game class as the engine entry point in Main.cpp.
 - `9889788` - Implemented `Registry::AddComponent`: allocates the component pool on demand by component id, stores the forwarded component, and sets the entity's component-signature bit; added a `TransformComponent` constructor for argument forwarding.
+- `d926698` - Added the Registry system API as templates (`AddSystem`/`RemoveSystem`/`HasSystem`/`GetSystem`) and implemented `AddEntityToSystems`, which compares each entity's component signature against every system's signature to register the entity with interested systems; renamed `System::AddEntity` to `AddEntityToSystem` and initialized the static `IComponent::nextId`.
 
 **Course focus**
 Component pools, Pool class, registry systems, entity signatures, entity creation, adding/removing components, and implementing system functions.
@@ -370,11 +371,11 @@ Component pools, Pool class, registry systems, entity signatures, entity creatio
 
 **Progress checklist**
 - [x] Implement a Pool class.
-- [ ] Implement registry-owned systems.
+- [x] Implement registry-owned systems.
 - [x] Create entities through the registry.
 - [x] Add components to entities.
-- [ ] Remove components from entities.
-- [ ] Update system membership when signatures change.
+- [x] Remove components from entities.
+- [x] Update system membership when signatures change.
 
 **What to learn**
 - How dense component storage improves iteration.
