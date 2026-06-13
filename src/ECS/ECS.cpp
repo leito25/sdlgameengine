@@ -10,10 +10,13 @@
 
 #include "../Logger/MyLogger.h"
 
+int IComponent::nextId = 0;
+// initialize the static variable to keep track of the next available component ID
+
 int Entity::GetId() const { return id; }
 
 
-void System::AddEntity(Entity entity)
+void System::AddEntityToSystem(Entity entity)
 {
     //TODO. // adding entities
     entities.push_back(entity);
@@ -57,6 +60,27 @@ Entity Registry::CreateEntity()
     MyLogger::Log("Entity created with the id = " + std::to_string(entityId));
 
     return entity;
+}
+
+void Registry::AddEntityToSystems(Entity entity)
+{
+    const auto entityId = entity.GetId();
+    const auto& entityComponentSignature = entityComponentSignatures[entityId];
+
+    // Loop for comparison
+    for (auto& system: systems)
+    {
+        const auto& systemComponentSignature = system.second->GetComponentSignature();
+
+        // this part check bit by bit if the entity has all the components that the system requires,
+        // and if it does, it adds the entity to the system.
+        bool isInterested = (entityComponentSignature & systemComponentSignature) == systemComponentSignature;
+
+        if (isInterested)
+        {
+            system.second->AddEntityToSystem(entity);
+        }
+    }
 }
 
 void Registry::Update()

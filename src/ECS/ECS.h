@@ -66,7 +66,7 @@ public:
     ~System() = default;  // default destructor, it doesn't do anything special.
 
     // utilities for managing the entities in the system.
-    void AddEntity(Entity entity);  // not const because it modifies the state of the object.
+    void AddEntityToSystem(Entity entity);  // not const because it modifies the state of the object.
     void RemoveEntityFromSystem(Entity entity);
     std::vector<Entity> GetSystemEntities() const;  // constant function, it doesn't modify the state of the object.
     const Signature& GetComponentSignature() const;  // the const method are not meant to change the state of the object
@@ -189,32 +189,37 @@ public:
     //Create an entity
     Entity CreateEntity();
 
-    // Is needed a function to add a component to the entity
-    // TODO: AddComponent<T>(...); Component management // this template function
-    // should be implemented in the .h file, because it needs to be instantiated for each type
-    // T that is used in the system.
+
+
+    //Add Component to an entity, the econd argument is the component data
+    //for example, if we want to add a transform component to an entity,
+    // we would call AddComponent<Transform>(entity, x, y, z);
     template <typename TComponent, typename... TArgs> void AddComponent(Entity entity, TArgs&&... args);
 
-
-    //void AddEntityToSystem(Entity entity);
-
-    // kill an entity
-    //
-    // add component
     // remove component prototype definition
     template <typename TComponent> void RemoveComponent(Entity entity);
 
     // has component prototype definition
-    template <typename TComponent> bool HasComponent(Entity entity);
+    template <typename TComponent> bool HasComponent(Entity entity) const;
 
-    //
-    //add system
-    //remove system
-    // has system
-    // get system
+    // System API
+    //add system, remove system, has system, get system
+    template <typename TSystem, typename... TArgs> void AddSystem(TArgs&&... args);
+    template <typename TSystem> void RemoveSystem();
+    template <typename TSystem> bool HasSystem() const;
+    template <typename TSystem> TSystem& GetSystem() const;
+
+    // Check the component signature of an entity
+    // and add the entity to the systems
+    // this is not a template
+    // this is implemented on the CPP
+    void AddEntityToSystems(Entity entity);
+
+
+
 };
 
-
+// System Class Template Functions
 template <typename TComponent>
 void System::RequireComponent() {
     // TODO
@@ -224,6 +229,50 @@ void System::RequireComponent() {
     componentSignature.set(componentId);  // set the bit corresponding to the component type TComponent in the system's signature.
 }
 
+////////// Systems Registry API
+// These are the template functions for the Registry class,
+// they need to be defined in the header file because they are templates and need to be instantiated for each type T that is used in the system.
+template <typename TSystem, typename... TArgs>
+void Registry::AddSystem(TArgs&&... args)
+{
+    TSystem* newSystem(new TSystem(std::forward<TArgs>(args)...));
+    systems.insert(std::make_pair(std::type_index(typeid(TSystem)), newSystem));
+}
+
+template <typename TSystem>
+void Registry::RemoveSystem()
+{
+    // a new refrence of the system is created and
+    // afterwards the system is removed from the systems map using the erase function
+    // which takes an iterator as an argument.
+    auto system = systems.find(std::type_index(typeid(TSystem)));
+    systems.erase(system);
+}
+
+template <typename TSystem>
+bool Registry::HasSystem() const
+{
+    return systems.find(std::type_index(typeid(TSystem))) != systems.end();
+}
+
+template <typename TSystem>
+TSystem& Registry::GetSystem() const
+{
+    //return systems.find(std::type_index(typeid(TSystem)))->second;
+    // this line of code is doing the same thing as the previous one,
+    //but it is more efficient because it doesn't need to search for the system twice.
+    auto system = systems.find(std::type_index(typeid(TSystem)));
+    //then get the system from the map using the iterator,
+    // and return the second element of the pair, which is a pointer to the system,
+    // and cast it to the correct type using static_pointer_cast.
+    return *(std::static_pointer_cast<TSystem>(system->second));
+    // the cast is made because the systems map stores pointers
+    // to the base class System, but we need to return a reference
+    // to the derived class TSystem.
+}
+
+////////// Components Registry API
+// Component Template Functions
 template <typename TComponent, typename ...TArgs>
 void Registry::AddComponent(Entity entity, TArgs&&... args)
 {
@@ -271,10 +320,10 @@ void Registry::AddComponent(Entity entity, TArgs&&... args)
 
 }
 
-template <typename T>
+template <typename TComponent>
 void Registry::RemoveComponent(Entity entity)
 {
-    const auto componentId = Component<T>::GetId();
+    const auto componentId = Component<TComponent>::GetId();
     const auto entityId = entity.GetId();
 
     // this simply disables the bit corresponding to the component type T
@@ -282,10 +331,10 @@ void Registry::RemoveComponent(Entity entity)
     entityComponentSignatures[entityId].set(componentId, false);
 }
 
-template <typename T>
-bool Registry::HasComponent(Entity entity)
+template <typename TComponent>
+bool Registry::HasComponent(Entity entity) const
 {
-    const auto componentId = Component<T>::GetId();
+    const auto componentId = Component<TComponent>::GetId();
     const auto entityId = entity.GetId();
 
     // this checks if the bit corresponding to the component type T
