@@ -357,6 +357,7 @@ Implement the ECS registry and component storage.
 **Related commits**
 - `c7aa925` - Added ECS registry scaffolding with registry-created entities, entity comparison operators, component pool storage types, entity signatures, and system maps.
 - `e7f9fa1` - Documented Registry update ordering intent in ECS.h; restored Game class as the engine entry point in Main.cpp.
+- `9889788` - Implemented `Registry::AddComponent`: allocates the component pool on demand by component id, stores the forwarded component, and sets the entity's component-signature bit; added a `TransformComponent` constructor for argument forwarding.
 
 **Course focus**
 Component pools, Pool class, registry systems, entity signatures, entity creation, adding/removing components, and implementing system functions.
@@ -371,7 +372,7 @@ Component pools, Pool class, registry systems, entity signatures, entity creatio
 - [x] Implement a Pool class.
 - [ ] Implement registry-owned systems.
 - [x] Create entities through the registry.
-- [ ] Add components to entities.
+- [x] Add components to entities.
 - [ ] Remove components from entities.
 - [ ] Update system membership when signatures change.
 
@@ -383,6 +384,9 @@ Component pools, Pool class, registry systems, entity signatures, entity creatio
 **Evidence to capture**
 - Minimal ECS example.
 - Output showing entity/system membership updates.
+
+**Log notes**
+- 2026-06-13 - `AddComponent` initially failed to build (`redefinition of 'AddComponent'`): it had both an empty in-class definition and the out-of-class template definition. Reduced the in-class version to a declaration; `make -f Makefile.macos run` then compiled and launched the engine cleanly.
 
 **Next step**
 Create the first real entities and components.
