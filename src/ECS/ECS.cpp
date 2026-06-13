@@ -46,10 +46,12 @@ Entity Registry::CreateEntity()
 {
     int entityId;
 
+    // this is the id of the entity, and it is incremented for each new entity created.
     entityId = numEntities++;
-
+    // the contructor of the entity class is called with the id, and the entity is created.
     Entity entity(entityId);
 
+    // the set  of entities to be added
     entitiesToBeAdded.insert(entity);
 
     MyLogger::Log("Entity created with the id = " + std::to_string(entityId));
@@ -61,5 +63,5 @@ void Registry::Update()
 {
     //TODO Add the entities that are waiting to be created in the next frame
     //TODO Remove the entities that are waiting to be killed from the active ssytems
-    
+
 }

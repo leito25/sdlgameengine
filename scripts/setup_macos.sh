@@ -1,4 +1,4 @@
-cl#!/bin/bash
+#!/bin/bash
 # setup_macos.sh - Modern setup script for SDL Game Engine on macOS
 
 set -e  # Exit on error

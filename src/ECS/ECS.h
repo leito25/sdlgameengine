@@ -77,13 +77,7 @@ public:
     // because it needs to be instantiated for each type T that is used in the system.
 };
 
-template <typename TComponent> void System::RequireComponent() {
-    // TODO
-    // this function would set the bit corresponding to the component type TComponent in the system's signature.
-    // we would need a way to get the index of the component type TComponent, which could be done using a static variable that increments for each new component type.
-    const auto componentId = Component<TComponent>::GetId();  // get the index of the component type TComponent.
-    componentSignature.set(componentId);  // set the bit corresponding to the component type TComponent in the system's signature.
-}
+
 
 ///
 /// Registry Area
@@ -196,9 +190,13 @@ public:
     Entity CreateEntity();
 
     // Is needed a function to add a component to the entity
-    // TODO: AddComponent<T>(...);
+    // TODO: AddComponent<T>(...); Component management // this template function
+    // should be implemented in the .h file, because it needs to be instantiated for each type
+    // T that is used in the system.
+    template <typename TComponent, typename... TArgs> void AddComponent(Entity entity, TArgs&&... args);
 
-    void AddEntityToSystem(Entity entity);
+
+    //void AddEntityToSystem(Entity entity);
 
     // kill an entity
     //
@@ -212,8 +210,61 @@ public:
     // get system
 
 
-
-
-
-
 };
+
+
+template <typename TComponent>
+void System::RequireComponent() {
+    // TODO
+    // this function would set the bit corresponding to the component type TComponent in the system's signature.
+    // we would need a way to get the index of the component type TComponent, which could be done using a static variable that increments for each new component type.
+    const auto componentId = Component<TComponent>::GetId();  // get the index of the component type TComponent.
+    componentSignature.set(componentId);  // set the bit corresponding to the component type TComponent in the system's signature.
+}
+
+template <typename TComponent, typename ...TArgs>
+void Registry::AddComponent(Entity entity, TArgs&&... args)
+{
+    // get the component id for the component type TComponent
+    const auto componentId = Component<TComponent>::GetId();
+    const auto entityId = entity.GetId();
+
+    // check before create the component object
+    if(componentId >= componentPools.size()) // could be also //componentPools.size() <= componentId
+    {
+        // if the component pool for this component type doesn't exist, create it
+        componentPools.resize(componentId + 1, nullptr);
+    }
+
+    if (!componentPools[componentId])//componentPools[componentId] == nullptr
+    {
+        // if the component pool for this component type doesn't exist, create it
+        // Here a new Pool is allocated in the heap,
+        // and a pointer to it is stored in the componentPools vector
+        //  at the index corresponding to the componentId.
+        Pool<TComponent>* newComponentPool = new Pool<TComponent>();
+        componentPools[componentId] = newComponentPool;
+    }
+
+    //Pool<TComponent>* componentPool = static_cast<Pool<TComponent>*>(componentPools[componentId]);
+    Pool<TComponent>* componentPool = componentPools[componentId];
+
+    if(entityId >= componentPool->GetSize())
+    {
+        componentPool->Resize(numEntities);
+    }
+
+    // this is a kind of instance of the component, with the provided arguments,
+    // and it is added to the component pool for this component type,
+    // at the index corresponding to the entity ID.
+    TComponent newComponent(std::forward<TArgs>(args)...);
+    // create a new component of type TComponent with the provided arguments.
+
+    componentPool->Set(entityId, newComponent);
+    // add the new component to the component pool
+
+    entityComponentSignatures[entityId].set(componentId);
+    // set the bit corresponding to the component type TComponent in the entity's signature,
+    // to indicate that this entity now has this component type.
+
+}
