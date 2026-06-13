@@ -201,15 +201,17 @@ public:
     // kill an entity
     //
     // add component
-    // remove component
-    // has component
+    // remove component prototype definition
+    template <typename TComponent> void RemoveComponent(Entity entity);
+
+    // has component prototype definition
+    template <typename TComponent> bool HasComponent(Entity entity);
+
     //
     //add system
     //remove system
     // has system
     // get system
-
-
 };
 
 
@@ -268,3 +270,27 @@ void Registry::AddComponent(Entity entity, TArgs&&... args)
     // to indicate that this entity now has this component type.
 
 }
+
+template <typename T>
+void Registry::RemoveComponent(Entity entity)
+{
+    const auto componentId = Component<T>::GetId();
+    const auto entityId = entity.GetId();
+
+    // this simply disables the bit corresponding to the component type T
+    // in the entity's signature.
+    entityComponentSignatures[entityId].set(componentId, false);
+}
+
+template <typename T>
+bool Registry::HasComponent(Entity entity)
+{
+    const auto componentId = Component<T>::GetId();
+    const auto entityId = entity.GetId();
+
+    // this checks if the bit corresponding to the component type T
+    // is set in the entity's signature,
+    // the test function of the bitset returns true if the bit is set, and false otherwise.
+    return entityComponentSignatures[entityId].test(componentId);
+}
+
