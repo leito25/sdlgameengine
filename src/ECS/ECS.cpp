@@ -57,6 +57,17 @@ Entity Registry::CreateEntity()
     // the set  of entities to be added
     entitiesToBeAdded.insert(entity);
 
+    //TODO make sure the entityComponent Signature vector
+    // accomodate the new entity
+    // enought space for entity component signature vector, if not resize it
+    if (entityId >= entityComponentSignatures.size())
+    {
+        entityComponentSignatures.resize(entityId + 1);
+    }
+
+
+
+
     MyLogger::Log("Entity created with the id = " + std::to_string(entityId));
 
     return entity;
@@ -86,6 +97,18 @@ void Registry::AddEntityToSystems(Entity entity)
 void Registry::Update()
 {
     //TODO Add the entities that are waiting to be created in the next frame
+    for (auto entity : entitiesToBeAdded)
+    {
+        AddEntityToSystems(entity);
+        MyLogger::Log("Entity with id " + std::to_string(entity.GetId()) + " added to systems");
+
+    }
+    entitiesToBeAdded.clear();
+
+
+
     //TODO Remove the entities that are waiting to be killed from the active ssytems
+
+
 
 }

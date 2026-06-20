@@ -13,6 +13,7 @@
 #pragma once
 
 #include <SDL.h>
+#include "../ECS/ECS.h"
 
 const int FPS = 60;
 const int MILLISECS_PER_FRAME = 1000/FPS;
@@ -22,12 +23,6 @@ const int MILLISECS_PER_FRAME = 1000/FPS;
  * @brief Main game engine class that manages the game lifecycle
  *
  * The Game class encapsulates all core game functionality including:
- * - SDL initialization and window management
- * - Main game loop execution
- * - Input event processing
- * - Game state updates
- * - Frame rendering
- * - Resource cleanup
  *
  * @section usage Usage Example
  * @code
@@ -210,6 +205,11 @@ private:
     int millisecsPreviousFrame = 0;
     SDL_Window* window = nullptr;
     SDL_Renderer* renderer = nullptr;
+
+    //Registry* registry; // ECS registry to manage entities and systems
+    // now using a smat pointer for the registry
+    std::unique_ptr<Registry> registry;
+
 private:
     // Window and rendering
     // TODO: Add SDL_Window* window;

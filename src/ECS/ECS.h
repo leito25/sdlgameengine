@@ -7,6 +7,7 @@
 #include <set>
 #include <typeindex>
 #include <unordered_map>
+#include "../Logger/MyLogger.h"
 
 const unsigned int MAX_COMPONENTS = 32;  // maximum number of components that can be attached to an entity.
 //
@@ -156,15 +157,13 @@ class Registry {
     //Keep track of many entities were added to the scene
     int numEntities = 0;
 
-    // there is an interesting approach of create a set for add
-    // and a set for delete, this way this process is made in every loop
-    std::set<Entity> entitiesToBeAdded;
-    std::set<Entity> entitiesToBeKilled;
-
     // VEctor with componentPools
     // Vector index is the component id
     // Pool index is the entity id
-    std::vector<IPool*> componentPools;
+    //std::vector<IPool*> componentPools;
+    // TODO // Another case that could change a raw pointe by
+    // a smart pointer
+    std::vector<std::shared_ptr<IPool>> componentPools;
 
     // Vector of component signatures per entity
     // show the components active for each entity
@@ -175,10 +174,20 @@ class Registry {
     // List of systems, systems type id
     // std:;type_index creates an index for each system
     // [vector index =  entity id]
-    std::unordered_map<std::type_index, System*> systems;
+    //std::unordered_map<std::type_index, System*> systems;
+    std::unordered_map<std::type_index, std::shared_ptr<System>> systems;
+
+    // there is an interesting approach of create a set for add
+    // and a set for delete, this way this process is made in every loop in one shot
+    std::set<Entity> entitiesToBeAdded;
+    std::set<Entity> entitiesToBeKilled;
 
 public:
-    Registry() = default;
+    //Registry() = default;
+    // as the registry is a smart pointer,
+    // we need to define the constructor and destructor
+    Registry() { MyLogger::Log("Registry constructor called!"); }
+    ~Registry() { MyLogger::Log("Registry destructor called!"); }
 
     // TODO
     // At start the main focus is create
@@ -235,7 +244,11 @@ void System::RequireComponent() {
 template <typename TSystem, typename... TArgs>
 void Registry::AddSystem(TArgs&&... args)
 {
-    TSystem* newSystem(new TSystem(std::forward<TArgs>(args)...));
+    //TSystem* newSystem(new TSystem(std::forward<TArgs>(args)...));
+    // TODO good place to use smart pointer here.
+    // std::shared_ptr<TSystem> type of the pointer
+    // std::make_shared<TSystem> cretes an instance of the system
+    std::shared_ptr<TSystem> newSystem = std::make_shared<TSystem>(std::forward<TArgs>(args)...);
     systems.insert(std::make_pair(std::type_index(typeid(TSystem)), newSystem));
 }
 
@@ -293,12 +306,17 @@ void Registry::AddComponent(Entity entity, TArgs&&... args)
         // Here a new Pool is allocated in the heap,
         // and a pointer to it is stored in the componentPools vector
         //  at the index corresponding to the componentId.
-        Pool<TComponent>* newComponentPool = new Pool<TComponent>();
+        //Pool<TComponent>* newComponentPool = new Pool<TComponent>();
+        // TODO here could be a good place tot use smart ptr.
+
+        std::shared_ptr<Pool<TComponent>> newComponentPool = std::make_shared<Pool<TComponent>>();
+
         componentPools[componentId] = newComponentPool;
     }
 
     //Pool<TComponent>* componentPool = static_cast<Pool<TComponent>*>(componentPools[componentId]);
-    Pool<TComponent>* componentPool = componentPools[componentId];
+    //Pool<TComponent>* componentPool = componentPools[componentId];
+    std::shared_ptr<Pool<TComponent>> componentPool = std::static_pointer_cast<Pool<TComponent>>(componentPools[componentId]);
 
     if(entityId >= componentPool->GetSize())
     {

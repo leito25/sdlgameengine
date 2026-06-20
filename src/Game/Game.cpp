@@ -11,29 +11,22 @@ using namespace std;
 
 Game::Game()
 {
-    // Constructor implementation
-    Logger::Initialize();
-    Logger::Info("Game constructor called");
-    MyLogger::Log("Game constructor called!");
-    MyLogger::Err("Game constructor called!");
-    // ColonColon means a static method
-    // This doesn't create a new object, that is why useful
-    // on the use of utilities.
+    isRunning = false;
 
-    // The :: function means is part of the class not an object
-    // That is how the GLM Library works, just calculate number
-    // without the need to create a new object
+    // Initialize the registry for ECS
+    //registry = new Registry();  // there is not a destructor for the registry, so we need to delete it in the destructor of the game
+
+    // instead using the new operator,
+    // we could use a smart pointer
+    registry = std::make_unique<Registry>();
+
+
+    MyLogger::Log("Game constructor called!");
 }
 
 Game::~Game()
 {
     MyLogger::Log("Game destructor called!");
-    // Destructor implementation
-    if (Logger::IsInitialized())
-    {
-        Logger::Info("Game destructor called");
-
-    }
 }
 
 void Game::Initialize()
@@ -90,7 +83,7 @@ void Game::Initialize()
         return;
     };
 
-    Logger::Info("Game initialized successfully");
+    MyLogger::Log("Game initialized successfully");
     isRunning = true;
 }
 
@@ -169,6 +162,15 @@ void Game::Setup()
     // tank.Addcomponent<TransformComponent>();
     // tank.AddComponent<BoxCollider>();
     // tank.AddComponent<SpriteComponent>("path");
+
+    // Now here we go the setup code
+    // Create some entities and add them to the registry
+    Entity tank = registry->CreateEntity();
+    //Entity truck = registry->CreateEntity();
+
+
+
+
 
 
 
@@ -294,7 +296,7 @@ void Game::Render()
     //TODO: Implementing the RenderSystem
     // Render the game objects
 
-    
+
 
     // Present the rendered frame to the screen
     // why do we need to call this function?
@@ -331,6 +333,16 @@ void Game::Destroy()
     }
 
     SDL_Quit();
-    Logger::Info("Game resources destroyed");
-    Logger::Shutdown();
+
+    // in a old fashion way, we need to delete the registry manually
+    // because we allocated it in the heap
+    /*if (registry != nullptr)
+    {
+        delete registry;
+        registry = nullptr;
+    }*/
+
+
+
+    MyLogger::Log("Game resources destroyed");
 }
