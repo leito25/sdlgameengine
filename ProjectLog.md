@@ -394,10 +394,10 @@ Create the first real entities and components.
 
 ### Session 11 - Creating Entities and Components
 
-**Status:** Not started
+**Status:** In progress
 
 **Related commits**
-- _None yet._
+- `6da9742` - Converted ECS ownership to smart pointers (`unique_ptr` registry in Game, `shared_ptr` component pools and systems) while keeping SDL window/renderer as raw pointers; created the first entity via `registry->CreateEntity()` in `Setup`, resized the entity-signature vector on creation, and flushed `entitiesToBeAdded` into systems in `Registry::Update`.
 
 **Course focus**
 First entity, smart pointers, converting ECS code to smart pointers, raw pointers for SDL, first component, `size_t` versus `int`, entity class component helpers, and cyclic dependency warnings.
@@ -408,10 +408,10 @@ First entity, smart pointers, converting ECS code to smart pointers, raw pointer
 - Decide where smart pointers are useful and where SDL APIs require raw pointers.
 
 **Progress checklist**
-- [ ] Create the first ECS entity.
+- [x] Create the first ECS entity.
 - [ ] Add the first component.
 - [ ] Add entity helper methods for component access.
-- [ ] Review smart pointer usage.
+- [x] Review smart pointer usage.
 - [ ] Avoid cyclic dependencies in ECS headers.
 
 **What to learn**
@@ -422,6 +422,12 @@ First entity, smart pointers, converting ECS code to smart pointers, raw pointer
 **Evidence to capture**
 - Example entity creation code.
 - Notes on pointer ownership decisions.
+
+**Log notes**
+- 2026-06-20 - Switched ECS to smart pointers: registry held by `std::unique_ptr` in Game, component pools and systems by `std::shared_ptr` (using `make_shared` and `static_pointer_cast`); SDL window/renderer intentionally remain raw pointers.
+
+**Follow-up**
+- 2026-06-20 - Running `./SDLGameEngine` exits with SIGSEGV (exit code 139) shortly after logging "Game initialized successfully"; the crash backtrace was not captured yet, so root cause needs human confirmation before claiming the entity-creation path is verified.
 
 **Next step**
 Create movement and render systems.
