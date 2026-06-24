@@ -398,6 +398,7 @@ Create the first real entities and components.
 
 **Related commits**
 - `6da9742` - Converted ECS ownership to smart pointers (`unique_ptr` registry in Game, `shared_ptr` component pools and systems) while keeping SDL window/renderer as raw pointers; created the first entity via `registry->CreateEntity()` in `Setup`, resized the entity-signature vector on creation, and flushed `entitiesToBeAdded` into systems in `Registry::Update`.
+- `ff40df4` - Added fluent-interface helper methods on Entity (`AddComponent`, `RemoveComponent`, `HasComponent`, `GetComponent`) that delegate to the registry; created `RigidBodyComponent.h` as the first real component; stored a `registry` back-pointer in Entity to enable the fluent pattern; fixed signed/unsigned comparison warnings with `static_cast<int>`.
 
 **Course focus**
 First entity, smart pointers, converting ECS code to smart pointers, raw pointers for SDL, first component, `size_t` versus `int`, entity class component helpers, and cyclic dependency warnings.
@@ -409,8 +410,8 @@ First entity, smart pointers, converting ECS code to smart pointers, raw pointer
 
 **Progress checklist**
 - [x] Create the first ECS entity.
-- [ ] Add the first component.
-- [ ] Add entity helper methods for component access.
+- [x] Add the first component.
+- [x] Add entity helper methods for component access.
 - [x] Review smart pointer usage.
 - [ ] Avoid cyclic dependencies in ECS headers.
 
@@ -425,12 +426,14 @@ First entity, smart pointers, converting ECS code to smart pointers, raw pointer
 
 **Log notes**
 - 2026-06-20 - Switched ECS to smart pointers: registry held by `std::unique_ptr` in Game, component pools and systems by `std::shared_ptr` (using `make_shared` and `static_pointer_cast`); SDL window/renderer intentionally remain raw pointers.
+- 2026-06-23 - Added fluent-interface pattern: Entity now holds a back-pointer to Registry, enabling `entity.AddComponent<T>()` instead of `registry->AddComponent<T>(entity)`. Fixed signed/unsigned comparison warnings with `static_cast<int>`. Created `TransformComponent` and `RigidBodyComponent` for the first real ECS usage.
 
-**Follow-up**
-- 2026-06-20 - Running `./SDLGameEngine` exits with SIGSEGV (exit code 139) shortly after logging "Game initialized successfully"; the crash backtrace was not captured yet, so root cause needs human confirmation before claiming the entity-creation path is verified.
+**Follow-up / Known Issues**
+- 2026-06-20 - Running `./SDLGameEngine` exits with SIGSEGV (exit code 139) shortly after logging "Game initialized successfully". 
+- 2026-06-23 - Test code in `Game::Setup()` calls `RemoveComponent<TransformComponent>()` then immediately `GetComponent<TransformComponent>()` on the same entity. If the Pool does not bounds-check access on removed components, this will read stale/uninitialized data and likely triggers the SIGSEGV. **Blocker:** verify that `Pool::Get()` and `RemoveComponent` behavior is safe for this case, or document that components must not be accessed after removal.
 
 **Next step**
-Create movement and render systems.
+Fix the SIGSEGV root cause; clarify component removal safety or fix the test to match intended behavior.
 
 ### Session 12 - Creating Systems
 
