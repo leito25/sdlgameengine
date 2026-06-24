@@ -6,6 +6,8 @@
 #include <SDL2/SDL_image.h>
 #include <glm/glm.hpp>
 #include "../Logger/MyLogger.h"
+#include "../Components/TransformComponent.h"
+#include "../Components/RigidBodyComponent.h"
 
 using namespace std;
 
@@ -168,15 +170,32 @@ void Game::Setup()
     Entity tank = registry->CreateEntity();
     //Entity truck = registry->CreateEntity();
 
+    //registry->AddComponent<TransformComponent>(tank, glm::vec2(10.0, 30.0), glm::vec2(1.0,1.0), 0.0);
+    //registry->AddComponent<RigidBodyComponent>(tank, glm::vec2(50.0, 0.0));
+
+    // New Testing adding component directly from the entity
+    tank.AddComponent<TransformComponent>(glm::vec2(10.0, 30.0), glm::vec2(1.0, 1.0), 0.0);
+    tank.AddComponent<RigidBodyComponent>(glm::vec2(50.0, 0.0));
+
+    // REmove components
+    tank.RemoveComponent<TransformComponent>();
+
+    // Check if a component exist in a entity
+    bool Exist1 = tank.HasComponent<TransformComponent>();
+    bool Exist2 = tank.HasComponent<RigidBodyComponent>();
+
+    // get component
+    auto MyComponent = tank.GetComponent<TransformComponent>();
+    auto ComponentID = tank.GetComponent<TransformComponent>();
 
 
 
-
-
+    Logger::Info("Exist 1 : " + std::to_string(Exist1) + "Exist 2 : " + std::to_string(Exist2));
+    Logger::Info("Component ID : " + std::to_string(MyComponent.position.r) + "Exist 2 : " + std::to_string(Exist2));
 
     Logger::Info("Game::Setup completed");
 }
-int c = 0;
+//int c = 0;
 void Game::Update()
 {
     // Same delay using SDL TICKS PASSED but this time

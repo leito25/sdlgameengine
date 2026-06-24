@@ -24,6 +24,7 @@ class Component : public IComponent {
     // TODO
     //return the unique ID for the component type T,
     //which would be used to set the bit in the entity's signature.
+    public:
     static int GetId()
     {
         static auto id = nextId++;  // assign the current value of nextId to id,
@@ -33,6 +34,10 @@ class Component : public IComponent {
         return id;
     }
 };
+
+/////////
+/// Entity
+///////////
 
 class Entity {
     // TODO
@@ -51,7 +56,25 @@ public:
     bool operator != (const Entity& other) const{return id != other.id;};
     bool operator < (const Entity& other) const{return id < other.id;};
     Entity& operator = (const Entity& other) = default;
+
+
+    // public function taht simulate the registry funtion but
+    // into the Entity class
+    // this is good to simple use entity tank, tank.addComponent and not registry->ADdcomponent(tank, Component Args)
+    template <typename TComponent, typename... TArgs> void AddComponent(TArgs&&... args);
+    template <typename TComponent> void RemoveComponent();
+    template <typename TComponent> bool HasComponent() const;
+    template <typename TComponent> TComponent& GetComponent() const;
+
+    class Registry* registry;
+
+
+
 };
+
+/////////
+//System
+/////////
 
 class System {
     // TODO
@@ -199,19 +222,21 @@ public:
     Entity CreateEntity();
 
 
-
+    // COMPONENT MANAGER
     //Add Component to an entity, the econd argument is the component data
     //for example, if we want to add a transform component to an entity,
     // we would call AddComponent<Transform>(entity, x, y, z);
     template <typename TComponent, typename... TArgs> void AddComponent(Entity entity, TArgs&&... args);
-
     // remove component prototype definition
     template <typename TComponent> void RemoveComponent(Entity entity);
-
     // has component prototype definition
     template <typename TComponent> bool HasComponent(Entity entity) const;
+    // Get thecomponent
+    template <typename TComponent> TComponent& GetComponent(Entity Entity) const;
 
-    // System API
+
+
+    // System API SYSTEM MANAGER
     //add system, remove system, has system, get system
     template <typename TSystem, typename... TArgs> void AddSystem(TArgs&&... args);
     template <typename TSystem> void RemoveSystem();
@@ -223,6 +248,8 @@ public:
     // this is not a template
     // this is implemented on the CPP
     void AddEntityToSystems(Entity entity);
+
+    // I think it lacks of a getting Pool
 
 
 
@@ -284,7 +311,13 @@ TSystem& Registry::GetSystem() const
     // to the derived class TSystem.
 }
 
+
+
+
+
+/////////////////////////////////////
 ////////// Components Registry API
+/////////////////////////////////////
 // Component Template Functions
 template <typename TComponent, typename ...TArgs>
 void Registry::AddComponent(Entity entity, TArgs&&... args)
@@ -294,7 +327,7 @@ void Registry::AddComponent(Entity entity, TArgs&&... args)
     const auto entityId = entity.GetId();
 
     // check before create the component object
-    if(componentId >= componentPools.size()) // could be also //componentPools.size() <= componentId
+    if(componentId >= static_cast<int>(componentPools.size())) // could be also //componentPools.size() <= componentId
     {
         // if the component pool for this component type doesn't exist, create it
         componentPools.resize(componentId + 1, nullptr);
@@ -318,7 +351,7 @@ void Registry::AddComponent(Entity entity, TArgs&&... args)
     //Pool<TComponent>* componentPool = componentPools[componentId];
     std::shared_ptr<Pool<TComponent>> componentPool = std::static_pointer_cast<Pool<TComponent>>(componentPools[componentId]);
 
-    if(entityId >= componentPool->GetSize())
+    if(entityId >= static_cast<int>(componentPool->GetSize()))
     {
         componentPool->Resize(numEntities);
     }
@@ -336,6 +369,7 @@ void Registry::AddComponent(Entity entity, TArgs&&... args)
     // set the bit corresponding to the component type TComponent in the entity's signature,
     // to indicate that this entity now has this component type.
 
+    MyLogger::Log("Component id = " + std::to_string(componentId) + " was added to entity id = " + std::to_string(entityId));
 }
 
 template <typename TComponent>
@@ -361,3 +395,50 @@ bool Registry::HasComponent(Entity entity) const
     return entityComponentSignatures[entityId].test(componentId);
 }
 
+template <typename TComponent>// I think this should be get Components plural
+TComponent& Registry::GetComponent(Entity entity) const
+{
+    const auto componentId = Component<TComponent>::GetId();
+    const auto entityId = entity.GetId();
+    // GEtting the component pool
+    auto componentPool = std::static_pointer_cast<Pool<TComponent>>(componentPools[componentId]);
+    return componentPool->Get(entityId);
+}
+
+
+
+
+//////////
+/// Entity same REgistry function copy
+/////////
+
+template <typename TComponent, typename ...TArgs>
+void Entity::AddComponent(TArgs&&... args)
+{
+    //TODO
+    // I'll use the same function of registry
+    // and passing the entity as pointer
+    registry->AddComponent<TComponent>(*this, std::forward<TArgs>(args)...);
+
+}
+
+template <typename TComponent>
+void Entity::RemoveComponent()
+{
+    //TODO
+    registry->RemoveComponent<TComponent>(*this);
+}
+
+template <typename TComponent>
+bool Entity::HasComponent() const
+{
+    //TODO
+    return registry->HasComponent<TComponent>(*this);
+}
+
+template <typename TComponent>// I think this should be get Components plural
+TComponent& Entity::GetComponent() const
+{
+    //TODO
+    return registry->GetComponent<TComponent>(*this);
+}

@@ -54,13 +54,15 @@ Entity Registry::CreateEntity()
     // the contructor of the entity class is called with the id, and the entity is created.
     Entity entity(entityId);
 
+    entity.registry = this;
+
     // the set  of entities to be added
     entitiesToBeAdded.insert(entity);
 
     //TODO make sure the entityComponent Signature vector
     // accomodate the new entity
     // enought space for entity component signature vector, if not resize it
-    if (entityId >= entityComponentSignatures.size())
+    if (entityId >= static_cast<int>(entityComponentSignatures.size()))
     {
         entityComponentSignatures.resize(entityId + 1);
     }
