@@ -8,6 +8,7 @@
 #include "../Logger/MyLogger.h"
 #include "../Components/TransformComponent.h"
 #include "../Components/RigidBodyComponent.h"
+#include "../Systems/MovementSystem.h"
 
 using namespace std;
 
@@ -156,6 +157,9 @@ void Game::Setup()
     // This setup methods is like the Start of Unity
     // Or the Begin of Unreal Engine
 
+    // Adding the System
+    registry->AddSystem<MovementSystem>();
+
     //playerPosition = glm::vec2(10.0, 20.0);
     //playerVelocity = glm::vec2(1.0, 0.0);
 
@@ -168,7 +172,7 @@ void Game::Setup()
     // Now here we go the setup code
     // Create some entities and add them to the registry
     Entity tank = registry->CreateEntity();
-    //Entity truck = registry->CreateEntity();
+    Entity truck = registry->CreateEntity();
 
     //registry->AddComponent<TransformComponent>(tank, glm::vec2(10.0, 30.0), glm::vec2(1.0,1.0), 0.0);
     //registry->AddComponent<RigidBodyComponent>(tank, glm::vec2(50.0, 0.0));
@@ -177,21 +181,26 @@ void Game::Setup()
     tank.AddComponent<TransformComponent>(glm::vec2(10.0, 30.0), glm::vec2(1.0, 1.0), 0.0);
     tank.AddComponent<RigidBodyComponent>(glm::vec2(50.0, 0.0));
 
+    truck.AddComponent<TransformComponent>(glm::vec2(10.0, 30.0), glm::vec2(1.0, 1.0), 0.0);
+    truck.AddComponent<RigidBodyComponent>(glm::vec2(50.0, 0.0));
+
+
+
     // REmove components
-    tank.RemoveComponent<TransformComponent>();
+    //tank.RemoveComponent<TransformComponent>();
 
     // Check if a component exist in a entity
-    bool Exist1 = tank.HasComponent<TransformComponent>();
-    bool Exist2 = tank.HasComponent<RigidBodyComponent>();
+    //bool Exist1 = tank.HasComponent<TransformComponent>();
+    //bool Exist2 = tank.HasComponent<RigidBodyComponent>();
 
     // get component
-    auto MyComponent = tank.GetComponent<TransformComponent>();
-    auto ComponentID = tank.GetComponent<TransformComponent>();
+    //auto MyComponent = tank.GetComponent<TransformComponent>();
+    //auto ComponentID = tank.GetComponent<TransformComponent>();
 
 
 
-    Logger::Info("Exist 1 : " + std::to_string(Exist1) + "Exist 2 : " + std::to_string(Exist2));
-    Logger::Info("Component ID : " + std::to_string(MyComponent.position.r) + "Exist 2 : " + std::to_string(Exist2));
+    //Logger::Info("Exist 1 : " + std::to_string(Exist1) + "Exist 2 : " + std::to_string(Exist2));
+    //Logger::Info("Component ID : " + std::to_string(MyComponent.position.r) + "Exist 2 : " + std::to_string(Exist2));
 
     Logger::Info("Game::Setup completed");
 }
@@ -221,32 +230,11 @@ void Game::Update()
     playerPosition.x += playerVelocity.x * 50 * deltaTime;
     playerPosition.y += playerVelocity.y * 50 * deltaTime;
 
-    //TODO: ECS System implementation
-    // MovementSystem.Update();
-    // CollisionSystem.Update();
-    // DamageSystem.Update();
+    //TODO: Updating the systems
+    registry->GetSystem<MovementSystem>().Update();
 
-
-    // This all process is manual but implies a really waste of resources
-    // A better option is to use SDL_Delay
-
-    // add a delay until the frame time ends
-    // SDL TICKS PASSED (current tick, last tick
-    /*Logger::Debug("Before millisecsPreviousFrame: " + std::to_string(millisecsPreviousFrame));
-    Logger::Debug("Before MILLISECS_PER_FRAME: " + std::to_string(MILLISECS_PER_FRAME));
-    Logger::Debug("Before SDL_GetTicks(): " + std::to_string(SDL_GetTicks()));
-    while (!SDL_TICKS_PASSED(SDL_GetTicks(), millisecsPreviousFrame + MILLISECS_PER_FRAME))
-    {
-        Logger::Debug("Real Time Tick: " + std::to_string(SDL_GetTicks()));
-    }
-
-    // store the current frame
-    millisecsPreviousFrame = SDL_GetTicks();
-
-    Logger::Debug("After millisecsPreviousFrame: " + std::to_string(millisecsPreviousFrame));
-    Logger::Debug("After MILLISECS_PER_FRAME: " + std::to_string(MILLISECS_PER_FRAME));
-    Logger::Debug("After SDL_GetTicks(): " + std::to_string(SDL_GetTicks()));
-    */
+    //TODO: Updating the REgistry manager (entities waiting to be created or deleted)
+    registry->Update();
 }
 
 void Game::Render()
