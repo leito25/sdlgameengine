@@ -447,7 +447,7 @@ Create the first real entities and components.
 
 ### Session 11 - Creating Entities and Components
 
-**Status:** In progress
+**Status:** Completed
 
 **Related commits**
 
@@ -469,7 +469,7 @@ First entity, smart pointers, converting ECS code to smart pointers, raw pointer
 - [x] Add the first component.
 - [x] Add entity helper methods for component access.
 - [x] Review smart pointer usage.
-- [ ] Avoid cyclic dependencies in ECS headers.
+- [x] Avoid cyclic dependencies in ECS headers.
 
 **What to learn**
 

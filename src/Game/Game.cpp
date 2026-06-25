@@ -8,7 +8,9 @@
 #include "../Logger/MyLogger.h"
 #include "../Components/TransformComponent.h"
 #include "../Components/RigidBodyComponent.h"
+#include "../Components/SpriteComponent.h"
 #include "../Systems/MovementSystem.h"
+#include "../Systems/RenderSystem.h"
 
 using namespace std;
 
@@ -159,6 +161,8 @@ void Game::Setup()
 
     // Adding the System
     registry->AddSystem<MovementSystem>();
+    // Adding a Render System
+    registry->AddSystem<RenderSystem>();
 
     //playerPosition = glm::vec2(10.0, 20.0);
     //playerVelocity = glm::vec2(1.0, 0.0);
@@ -180,9 +184,11 @@ void Game::Setup()
     // New Testing adding component directly from the entity
     tank.AddComponent<TransformComponent>(glm::vec2(10.0, 30.0), glm::vec2(1.0, 1.0), 0.0);
     tank.AddComponent<RigidBodyComponent>(glm::vec2(50.0, 0.0));
+    tank.AddComponent<SpriteComponent>(30, 30);
 
-    truck.AddComponent<TransformComponent>(glm::vec2(10.0, 30.0), glm::vec2(1.0, 1.0), 0.0);
-    truck.AddComponent<RigidBodyComponent>(glm::vec2(50.0, 0.0));
+    truck.AddComponent<TransformComponent>(glm::vec2(15.0, 0.0), glm::vec2(1.0, 1.0), 0.0);
+    truck.AddComponent<RigidBodyComponent>(glm::vec2(5.0, 5.0));
+    truck.AddComponent<SpriteComponent>(10, 10);
 
 
 
@@ -230,93 +236,28 @@ void Game::Update()
     playerPosition.x += playerVelocity.x * 50 * deltaTime;
     playerPosition.y += playerVelocity.y * 50 * deltaTime;
 
-    //TODO: Updating the systems
-    registry->GetSystem<MovementSystem>().Update();
-
     //TODO: Updating the REgistry manager (entities waiting to be created or deleted)
     registry->Update();
+
+    //TODO: Updating the systems
+    registry->GetSystem<MovementSystem>().Update(deltaTime);
+
+
 }
 
 void Game::Render()
 {
-    // Render the game scene
-
-    /// First test is paint hte windows with a simple color navy blue
-    // Set the draw color to navy blue (R, G, B, A)
+    // Set the Renderer Base Color
     SDL_SetRenderDrawColor(renderer, 25, 25, 25, 255);
-    // Clear the renderer is done for us by the SDL_RenderClear function,
-    // which will fill the entire rendering target with the drawing color
-    // why is this necesary? because we need to clear the previous frame
-    // before we can render the new frame, otherwise we will have a mess of frames on the screen
+
+    // Clear
     SDL_RenderClear(renderer);
 
-    // Over this code a SDL rectangle will be created
-    //SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // apply color to the new REct
-    //SDL_Rect player = {15, 15, 200, 50};
-    //SDL_RenderFillRect(renderer, &player);
+    // Runnning the Render System passing the renderer as argument.
+    registry->GetSystem<RenderSystem>().Update(renderer);
 
-    // Draw a PNG Texture
-    // SDL core only read bitmap files
-    // so it would be necessary to use the texture library
-    //...
-    // SDL Surface method get the path and create a surface
-    SDL_Surface* surface = IMG_Load("./assets/images/tank-panther-right.png");
-    if (surface == nullptr)
-    {
-        Logger::Error(std::string("IMG_Load Error: ") + IMG_GetError());
-        return;
-    }
-
-    // SDL Texture create a texture pointer based on the surface
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-    //Finally the surface already created is freed
-    SDL_FreeSurface(surface);
-    if (texture == nullptr)
-    {
-        Logger::Error(std::string("SDL_CreateTextureFromSurface Error: ") + SDL_GetError());
-        return;
-    }
-
-    // Now for use the texture in a Rect
-    // A rect needs to be created
-    //the width and heigth are the same as the texture
-    //SDL_Rect dstRect = {50, 50, 32, 32};
-
-    //Logger::Debug("Player position: " + std::to_string(playerPosition.x) + ", " + std::to_string(playerPosition.y));
-
-    //Now I'll replace the rect position with the position updated in the game
-    SDL_Rect dstRect = {
-        static_cast<int>(playerPosition.x),
-        static_cast<int>(playerPosition.y),
-        32,
-        32
-    };
-
-
-
-    // A copy should be made, in shaders is like a blit
-    SDL_RenderCopy(renderer, texture, NULL, &dstRect);//NULL for the entire texture
-    // Destroy the texture to avoid waste memory
-    SDL_DestroyTexture(texture);
-
-
-    //TODO: Implementing the RenderSystem
-    // Render the game objects
-
-
-
-    // Present the rendered frame to the screen
-    // why do we need to call this function?
-    // because SDL uses double buffering,
-    //which means that we have two buffers,
-    // one for rendering and one for presenting,
-    // and we need to call this function to swap the
-    // buffers and present the rendered frame to the screen
+    // Render Present
     SDL_RenderPresent(renderer);
-
-
-
-
 }
 
 void Game::Destroy()
