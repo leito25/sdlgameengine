@@ -172,8 +172,43 @@ void Game::LoadLevel(int level)
     // Tip: idea source rectangle
     // Tip: one entity per tile
 
+    //Solution
+    //Addint the TExture tot he AssetStore
+    assetStore->AddTexture(renderer, "tilemap-image", "assets/tilemaps/jungle.png");
 
+    //Loading the tilemap
+    int tileSize = 32;
+    float tileScale = 2.0;
+    int mapNumCols = 25;
+    int mapNumRows = 20;
 
+    //Open the map config file
+    std::fstream mapFile;
+    mapFile.open("assets/tilemaps/jungle.map");
+
+    // for loop to create the tiles
+    for (int y = 0; y < mapNumRows; y++)
+    {
+        for (int x = 0; x < mapNumCols; x++)
+        {
+            //TODO
+            char ch;
+
+            mapFile.get(ch);
+            int srcRectY = std::atoi(&ch) * tileSize;
+
+            mapFile.get(ch);
+            int srcRectX = std::atoi(&ch) * tileSize;
+
+            mapFile.ignore();
+
+            Entity tile = registry->CreateEntity();
+            tile.AddComponent<TransformComponent>(glm::vec2(x*(tileSize*tileScale), y*(tileSize*tileScale)), glm::vec2(tileScale, tileScale), 0.0);
+            tile.AddComponent<SpriteComponent>("tilemap-image", tileSize, tileSize, srcRectX, srcRectY);
+        }
+    }
+
+    mapFile.close();
 
     // Now here we go the setup code
     // Create some entities and add them to the registry
@@ -186,7 +221,7 @@ void Game::LoadLevel(int level)
     tank.AddComponent<RigidBodyComponent>(glm::vec2(50.0, 0.0));
     tank.AddComponent<SpriteComponent>("tank-image", 32, 32);
 
-    truck.AddComponent<TransformComponent>(glm::vec2(15.0, 0.0), glm::vec2(5.0, 5.0), 0.0);
+    truck.AddComponent<TransformComponent>(glm::vec2(15.0, 0.0), glm::vec2(2.0, 2.0), 0.0);
     truck.AddComponent<RigidBodyComponent>(glm::vec2(5.0, 5.0));
     truck.AddComponent<SpriteComponent>("truck-image", 32, 32);
 }
