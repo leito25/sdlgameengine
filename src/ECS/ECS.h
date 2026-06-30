@@ -51,11 +51,13 @@ private:
 public:
     // this would be the constructor.
     Entity(int id) : id(id) {};
+    Entity(const Entity& other) = default;
+    Entity& operator = (const Entity& other) = default;
+
     int GetId() const;  // constant function, it doesn't modify the state of the object.
     bool operator == (const Entity& other) const{return id == other.id;};
     bool operator != (const Entity& other) const{return id != other.id;};
     bool operator < (const Entity& other) const{return id < other.id;};
-    Entity& operator = (const Entity& other) = default;
 
 
     // public function taht simulate the registry funtion but

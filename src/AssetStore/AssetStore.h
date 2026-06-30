@@ -4,6 +4,7 @@
 #include <string>
 #include <SDL.h>
 #include <iostream>
+#include <SDL_image.h>
 
 class AssetStore
 {
@@ -17,6 +18,6 @@ class AssetStore
         ~AssetStore();
 
         void ClearAssets();
-        void AddTexture(const std::string& assetId, const std::string& filePath);
-        SDL_Texture* GetTexture(const std::string&) const;
+        void AddTexture(SDL_Renderer* renderer, const std::string& assetId, const std::string& filePath);
+        SDL_Texture* GetTexture(const std::string&);
 };

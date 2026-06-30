@@ -14,6 +14,7 @@
 
 #include <SDL.h>
 #include "../ECS/ECS.h"
+#include "../AssetStore/AssetStore.h"
 
 const int FPS = 60;
 const int MILLISECS_PER_FRAME = 1000/FPS;
@@ -43,140 +44,18 @@ class Game
 {
 
 public:
-    /**
-     * @brief Default constructor
-     *
-     * Constructs a new Game object and initializes member variables to their
-     * default states. Does not perform SDL initialization - call Initialize()
-     * for that.
-     *
-     * @see Initialize()
-     */
     Game();
-
-    /**
-     * @brief Destructor
-     *
-     * Destroys the Game object and ensures all resources are properly cleaned up.
-     * If Destroy() has not been called, it will be called automatically.
-     *
-     * @see Destroy()
-     */
     ~Game();
 
-    /**
-     * @brief Initialize the game engine and all subsystems
-     *
-     * Performs the following initialization steps:
-     * - Initializes SDL and its extensions (SDL_image, SDL_ttf, SDL_mixer)
-     * - Creates the game window
-     * - Creates the hardware-accelerated renderer
-     * - Initializes ImGui for debug UI
-     * - Loads initial game assets
-     * - Sets up the initial game state
-     *
-     * @return void (Consider changing to bool for error handling)
-     *
-     * @note Must be called before Run()
-     * @warning Calling this multiple times without calling Destroy() first
-     *          may cause resource leaks
-     *
-     * @see Destroy()
-     *
-     * @todo Change return type to bool to indicate success/failure
-     * @todo Add error logging for initialization failures
-     */
     void Initialize();
 
-    /**
-     * @brief Execute the main game loop
-     *
-     * Runs the game loop until the user quits. Each iteration of the loop:
-     * 1. Calculates delta time since last frame
-     * 2. Processes input events via ProcessInput()
-     * 3. Updates game state via Update()
-     * 4. Renders the frame via Render()
-     * 5. Limits frame rate to target FPS
-     *
-     * The loop continues until a quit event is received (e.g., window close,
-     * ESC key, or programmatic quit request).
-     *
-     * @note This is a blocking call that returns only when the game exits
-     * @note Frame rate is typically capped at 60 FPS
-     *
-     * @see ProcessInput()
-     * @see Update()
-     * @see Render()
-     */
     void Run();
 
-    /**
-     * @brief Process all input events from the user
-     *
-     * Polls and handles SDL events including:
-     * - Keyboard input (key press/release)
-     * - Mouse input (button press/release, motion, wheel)
-     * - Window events (close, resize, focus)
-     * - Game controller input
-     *
-     * This method is called once per frame by Run() and updates the internal
-     * input state that can be queried during Update().
-     *
-     * @note ImGui events are processed first to allow UI interaction
-     * @note Input state is accumulated and can be queried in Update()
-     *
-     * @see Run()
-     * @see Update()
-     */
     void ProcessInput();
-
-    /**
-     * @brief Update the game state based on elapsed time
-     *
-     * Updates all game logic including:
-     * - Entity positions and velocities
-     * - Animation states
-     * - Collision detection and response
-     * - AI behavior
-     * - Physics simulation
-     * - Script execution (Lua/Python)
-     * - Audio playback
-     *
-     * All updates should be frame-rate independent by using delta time.
-     *
-     * @note Called once per frame by Run()
-     * @note All movement and time-based changes should use delta time
-     *
-     * @see Run()
-     * @see Render()
-     *
-     * @todo Add deltaTime parameter for frame-rate independence
-     */
 
     void Setup();
 
     void Update();
-
-    /**
-     * @brief Render the current game state to the screen
-     *
-     * Performs the following rendering steps:
-     * 1. Clears the screen with background color
-     * 2. Renders game background
-     * 3. Renders all game entities (sprites, text, shapes)
-     * 4. Renders UI elements
-     * 5. Renders debug information (ImGui)
-     * 6. Presents the final frame to the screen
-     *
-     * Rendering order is important for proper layering (back to front).
-     *
-     * @note Called once per frame by Run()
-     * @note Uses double buffering - changes are not visible until SDL_RenderPresent()
-     *
-     * @see Run()
-     * @see Update()
-     */
-
 
     void Render();
 
@@ -209,6 +88,8 @@ private:
     //Registry* registry; // ECS registry to manage entities and systems
     // now using a smat pointer for the registry
     std::unique_ptr<Registry> registry;
+    // Asset Store manager
+    std::unique_ptr<AssetStore> assetStore;
 
 private:
     // Window and rendering

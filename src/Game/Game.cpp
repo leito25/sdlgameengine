@@ -2,8 +2,7 @@
 #include "../Logger/Logger.h"
 #include "../ECS/ECS.h"
 #include <iostream>
-#include <SDL2/SDL_render.h>
-#include <SDL2/SDL_image.h>
+#include <SDL.h>
 #include <glm/glm.hpp>
 #include "../Logger/MyLogger.h"
 #include "../Components/TransformComponent.h"
@@ -11,6 +10,7 @@
 #include "../Components/SpriteComponent.h"
 #include "../Systems/MovementSystem.h"
 #include "../Systems/RenderSystem.h"
+#include "../AssetStore/AssetStore.h"
 
 using namespace std;
 
@@ -25,6 +25,8 @@ Game::Game()
     // we could use a smart pointer
     registry = std::make_unique<Registry>();
 
+    // Pointer to manager
+    assetStore = std::make_unique<AssetStore>();
 
     MyLogger::Log("Game constructor called!");
 }
@@ -150,14 +152,19 @@ void Game::Run()
     Logger::Info("Game loop stopped");
 }
 
-glm::vec2 playerPosition;
-glm::vec2 playerVelocity;
+//glm::vec2 playerPosition;
+//glm::vec2 playerVelocity;
 
 void Game::Setup()
 {
     // TODO Initialize Game Objects
     // This setup methods is like the Start of Unity
     // Or the Begin of Unreal Engine
+
+
+    // Adding an image to the Assets manager
+    assetStore->AddTexture(renderer, "tank-image", "assets/images/tank-panther-right.png");
+    assetStore->AddTexture(renderer, "truck-image", "assets/images/truck-ford-right.png");
 
     // Adding the System
     registry->AddSystem<MovementSystem>();
@@ -182,13 +189,13 @@ void Game::Setup()
     //registry->AddComponent<RigidBodyComponent>(tank, glm::vec2(50.0, 0.0));
 
     // New Testing adding component directly from the entity
-    tank.AddComponent<TransformComponent>(glm::vec2(10.0, 30.0), glm::vec2(1.0, 1.0), 0.0);
+    tank.AddComponent<TransformComponent>(glm::vec2(10.0, 30.0), glm::vec2(2.0, 2.0), 0.0);
     tank.AddComponent<RigidBodyComponent>(glm::vec2(50.0, 0.0));
-    tank.AddComponent<SpriteComponent>(30, 30);
+    tank.AddComponent<SpriteComponent>("tank-image", 32, 32);
 
-    truck.AddComponent<TransformComponent>(glm::vec2(15.0, 0.0), glm::vec2(1.0, 1.0), 0.0);
+    truck.AddComponent<TransformComponent>(glm::vec2(15.0, 0.0), glm::vec2(5.0, 5.0), 0.0);
     truck.AddComponent<RigidBodyComponent>(glm::vec2(5.0, 5.0));
-    truck.AddComponent<SpriteComponent>(10, 10);
+    truck.AddComponent<SpriteComponent>("truck-image", 32, 32);
 
 
 
@@ -230,11 +237,11 @@ void Game::Update()
     // SDL TICKS PASSED ticks approach
     millisecsPreviousFrame = SDL_GetTicks();
 
-    int vel = 5;
+    //int vel = 5;
 
     // Update game state based on elapsed time
-    playerPosition.x += playerVelocity.x * 50 * deltaTime;
-    playerPosition.y += playerVelocity.y * 50 * deltaTime;
+    //playerPosition.x += playerVelocity.x * 50 * deltaTime;
+    //playerPosition.y += playerVelocity.y * 50 * deltaTime;
 
     //TODO: Updating the REgistry manager (entities waiting to be created or deleted)
     registry->Update();
@@ -254,7 +261,7 @@ void Game::Render()
     SDL_RenderClear(renderer);
 
     // Runnning the Render System passing the renderer as argument.
-    registry->GetSystem<RenderSystem>().Update(renderer);
+    registry->GetSystem<RenderSystem>().Update(renderer, assetStore);
 
     // Render Present
     SDL_RenderPresent(renderer);
