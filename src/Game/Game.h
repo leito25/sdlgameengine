@@ -53,6 +53,8 @@ public:
 
     void ProcessInput();
 
+    void LoadLevel(int level);
+
     void Setup();
 
     void Update();

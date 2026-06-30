@@ -152,41 +152,34 @@ void Game::Run()
     Logger::Info("Game loop stopped");
 }
 
-//glm::vec2 playerPosition;
-//glm::vec2 playerVelocity;
-
-void Game::Setup()
+void Game::LoadLevel(int level)
 {
-    // TODO Initialize Game Objects
-    // This setup methods is like the Start of Unity
-    // Or the Begin of Unreal Engine
-
-
-    // Adding an image to the Assets manager
-    assetStore->AddTexture(renderer, "tank-image", "assets/images/tank-panther-right.png");
-    assetStore->AddTexture(renderer, "truck-image", "assets/images/truck-ford-right.png");
+    MyLogger::Log("Loading Level 1");
 
     // Adding the System
     registry->AddSystem<MovementSystem>();
     // Adding a Render System
     registry->AddSystem<RenderSystem>();
 
-    //playerPosition = glm::vec2(10.0, 20.0);
-    //playerVelocity = glm::vec2(1.0, 0.0);
+    // Adding an image to the Assets manager
+    assetStore->AddTexture(renderer, "tank-image", "assets/images/tank-panther-right.png");
+    assetStore->AddTexture(renderer, "truck-image", "assets/images/truck-ford-right.png");
 
-    // TODO:
-    // Entity tank = registry.CreateEntity();
-    // tank.Addcomponent<TransformComponent>();
-    // tank.AddComponent<BoxCollider>();
-    // tank.AddComponent<SpriteComponent>("path");
+    //TODO:
+    // Load the tilemap
+    // Load the tilemap texture
+    // Load the map file
+    // Tip: idea source rectangle
+    // Tip: one entity per tile
+
+
+
 
     // Now here we go the setup code
     // Create some entities and add them to the registry
     Entity tank = registry->CreateEntity();
     Entity truck = registry->CreateEntity();
 
-    //registry->AddComponent<TransformComponent>(tank, glm::vec2(10.0, 30.0), glm::vec2(1.0,1.0), 0.0);
-    //registry->AddComponent<RigidBodyComponent>(tank, glm::vec2(50.0, 0.0));
 
     // New Testing adding component directly from the entity
     tank.AddComponent<TransformComponent>(glm::vec2(10.0, 30.0), glm::vec2(2.0, 2.0), 0.0);
@@ -196,25 +189,11 @@ void Game::Setup()
     truck.AddComponent<TransformComponent>(glm::vec2(15.0, 0.0), glm::vec2(5.0, 5.0), 0.0);
     truck.AddComponent<RigidBodyComponent>(glm::vec2(5.0, 5.0));
     truck.AddComponent<SpriteComponent>("truck-image", 32, 32);
+}
 
-
-
-    // REmove components
-    //tank.RemoveComponent<TransformComponent>();
-
-    // Check if a component exist in a entity
-    //bool Exist1 = tank.HasComponent<TransformComponent>();
-    //bool Exist2 = tank.HasComponent<RigidBodyComponent>();
-
-    // get component
-    //auto MyComponent = tank.GetComponent<TransformComponent>();
-    //auto ComponentID = tank.GetComponent<TransformComponent>();
-
-
-
-    //Logger::Info("Exist 1 : " + std::to_string(Exist1) + "Exist 2 : " + std::to_string(Exist2));
-    //Logger::Info("Component ID : " + std::to_string(MyComponent.position.r) + "Exist 2 : " + std::to_string(Exist2));
-
+void Game::Setup()
+{
+    LoadLevel(1);
     Logger::Info("Game::Setup completed");
 }
 //int c = 0;
