@@ -497,11 +497,12 @@ Fix the SIGSEGV root cause; clarify component removal safety or fix the test to 
 
 ### Session 12 - Creating Systems
 
-**Status:** In progress
+**Status:** Completed
 
 **Related commits**
 
 - `c80c79f` - Implemented MovementSystem to iterate entities with TransformComponent and RigidBodyComponent, updating position from velocity each frame; registered the system in Game::Setup and called its Update in Game::Update.
+- `411d66f` - Added SpriteComponent for width/height storage; implemented RenderSystem to iterate TransformComponent + SpriteComponent pairs and render white rectangles; applied delta-time scaling to velocity in MovementSystem; cleaned up malformed log text.
 
 **Course focus**
 Movement system, movement with delta time, and render system.
@@ -515,10 +516,10 @@ Movement system, movement with delta time, and render system.
 **Progress checklist**
 
 - [x] Add MovementSystem.
-- [ ] Update movement with delta time.
-- [ ] Add RenderSystem.
-- [ ] Render ECS entities through the SDL renderer.
-- [ ] Document system update order.
+- [x] Update movement with delta time.
+- [x] Add RenderSystem.
+- [x] Render ECS entities through the SDL renderer.
+- [x] Document system update order.
 
 **What to learn**
 
@@ -531,12 +532,24 @@ Movement system, movement with delta time, and render system.
 - Moving sprite or rectangle.
 - Notes on system ordering.
 
+**System Update Order Documentation**
+
+Current system order in Game lifecycle:
+1. **Game::Update()** calls `registry->Update()` to flush pending entity adds/removes.
+2. **Game::Update()** calls `MovementSystem::Update(deltaTime)` to update entity positions from velocity.
+3. **Game::Render()** clears the frame with `SDL_RenderClear()`.
+4. **Game::Render()** calls `RenderSystem::Update(renderer)` to render all visible entities.
+5. **Game::Render()** presents the frame with `SDL_RenderPresent()`.
+
+This order ensures entity state changes are committed before movement applies, movement is applied before rendering, and rendering happens atomically to avoid tearing.
+
 **Log notes**
 
 - 2026-06-24 - MovementSystem implemented. Note: the system applies raw velocity to position without delta-time scaling. Also, MovementSystem.h line 32 has a malformed log message containing "Adding componenets a un encaul" — appears to be stale debug text that should be cleaned up.
+- 2026-06-25 - RenderSystem added with SpriteComponent; MovementSystem now applies delta-time scaling to velocity; malformed log text fixed. System renders white rectangles from TransformComponent position and SpriteComponent dimensions. Entities render successfully in game loop.
 
 **Next step**
-Add asset management.
+Add asset management (AssetStore for centralized texture and font loading).
 
 ### Session 13 - Managing Assets
 
