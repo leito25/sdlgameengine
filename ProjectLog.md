@@ -553,11 +553,11 @@ Add asset management (AssetStore for centralized texture and font loading).
 
 ### Session 13 - Managing Assets
 
-**Status:** Not started
+**Status:** In progress
 
 **Related commits**
 
-- _None yet._
+- `320c287` - Integrated AssetStore with RenderSystem; SpriteComponent now stores assetId, width, height, and srcRect; RenderSystem fetches textures by asset ID and renders with SDL_RenderCopyEx for proper scaling and rotation.
 
 **Course focus**
 Game assets, Asset Store, textures in the render system, tilemap rendering, rendering order, and sorting sprites by z-index.
@@ -570,9 +570,9 @@ Game assets, Asset Store, textures in the render system, tilemap rendering, rend
 
 **Progress checklist**
 
-- [ ] Add an Asset Store.
-- [ ] Load textures into the Asset Store.
-- [ ] Render texture assets through RenderSystem.
+- [x] Add an Asset Store.
+- [x] Load textures into the Asset Store.
+- [x] Render texture assets through RenderSystem.
 - [ ] Display a tilemap.
 - [ ] Sort sprites by z-index.
 
@@ -587,8 +587,12 @@ Game assets, Asset Store, textures in the render system, tilemap rendering, rend
 - Tilemap screenshot.
 - Asset ids and file paths used.
 
+**Log notes**
+
+- 2026-06-30 - AssetStore integration complete. SpriteComponent now stores assetId (texture reference) and srcRect (source rectangle) for sprite sheet support. RenderSystem now fetches textures from AssetStore by asset ID and renders with SDL_RenderCopyEx, supporting scale and rotation transforms. Entities now render actual textures instead of white rectangles.
+
 **Next step**
-Add animated sprites.
+Implement tilemap rendering and z-index sorting, or move to animated sprites system.
 
 ### Session 14 - Animation System
 
