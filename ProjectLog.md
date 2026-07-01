@@ -558,6 +558,7 @@ Add asset management (AssetStore for centralized texture and font loading).
 **Related commits**
 
 - `320c287` - Integrated AssetStore with RenderSystem; SpriteComponent now stores assetId, width, height, and srcRect; RenderSystem fetches textures by asset ID and renders with SDL_RenderCopyEx for proper scaling and rotation.
+- `78a9696` - Added sprite z-index data and sorted renderable entities before drawing to control render order.
 
 **Course focus**
 Game assets, Asset Store, textures in the render system, tilemap rendering, rendering order, and sorting sprites by z-index.
@@ -574,7 +575,7 @@ Game assets, Asset Store, textures in the render system, tilemap rendering, rend
 - [x] Load textures into the Asset Store.
 - [x] Render texture assets through RenderSystem.
 - [ ] Display a tilemap.
-- [ ] Sort sprites by z-index.
+- [x] Sort sprites by z-index.
 
 **What to learn**
 

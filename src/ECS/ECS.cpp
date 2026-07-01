@@ -9,6 +9,7 @@
 #include <unordered_map>
 
 #include "../Logger/MyLogger.h"
+#include "../Logger/Logger.h"
 
 int IComponent::nextId = 0;
 // initialize the static variable to keep track of the next available component ID

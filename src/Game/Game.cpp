@@ -5,11 +5,14 @@
 #include <SDL.h>
 #include <glm/glm.hpp>
 #include "../Logger/MyLogger.h"
+#include "../Logger/Logger.h"
 #include "../Components/TransformComponent.h"
 #include "../Components/RigidBodyComponent.h"
 #include "../Components/SpriteComponent.h"
+#include "../Components/AnimationComponent.h"
 #include "../Systems/MovementSystem.h"
 #include "../Systems/RenderSystem.h"
+#include "../Systems/AnimationSystem.h"
 #include "../AssetStore/AssetStore.h"
 
 using namespace std;
@@ -160,10 +163,15 @@ void Game::LoadLevel(int level)
     registry->AddSystem<MovementSystem>();
     // Adding a Render System
     registry->AddSystem<RenderSystem>();
+    // Adding a Animation System
+    registry->AddSystem<AnimationSystem>();
 
     // Adding an image to the Assets manager
     assetStore->AddTexture(renderer, "tank-image", "assets/images/tank-panther-right.png");
     assetStore->AddTexture(renderer, "truck-image", "assets/images/truck-ford-right.png");
+
+    //Chopper image
+    assetStore->AddTexture(renderer, "chopper-image", "assets/images/chopper.png");
 
     //TODO:
     // Load the tilemap
@@ -215,15 +223,22 @@ void Game::LoadLevel(int level)
     Entity tank = registry->CreateEntity();
     Entity truck = registry->CreateEntity();
 
+    Entity chopper = registry->CreateEntity();
 
-    // New Testing adding component directly from the entity
-    tank.AddComponent<TransformComponent>(glm::vec2(10.0, 30.0), glm::vec2(2.0, 2.0), 0.0);
+
+    // Chopper with animation
+    chopper.AddComponent<TransformComponent>(glm::vec2(10.0, 30.0), glm::vec2(2.0, 2.0), 0.0);
+    chopper.AddComponent<RigidBodyComponent>(glm::vec2(20.0, 0.0));
+    chopper.AddComponent<SpriteComponent>("chopper-image", 32, 32, 1);
+    chopper.AddComponent<AnimationComponent>(2, 5, true);// 2 frames, 5f/sec, loop true
+
+    /*tank.AddComponent<TransformComponent>(glm::vec2(10.0, 30.0), glm::vec2(2.0, 2.0), 0.0);
     tank.AddComponent<RigidBodyComponent>(glm::vec2(50.0, 0.0));
     tank.AddComponent<SpriteComponent>("tank-image", 32, 32, 2);
 
     truck.AddComponent<TransformComponent>(glm::vec2(10.0, 30.0), glm::vec2(2.0, 2.0), 0.0);
     truck.AddComponent<RigidBodyComponent>(glm::vec2(50.0, 0.0));
-    truck.AddComponent<SpriteComponent>("truck-image", 32, 32, 1);
+    truck.AddComponent<SpriteComponent>("truck-image", 32, 32, 1);*/
 }
 
 void Game::Setup()
@@ -262,8 +277,7 @@ void Game::Update()
 
     //TODO: Updating the systems
     registry->GetSystem<MovementSystem>().Update(deltaTime);
-
-
+    registry->GetSystem<AnimationSystem>().Update();
 }
 
 void Game::Render()
